@@ -5,7 +5,7 @@ from imprimir import *
 
 ctrl = Controlador()
 ctrl.indexar_coleccion(ruta_datos="..\\..\\Datos", regex_sujs="s[0-9]*", regex_imgs="\\[1-4].pgm")
-ctrl.ejecutar_entrenamiento(porcentaje_valores=85, min_aceptacion=7300)
+ctrl.ejecutar_entrenamiento(indice_valores=0.85, indice_aceptacion=0.75)
 
 
 def ejemplo(ruta_img_desconocida):
@@ -13,9 +13,10 @@ def ejemplo(ruta_img_desconocida):
     imprimir_verde("\nSujeto buscado: " + ruta_img_desconocida)
 
     try:
-        sujeto, img, distancia = ctrl.ejecutar_clasificacion(ruta_img_desconocida)
+
+        sujeto, img, similitud = ctrl.ejecutar_clasificacion(ruta_img_desconocida)
         imprimir_verde("----------------------------------------------------------")
-        print("Distancia: " + str(distancia))
+        print("Similitud: " + str(similitud))
         print("Sujeto encontrado: " + sujeto)
         print("Imagen más cercana: " + img)
         imprimir_verde("----------------------------------------------------------")

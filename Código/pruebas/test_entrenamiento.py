@@ -12,9 +12,6 @@ from Código.pruebas.imprimir import *
 
 class TestEntrenamiento(TestCase):
 
-    def setUp(self):
-        imprimir_azul("\n-------------------------------------------------------------------------------------------\n")
-
     # ------------------------------------------------------------------------------------------------------------------
 
     def test_ejecutar(self):
@@ -29,7 +26,7 @@ class TestEntrenamiento(TestCase):
                                   [58, 24, 65]], "float64")
 
         # Entrenamos con la cantidad de valores que queremos conservar para el análisis
-        # Emulando la ejecución de 'Entrenamiento(mat_muestras, cant_valores=2)'
+        # Emulando la ejecución de 'Entrenamiento(mat_muestras, indice_valores=0.85)'
 
         # Comprobando matriz de muestras con base al origen
         # Si la imagen esta centrada con base al origen, su sumatoria es 0

@@ -16,7 +16,7 @@ class TestColeccion(TestCase):
 
     def test_indexar(self):
 
-        imprimir_verde("Test de 'indexar' iniciado")
+        imprimir_verde("\nTest de 'indexar' iniciado")
         inicio = time.time()
 
         # Solo leerá las primeras 3 imagenes de los primeros 2 sujetos
@@ -44,7 +44,7 @@ class TestColeccion(TestCase):
 
     def test_obt_matriz_muestras(self):
 
-        imprimir_verde("Test de 'obt_mat_muestras' iniciado")
+        imprimir_verde("\nTest de 'obt_mat_muestras' iniciado")
         inicio = time.time()
 
         # Solo leera las imagenes del primer sujeto

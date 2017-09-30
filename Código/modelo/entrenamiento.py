@@ -7,14 +7,14 @@ import numpy as np
 
 class Entrenamiento(object):
 
-    def __init__(self, mat_muestras, cant_valores):
+    def __init__(self, mat_muestras, indice_valores):
 
         """
         Clase encargada de realizar el entrenamiento del sistema. El resultado de objetivo de este entrenamiento es
         encontrar los autovectores/caras que componen el autoespacio, además de sus respectivas proyecciones (o pesos).
         Además se guarda la muestra promedio para centrar las imagenes al origen cuando sea necesario clasificarlas.
         @param mat_muestras: Matriz PxM, P es la cantidad de pixeles y M la de imágenes
-        @param cant_valores: Cantidad de valores (o componentes) que se desean conservar
+        @param indice_valores: Índice [0,1] que determine la cantidad de valores (o componentes) que se desean conservar
         """
 
         # Se centran todas las muestras de Px1 de la matriz A (PxM) al origen.
@@ -29,6 +29,7 @@ class Entrenamiento(object):
         autovals, autovects = np.linalg.eig(mat_covarianza)
 
         # Ordenar y obtener las autocaras mas significantes
+        cant_valores = int(mat_muestras.shape[1] * indice_valores)
         orden = np.argsort(autovals)[::-1]
         autovects = autovects[orden]
         autovects = autovects[0: cant_valores]
