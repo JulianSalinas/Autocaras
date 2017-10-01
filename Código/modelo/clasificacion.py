@@ -1,6 +1,7 @@
 # ----------------------------------------------------------------------------------------------------------------------
 
-import numpy as np
+from modelo.coleccion import *
+from modelo.entrenamiento import *
 
 # ----------------------------------------------------------------------------------------------------------------------
 
@@ -59,5 +60,31 @@ class Clasificacion(object):
             raise Exception("El sujeto no se encuentra definido")
 
         return indice, similitud
+
+# ----------------------------------------------------------------------------------------------------------------------
+
+    def leer_indexado(self, sufijo):
+
+        """
+        Lee los archivos indexados y los carga en memoria mediante objetos
+        :param sufijo: sufijo con el que se guardaron los archivos indexados
+        :return: tupla (objeto_coleccion, objeto_entrenamiento) con los valores asignados y listos para hacer una
+        clasificacion
+        """
+
+        # Lectura del archivo que contiene la informacion de la coleccion
+        f_coleccion = open('..\\..\\Index\\coleccion_' + sufijo + '.txt', 'r')
+        dicc_coleccion = eval(f_coleccion.read())
+        f_coleccion.close()
+
+        # Construir objeto de coleccion
+        coleccion = Coleccion(dicc_coleccion['ruta_datos'], dicc_coleccion['regex_sujs'], dicc_coleccion['regex_imgs'])
+        coleccion.dic_imgs = dicc_coleccion['dic_imgs']
+        coleccion.alto_img = dicc_coleccion['alto_imgs']
+        coleccion.ancho_img = dicc_coleccion['ancho_imgs']
+        coleccion.total_imgs = dicc_coleccion['total_imgs']
+        coleccion.pixeles_img = dicc_coleccion['pixeles_img']
+
+        # Construir 
 
 # ----------------------------------------------------------------------------------------------------------------------

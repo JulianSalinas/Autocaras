@@ -56,7 +56,9 @@ class Controlador(object):
 
         self.coleccion.indexar('AT&T')
         self.entrenamiento.indexar('AT&T')
+
         self.clasificacion = Clasificacion(self.entrenamiento, indice_aceptacion)
+        self.clasificacion.leer_indexado('AT&T')
 
     # ------------------------------------------------------------------------------------------------------------------
 
