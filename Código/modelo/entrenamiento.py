@@ -52,7 +52,7 @@ class Entrenamiento(object):
         :return: sin retorno
         """
 
-        sufijo = sufijo + '.txt'
+        sufijo += '.txt'
         prefijo = '..\\..\\Index\\'
 
         np.savetxt(prefijo + 'muestra_promedio_' + sufijo, self.muestra_promedio)
