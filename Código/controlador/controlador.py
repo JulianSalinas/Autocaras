@@ -2,6 +2,7 @@
 
 from clasificacion import *
 from entrenamiento import *
+from evaluacion import *
 from coleccion import *
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -17,11 +18,13 @@ class Controlador(object):
             1. Indexar la colección de imágenes implica tener que re-entrenar el sistema.
             2. Entrenar el sistema requiere refrescar el modelo para clasificación.
             3. Antes de usar el modelo de clasificación el sistema debe de haber sido entrenado previamente.
+            4. Antes de evaluar al sistema se tiene que haber indexado la colección de imagenes
         """
 
         self.coleccion = None
         self.entrenamiento = None
         self.clasificacion = None
+        self.evaluacion = None
 
     # ------------------------------------------------------------------------------------------------------------------
 
@@ -74,8 +77,22 @@ class Controlador(object):
         img = cv.imread(ruta_img_desconocida, 0)
         if img is not None:
             indice, similitud = self.clasificacion.ejecutar(img)
-            sujeto, img = self.coleccion.consultar(indice)
+            sujeto, img = self.coleccion.consultar_img(indice)
             return sujeto, img, similitud
         raise IOError
+
+    # ------------------------------------------------------------------------------------------------------------------
+
+    def ejecutar_evaluacion(self, indice_evaluacion):
+
+        """
+        Ejecuta la evaluación del sistema.
+        @param indice_evaluacion: Índice que representa la cantidad de elementos de la colección que se usarán para
+        realizar la evaluación del sistema. 1 - indice_evaluacion será la cantidad de imagenes de la colección
+        @return:
+        """
+
+        self.evaluacion = Evaluacion(self.coleccion, indice_evaluacion, 0.85, 0.70)
+        return self.evaluacion
 
 # ----------------------------------------------------------------------------------------------------------------------

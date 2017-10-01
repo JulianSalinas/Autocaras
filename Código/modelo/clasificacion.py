@@ -1,11 +1,9 @@
 # ----------------------------------------------------------------------------------------------------------------------
 
-from modelo.coleccion import *
-from modelo.entrenamiento import *
+from coleccion import *
+from entrenamiento import *
 
 # ----------------------------------------------------------------------------------------------------------------------
-
-# TODO, no se esta usando el mínimo de aceptación todavía
 
 
 class Clasificacion(object):
@@ -57,7 +55,7 @@ class Clasificacion(object):
         indice = np.argmax(similitudes)
 
         if similitud < self.indice_aceptacion:
-            raise Exception("El sujeto no se encuentra definido")
+            indice = -1
 
         return indice, similitud
 

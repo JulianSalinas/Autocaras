@@ -25,14 +25,15 @@ class Coleccion(object):
         self.regex_sujs = regex_sujs
         self.regex_imgs = regex_imgs
 
-        self.dic_imgs = self.obt_diccionario()
+        self.dic_sujs, self.dic_imgs = self.obt_diccionarios()
         self.alto_img, self.ancho_img = self.obt_dimensiones()
+        self.total_sujs = len(self.dic_sujs)
         self.total_imgs = len(self.dic_imgs)
         self.pixeles_img = self.ancho_img * self.alto_img
 
     # ------------------------------------------------------------------------------------------------------------------
 
-    def consultar(self, indice_img):
+    def consultar_img(self, indice_img):
 
         """
         A partir de un índice que corresponda a una columna de la matriz de imagenes de muestra, se busca en el
@@ -40,17 +41,30 @@ class Coleccion(object):
         @param indice_img: Índice devuelto por el clasificador
         @return: Tupla (S, R) donde S es la ruta de la carpeta del sujeto y R una de sus imagenes.
         """
-
-        return self.dic_imgs[indice_img]
+        if 0 <= indice_img < len(self.dic_imgs):
+            return self.dic_imgs[indice_img]
+        return None, None
 
     # ------------------------------------------------------------------------------------------------------------------
 
-    def obt_diccionario(self):
+    def consultar_suj(self, indice_suj):
+
+        """
+        A partir de un índice que corresponda a un sujeto, se obtiene la ruta de la carpeta de dicho sujeto
+        @param indice_suj: Índice devuelto por el clasificador
+        @return: ruta del sujeto (conocido como etiqueta)
+        """
+        return self.dic_sujs[indice_suj]
+
+    # ------------------------------------------------------------------------------------------------------------------
+
+    def obt_diccionarios(self):
 
         """
         Crea un diccionario con el siguiente formato: I : (S, R), donde I es el numero de imagen leida dentro de todas
         las presentes en la BD, S es el sujeto con el que se relaciona I, y R es la ruta de I. Esto se hace con el fin
-        de eliminar la restricción de que cada sujeto deba tener exactamente 10 imagenes en su carpeta.
+        de eliminar la restricción de que cada sujeto deba tener exactamente 10 imagenes en su carpeta. Además se
+        obtiene el diccionario de sujetos con el formato I : R donde I es el índice del sujeto y R su ruta.
         @return: Diccionario con el formato I : (S, R).
         """
 
@@ -58,16 +72,20 @@ class Coleccion(object):
         ruta_abs = os.path.join(self.ruta_datos, self.regex_sujs)
         ruta_sujs = glob.glob(ruta_abs)
 
+        dic_sujs = {}
         dic_imgs = {}
         num_img = 0
-        for suj in ruta_sujs:
+
+        for i in range(0, len(ruta_sujs)):
+
+            dic_sujs[i] = ruta_sujs[i]
 
             # Obteniendo imagenes (rutas) de cada sujeto en específico
-            for img in glob.glob(suj + self.regex_imgs):
-                dic_imgs[num_img] = (suj, img)
+            for img in glob.glob(ruta_sujs[i] + self.regex_imgs):
+                dic_imgs[num_img] = (ruta_sujs[i], img)
                 num_img += 1
 
-        return dic_imgs
+        return dic_sujs, dic_imgs
 
     # ------------------------------------------------------------------------------------------------------------------
 
