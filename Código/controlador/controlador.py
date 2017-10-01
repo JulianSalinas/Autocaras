@@ -53,6 +53,9 @@ class Controlador(object):
 
         muestras = self.coleccion.obt_matriz_muestras()
         self.entrenamiento = Entrenamiento(muestras, indice_valores)
+
+        self.coleccion.indexar('AT&T')
+        self.entrenamiento.indexar('AT&T')
         self.clasificacion = Clasificacion(self.entrenamiento, indice_aceptacion)
 
     # ------------------------------------------------------------------------------------------------------------------

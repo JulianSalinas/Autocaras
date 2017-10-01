@@ -112,6 +112,29 @@ class Coleccion(object):
 
     # ------------------------------------------------------------------------------------------------------------------
 
+    def indexar(self, prefijo):
+
+        """
+        Guarda en un archivo la informacion de la coleccion con el objetivo de ser utilizada a futuro.
+        :param prefijo: prefijo a concantenar a cada archivo generado para poder identificarlos.
+        :return: sin retorno
+        """
+
+        # Guardar informacion sobre el objeto coleccion
+        f_coleccion = open('..\\..\\Index\\Coleccion_' + prefijo + '.txt', 'w')
+        coleccion = {'ruta_datos': self.ruta_datos,
+                     'regex_sujs': self.regex_sujs,
+                     'regex_imgs': self.regex_imgs,
+                     'dic_imgs': self.dic_imgs,
+                     'alto_imgs': self.alto_img,
+                     'ancho_img': self.ancho_img,
+                     'total_imgs': self.total_imgs,
+                     'pixeles_img': self.pixeles_img}
+        f_coleccion.write(str(coleccion))
+        f_coleccion.close()
+
+# ----------------------------------------------------------------------------------------------------------------------
+
     def __str__(self):
 
         string = ""
