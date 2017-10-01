@@ -72,8 +72,11 @@ class Clasificacion(object):
         clasificacion
         """
 
+        prefijo = '..\\..\\Index\\'
+        sufijo += '.txt'
+
         # Lectura del archivo que contiene la informacion de la coleccion
-        f_coleccion = open('..\\..\\Index\\coleccion_' + sufijo + '.txt', 'r')
+        f_coleccion = open(prefijo + 'coleccion_' + sufijo, 'r')
         dicc_coleccion = eval(f_coleccion.read())
         f_coleccion.close()
 
@@ -85,6 +88,12 @@ class Clasificacion(object):
         coleccion.total_imgs = dicc_coleccion['total_imgs']
         coleccion.pixeles_img = dicc_coleccion['pixeles_img']
 
-        # Construir 
+        # Construir objeto de entrenamiento
+        entrenamiento = Entrenamiento
+        entrenamiento.muestra_promedio = np.loadtxt(prefijo + 'muestra_promedio_' + sufijo, dtype='float64')
+        entrenamiento.autoespacio = np.loadtxt(prefijo + 'autoespacio_' + sufijo, dtype='float64')
+        entrenamiento.proyecciones = np.loadtxt(prefijo + 'proyecciones_' + sufijo, dtype='float64')
+
+        return coleccion, entrenamiento
 
 # ----------------------------------------------------------------------------------------------------------------------
