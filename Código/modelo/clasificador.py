@@ -6,38 +6,42 @@ from entrenamiento import *
 # ----------------------------------------------------------------------------------------------------------------------
 
 
-class Clasificacion(object):
+class Clasificador(object):
 
-    def __init__(self, entrenamiento, indice_aceptacion):
+    def __init__(self, entrenamiento, porcentaje_aceptacion):
 
         """
         Clase encargada de clasificar las imágenes desconocidas. Por defecto se basa en la distancia euclidiana para
         encontrar la muestra con la que más se parece la imagen desconocida. Para instanciar esta clase es necesario
-        especificar los resultados del entrenamiento y fijar un minímo de aceptación para decidir si la imagen esta dentro
-        del espacio creado.
+        especificar los resultados del entrenamiento y fijar un minímo de aceptación para decidir si la imagen esta
+        dentro del espacio creado
         @param entrenamiento: Instancia de Entrenamiento ejecutada con anterioridad
-        @param indice_aceptacion: Índice para decidir si la imagen es lo suficientemente parecida a una de las img
+        @param porcentaje_aceptacion: Número ara decidir si la imagen es lo suficientemente parecida a una de las img
         """
 
         self.autoespacio = entrenamiento.autoespacio
         self.proyecciones = entrenamiento.proyecciones
         self.muestra_promedio = entrenamiento.muestra_promedio
-        self.indice_aceptacion = indice_aceptacion
+        self.indice_aceptacion = porcentaje_aceptacion / 100
 
     # ------------------------------------------------------------------------------------------------------------------
 
-    def ejecutar(self, img_desconocida):
+    def clasificar(self, img):
 
         """
-        Con base al modelo de clasificación planteado, se busca el índice del sujeto más parecido. El grado de similitud
-        se obtiene con base a la imagen más distante de la imagen desconocida, siendo esta similitud 0
-        @param img_desconocida: obtenido por cv.imread
+        Con base al modelo de clasificación planteado, se clasifica la imagen desconocida retornando un índice con el
+        que se podrá consultar a la colección la etiqueta (o ruta) del sujeto
+        El grado de similitud se obtiene con base a la imagen más distante a la imagen desconocida, siendo esta 0
+        @param img: imagen obtenida por cv.imread o ruta de la imagen
         @return: Tupla (I, S), donde I es el indíce de la imagen más parecida(número de imagen en la matriz de muestras)
-        y S es la similitud obtenida (de 0 a 1)
+        y S es la similitud obtenida (de 0 a 1). Retorna como I = -1 si la imagen no se encuentra dentro del autoespacio
         """
+
+        # Abrimos la imagen si recibimos la ruta
+        img = cv.imread(img, 0) if type(img) == str else img
 
         # Se convierte la imagen de 2D a 1D y se centra con base al origen
-        img = np.matrix(img_desconocida, dtype="float64").flatten().T
+        img = np.matrix(img, dtype="float64").flatten().T
         img -= self.muestra_promedio
 
         # Se obtiene la proyeccion (calculo de pesos)
@@ -55,7 +59,7 @@ class Clasificacion(object):
         indice = np.argmax(similitudes)
 
         if similitud < self.indice_aceptacion:
-            indice = -1
+            return -1, 0
 
         return indice, similitud
 
@@ -65,9 +69,9 @@ class Clasificacion(object):
 
         """
         Lee los archivos indexados y los carga en memoria mediante objetos
-        :param sufijo: sufijo con el que se guardaron los archivos indexados
-        :return: tupla (objeto_coleccion, objeto_entrenamiento) con los valores asignados y listos para hacer una
-        clasificacion
+        @param sufijo: sufijo con el que se guardaron los archivos indexados
+        @return: tupla (objeto_coleccion, objeto_entrenamiento) con los valores asignados y listos para hacer una
+        clasificador
         """
 
         prefijo = '..\\..\\Index\\'

@@ -15,10 +15,10 @@ class Coleccion(object):
         """
         Encargada de proporcionar las rutas de cada una de las imagenes presentes en la base de datos, asi como otra
         información importante, como la cantidad de sujetos, la cantidad de imagenes totales y por sujeto junto con la
-        resolucion de cada una. Sirve para encontrar el sujeto con el que coincide una imagen al momente de clasificar.
-        @param ruta_datos: Ruta donde estan las imagenes.
-        @param regex_sujs: Expresión regula que indique que carpetas corresponden a sujetos.
-        @param regex_imgs: Expresión regula que indique archivos corresponden a la imagen de un sujeto.
+        resolucion de cada una. Sirve para encontrar el sujeto con el que coincide una imagen al momente de clasificar
+        @param ruta_datos: Ruta donde estan las imagenes
+        @param regex_sujs: Expresión regula que indique que carpetas corresponden a sujetos
+        @param regex_imgs: Expresión regula que indique archivos corresponden a la imagen de un sujeto
         """
 
         self.ruta_datos = ruta_datos
@@ -30,20 +30,25 @@ class Coleccion(object):
         self.total_sujs = len(self.dic_sujs)
         self.total_imgs = len(self.dic_imgs)
         self.pixeles_img = self.ancho_img * self.alto_img
+        self.mat_muestras = None
+
+        self.ruta_suj_desconocido = os.path.join(self.ruta_datos, "otros")
+        self.ruta_img_desconocida = os.path.join(self.ruta_suj_desconocido, "desconocido.pgm")
 
     # ------------------------------------------------------------------------------------------------------------------
 
     def consultar_img(self, indice_img):
 
         """
-        A partir de un índice que corresponda a una columna de la matriz de imagenes de muestra, se busca en el
-        diccionario de imagenes dicho índice.
+        Obtiene la ruta de la imagen según el índice obtenido de la matriz de imagenes de la colección
         @param indice_img: Índice devuelto por el clasificador
-        @return: Tupla (S, R) donde S es la ruta de la carpeta del sujeto y R una de sus imagenes.
+        @return: ruta_suj, ruta_img
         """
+
         if 0 <= indice_img < len(self.dic_imgs):
             return self.dic_imgs[indice_img]
-        return None, None
+
+        return self.ruta_suj_desconocido, self.ruta_img_desconocida
 
     # ------------------------------------------------------------------------------------------------------------------
 
@@ -52,9 +57,13 @@ class Coleccion(object):
         """
         A partir de un índice que corresponda a un sujeto, se obtiene la ruta de la carpeta de dicho sujeto
         @param indice_suj: Índice devuelto por el clasificador
-        @return: ruta del sujeto (conocido como etiqueta)
+        @return: ruta_suj
         """
-        return self.dic_sujs[indice_suj]
+
+        if 0 <= indice_suj < len(self.dic_sujs):
+            return self.dic_sujs[indice_suj]
+
+        return self.ruta_suj_desconocido
 
     # ------------------------------------------------------------------------------------------------------------------
 
@@ -63,9 +72,9 @@ class Coleccion(object):
         """
         Crea un diccionario con el siguiente formato: I : (S, R), donde I es el numero de imagen leida dentro de todas
         las presentes en la BD, S es el sujeto con el que se relaciona I, y R es la ruta de I. Esto se hace con el fin
-        de eliminar la restricción de que cada sujeto deba tener exactamente 10 imagenes en su carpeta. Además se
-        obtiene el diccionario de sujetos con el formato I : R donde I es el índice del sujeto y R su ruta.
-        @return: Diccionario con el formato I : (S, R).
+        de eliminar la restricción de que cada sujeto deba tener exactamente 10 imagenes en su carpeta
+        Además se obtiene el diccionario de sujetos con el formato I : R donde I es el índice del sujeto y R su ruta
+        @return: Diccionario con el formato I : (S, R)
         """
 
         # Obteniendo la lista de las rutas de cada sujeto
@@ -103,7 +112,7 @@ class Coleccion(object):
 
     # ------------------------------------------------------------------------------------------------------------------
 
-    def obt_matriz_muestras(self):
+    def obt_matriz(self):
 
         """
         Lee, recorta, vectoriza y coloca cada una de las imagenes como un vector columna a la matriz de muestras.
@@ -130,12 +139,47 @@ class Coleccion(object):
 
     # ------------------------------------------------------------------------------------------------------------------
 
+    def obt_subconjunto(self, indices):
+
+        """
+        Obtiene una matriz de subconjunto a partir de la matriz de muestras
+        @param indices: lista de los indices asociados a la columnas que se tomarán de la matriz de muestras
+        @return: Tupla (M, I) donde M es la matriz subconjunto de la colección e I los indices utilizados
+        """
+
+        # Matriz vacia para colocar las imagenes
+        dimension = (self.pixeles_img, len(indices))
+        mat = np.empty(dimension, dtype='float64')
+
+        col_actual = 0
+        for i in indices:
+
+            # Se abre la imagen en escala de grises y se recorta
+            img = cv.imread(self.consultar_img(i)[1], 0)
+            img = img.reshape(self.alto_img, self.ancho_img)
+
+            # Se vectoriza la imagen, 2D a 1D y se coloca como columna
+            mat[:, col_actual] = np.array(img, dtype='float64').flatten()
+
+            col_actual += 1
+
+        return np.matrix(mat, dtype="float64"), indices
+
+        # mat_muestras = self.obt_matriz()
+
+        # if mat_muestras.shape[1] == len(indices):
+        #     return mat_muestras
+        #
+        # return mat_muestras[:, indices], indices
+
+    # ------------------------------------------------------------------------------------------------------------------
+
     def indexar(self, sufijo):
 
         """
         Guarda en un archivo la informacion de la coleccion con el objetivo de ser utilizada a futuro.
-        :param sufijo: sufijo a concantenar a cada archivo generado para poder identificarlos.
-        :return: sin retorno
+        @param sufijo: sufijo a concantenar a cada archivo generado para poder identificarlos.
+        @return: sin retorno
         """
 
         # Guardar informacion sobre el objeto coleccion
@@ -143,6 +187,7 @@ class Coleccion(object):
         coleccion = {'ruta_datos': self.ruta_datos,
                      'regex_sujs': self.regex_sujs,
                      'regex_imgs': self.regex_imgs,
+                     'dic_sujs': self.dic_sujs,
                      'dic_imgs': self.dic_imgs,
                      'alto_imgs': self.alto_img,
                      'ancho_imgs': self.ancho_img,
