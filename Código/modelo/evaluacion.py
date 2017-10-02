@@ -33,7 +33,7 @@ class Evaluacion(object):
         self.clasificaciones = self.obt_clasificaciones(clasificador)
 
         # Tabla donde cada fila corresponde a un sujeto y cada columna
-        # contiene los vp, fp, fn, tvp, tpp
+        # contiene los vp, fp, fn, recall, precision
         self.tabla_evaluacion = self.obt_evaluaciones()
 
         # Fila con los promedios de la tabla de evaluaciones (la anterior)
@@ -80,10 +80,10 @@ class Evaluacion(object):
         """
         Obtiene una tabla con las evaluaciones para cada uno de los sujetos (clases) con el siguiente formato:
 
-                        vp,     fp,     fn,     tvp,    tpp
-            sujeto1     float   float   float   float   float
-            sujeto2     float   float   float   float   float
-            sujetoN     float   float   float   float   float
+                        vp,     fp,     fn,     recall,  precision
+            sujeto1     float   float   float   float    float
+            sujeto2     float   float   float   float    float
+            sujetoN     float   float   float   float    float
 
         @return: npmatriz donde cada fila corresponde a un sujeto (clase) y cada columna a las evaluaciones realizadas
         """
@@ -108,15 +108,23 @@ class Evaluacion(object):
 
     # ------------------------------------------------------------------------------------------------------------------
 
-    def __str__(self):
+    def agregar_encabezados(self):
 
         # Colocamos los encabezados de la matriz
-        etiquetas_horizontales = ["VP", "FP", "FN", "TVP", "TPP"]
+        etiquetas_horizontales = ["VP", "FP", "FN", "Recall", "Precision"]
         etiquetas_verticales = ["Sujeto"] + list(self.coleccion.dic_sujs.values()) + ["Promedio"]
         tabla_evaluacion = self.tabla_evaluacion.astype(np.str)
         tabla_evaluacion = np.insert(tabla_evaluacion, 0, etiquetas_horizontales, axis=0)
         tabla_evaluacion = np.append(tabla_evaluacion, self.promedios.astype(np.str), axis=0)
         tabla_evaluacion = np.insert(tabla_evaluacion, 0, etiquetas_verticales, axis=1)
+        return tabla_evaluacion
+
+    # ------------------------------------------------------------------------------------------------------------------
+
+    def __str__(self):
+        tabla_evaluacion = self.agregar_encabezados()
         return str(tabla_evaluacion)
 
 # ----------------------------------------------------------------------------------------------------------------------
+
+

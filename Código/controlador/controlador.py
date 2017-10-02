@@ -22,7 +22,7 @@ class Controlador(object):
 
         # TODO Aquí se deberían cargar las clases guardadas
 
-        self.dao_indices = DaoIndices()
+        self.dao_indices = DaoIndice()
 
         # Para utilizar el indexado generado anteriormente
         self.coleccion, self.entrenamiento = self.dao_indices.leer_indexado('AT&T')
