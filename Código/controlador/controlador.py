@@ -62,6 +62,9 @@ class Controlador(object):
         @return self.entrenamiento, self.clasificador
         """
 
+        if self.coleccion is None:
+            self.indexar_coleccion()
+
         total_sujs = self.coleccion.total_sujs
         imgs_x_suj = self.coleccion.total_imgs // total_sujs
         cant_imgs = int(imgs_x_suj * porcentaje_coleccion / 100)
@@ -95,6 +98,9 @@ class Controlador(object):
         @return: ruta_sujeto, ruta_img, similitud
         """
 
+        if self.entrenamiento is None:
+            self.ejecutar_entrenamiento()
+
         img = cv.imread(img, 0) if type(img) == str else img
 
         if img is not None:
@@ -114,6 +120,9 @@ class Controlador(object):
         de dicha tabla de evaluaciónes.
         @return instacia de la clase Evaluación
         """
+
+        if self.entrenamiento is None:
+            self.ejecutar_entrenamiento()
 
         return Evaluacion(self.coleccion, self.entrenamiento, self.clasificador)
 
