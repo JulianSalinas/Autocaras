@@ -2,7 +2,7 @@
 
 from clasificador import *
 from evaluacion import *
-from dao_indices import *
+from dao_indice import *
 
 # ----------------------------------------------------------------------------------------------------------------------
 
