@@ -30,8 +30,8 @@ class Clasificador(object):
 
         """
         Con base al modelo de clasificación planteado, se clasifica la imagen desconocida retornando un índice con el
-        que se podrá consultar a la colección la etiqueta (o ruta) del sujeto
-        El grado de similitud se obtiene con base a la imagen más distante a la imagen desconocida, siendo esta 0
+        que se podrá consultar a la colección la etiqueta (o ruta) del sujeto. El grado de similitud se obtiene con base
+        a la imagen más distante a la imagen desconocida, siendo esta 0
         @param img: imagen obtenida por cv.imread o ruta de la imagen
         @return: Tupla (I, S), donde I es el indíce de la imagen más parecida(número de imagen en la matriz de muestras)
         y S es la similitud obtenida (de 0 a 1). Retorna como I = -1 si la imagen no se encuentra dentro del autoespacio

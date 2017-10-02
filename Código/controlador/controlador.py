@@ -2,7 +2,7 @@
 
 from clasificador import *
 from evaluacion import *
-from coleccion import *
+
 
 # ----------------------------------------------------------------------------------------------------------------------
 
@@ -68,7 +68,8 @@ class Controlador(object):
             indices_subconjunto = np.append(indices_subconjunto, [escogidos])
 
         # Se obtiene el subconjunto de entrenamiento y se entrena el sistema
-        subconjuto_entrenamiento = self.coleccion.obt_subconjunto(indices_subconjunto)
+        subconjuto = self.coleccion.obt_subconjunto(indices_subconjunto)
+        subconjuto_entrenamiento = subconjuto, indices_subconjunto
         self.entrenamiento = Entrenamiento(subconjuto_entrenamiento, porcentaje_valores)
         self.clasificador = Clasificador(self.entrenamiento, porcentaje_aceptacion)
 

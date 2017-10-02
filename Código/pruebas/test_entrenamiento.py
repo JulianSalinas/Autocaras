@@ -14,9 +14,9 @@ class TestEntrenamiento(TestCase):
 
     # ------------------------------------------------------------------------------------------------------------------
 
-    def test_ejecutar(self):
+    def test_entrenamiento(self):
 
-        imprimir_verde("Test de 'Entrenamiento.ejecutar' iniciado")
+        imprimir_verde("Test de 'entrenamiento' iniciado")
         inicio = time.time()
 
         # Creamos una matriz de muestras ficticia y verificable
@@ -26,7 +26,7 @@ class TestEntrenamiento(TestCase):
                                   [58, 24, 65]], "float64")
 
         # Entrenamos con la cantidad de valores que queremos conservar para el análisis
-        # Emulando la ejecución de 'Entrenamiento(mat_muestras, indice_valores=0.85)'
+        # Emulando la ejecución de 'Entrenamiento(mat_muestras, porcentaje_valores=85)'
 
         # Comprobando matriz de muestras con base al origen
         # Si la imagen esta centrada con base al origen, su sumatoria es 0
@@ -36,7 +36,7 @@ class TestEntrenamiento(TestCase):
 
     # ------------------------------------------------------------------------------------------------------------------
 
-        # Comprobando matriz de covarianza
+        # Comprobando matriz de covarianza (sin no normalizar)
         mat_covarianza = mat_muestras.T * mat_muestras
 
         # Se comprueba que sea cuadrada
@@ -95,7 +95,7 @@ class TestEntrenamiento(TestCase):
     # ------------------------------------------------------------------------------------------------------------------
 
         fin = time.time() - inicio
-        imprimir_verde("Test de 'Entrenamiento.ejecutar' finalizado en " + str(fin) + " segundos")
+        imprimir_verde("Test de 'entrenamiento' finalizado en " + str(fin) + " segundos")
 
 
 # ----------------------------------------------------------------------------------------------------------------------

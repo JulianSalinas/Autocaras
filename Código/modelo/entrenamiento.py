@@ -18,8 +18,11 @@ class Entrenamiento(object):
         @param porcentaje_valores: Número que determine la cantidad de valores (o componentes) que se desean conservar
         """
 
-        mat_entrenamiento = subconjunto_entrenamiento[0]
-        self.indices_entrenamiento = subconjunto_entrenamiento[1]
+        if type(subconjunto_entrenamiento) == tuple:
+            mat_entrenamiento = subconjunto_entrenamiento[0]
+            self.indices_entrenamiento = subconjunto_entrenamiento[1]
+        else:
+            mat_entrenamiento = subconjunto_entrenamiento
 
         # Se centran todas las muestras de Px1 de la matriz A (PxM) al origen
         self.muestra_promedio = np.mean(mat_entrenamiento, axis=1, dtype="float64")

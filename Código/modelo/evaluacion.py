@@ -26,7 +26,8 @@ class Evaluacion(object):
 
         # Obtenemos las claves de las imagenes que son para entrenar y para evaluar
         self.indices_imgs_entrenamiento = entrenamiento.indices_entrenamiento
-        self.indices_imgs_evaluacion = np.delete(range(0, coleccion.total_imgs), entrenamiento.indices_entrenamiento)
+        self.indices_imgs_evaluacion = \
+            np.delete(range(0, coleccion.total_imgs), entrenamiento.indices_entrenamiento)
 
         # Tabla de sujetos clasificadas vs reales
         self.clasificaciones = self.obt_clasificaciones(clasificador)
@@ -43,18 +44,24 @@ class Evaluacion(object):
     def obt_clasificaciones(self, clasificador):
 
         """
-        Se obtiene la tabla de sujetos clasificados vs los sujetos reales
+        Se obtiene la tabla de sujetos clasificados vs los sujetos reales. Tiene el siguiente formato:
+
+                                suj_real1   suj_real2   suj_realN
+            suj_clasificado1        int         int         int
+            suj_clasificado2        int         int         int
+            suj_clasificadoN        int         int         int
+
         @param clasificador: Instancia de Clasificador
         @return: npmatrix donde las cada fila corresponde al sujeto clasificado y las columnas a los reales
         """
 
-        mat_imgs, indices = self.coleccion.obt_subconjunto(self.indices_imgs_evaluacion)
+        mat_imgs = self.coleccion.obt_subconjunto(self.indices_imgs_evaluacion)
         tabla = np.matrix(np.zeros(shape=(self.total_sujs, self.total_sujs)))
 
-        for i in range(0, len(indices)):
+        for i in range(0, len(self.indices_imgs_evaluacion)):
 
             # Obtenemos el sujeto real y el sujeto que corresponde a la clasificador
-            indice_suj_real = indices[i]
+            indice_suj_real = self.indices_imgs_evaluacion[i]
             indice_suj, sim = clasificador.clasificar(mat_imgs[:, i])
 
             # Si el sujeto fue clasificado correctamente, lo sumamos a la tabla
@@ -78,7 +85,7 @@ class Evaluacion(object):
             sujeto2     float   float   float   float   float
             sujetoN     float   float   float   float   float
 
-        @return:
+        @return: npmatriz donde cada fila corresponde a un sujeto (clase) y cada columna a las evaluaciones realizadas
         """
 
         tabla = np.matrix(np.zeros(shape=(self.total_sujs, 5)))

@@ -2,10 +2,8 @@
 
 import time
 from unittest import TestCase
-
-from Código.modelo.entrenamiento import *
-from Código.modelo.clasificacion import *
-from Código.pruebas.imprimir import *
+from clasificador import *
+from imprimir import *
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -15,9 +13,9 @@ class TestClasificacion(TestCase):
 
     # ------------------------------------------------------------------------------------------------------------------
 
-    def test_ejecutar(self):
+    def test_clasificar(self):
 
-        imprimir_verde("Test de 'Clasificacion.ejecutar' iniciado")
+        imprimir_verde("Test de 'clasificar' iniciado")
         inicio = time.time()
 
         # Creamos una matriz de muestras ficticia y verificable
@@ -27,25 +25,25 @@ class TestClasificacion(TestCase):
                                   [58, 24, 65]], "float64")
 
         # Entrenamos el sistema con dicha matriz
-        entrenamiento = Entrenamiento(mat_muestras, indice_valores=0.70)
+        entrenamiento = Entrenamiento(mat_muestras, porcentaje_valores=70)
 
         # Creamos un sujeto desconocido de P x 1
         sujeto_desconocido = np.matrix([[40, 80],
                                         [76, 64.]])
 
         # Colocamos que la clasificación se realice con base al entrenamiento previo
-        # y que mínimo de aceptación es 50 de lo contrario no se encuentra en el autoespacio
-        clasificacion = Clasificacion(entrenamiento, indice_aceptacion=0.85)
+        # y que el mínimo de aceptación sea 80 de lo contrario no se encuentra en el autoespacio
+        clasificacion = Clasificador(entrenamiento, porcentaje_aceptacion=80)
 
         # Clasificamos el sujeto, esto nos debe dar el índice 2 pues es la columna que más
         # se parece al sujeto
-        indice, aceptacion = clasificacion.ejecutar(sujeto_desconocido)
+        indice, aceptacion = clasificacion.clasificar(sujeto_desconocido)
         self.assertTrue(indice == 2)
 
         print("Aceptación = " + str(aceptacion))
 
         fin = time.time() - inicio
-        imprimir_verde("Test de 'Clasificacion.ejecutar' finalizado en " + str(fin) + " segundos")
+        imprimir_verde("Test de 'clasicar' finalizado en " + str(fin) + " segundos")
 
 
 # ----------------------------------------------------------------------------------------------------------------------

@@ -14,9 +14,9 @@ class TestColeccion(TestCase):
 
     # ------------------------------------------------------------------------------------------------------------------
 
-    def test_indexar(self):
+    def test_coleccion(self):
 
-        imprimir_verde("\nTest de 'indexar' iniciado")
+        imprimir_verde("\nTest de 'coleccion' iniciado")
         inicio = time.time()
 
         # Solo leerá las primeras 3 imagenes de los primeros 2 sujetos
@@ -38,20 +38,20 @@ class TestColeccion(TestCase):
         print(str(coleccion))
 
         fin = time.time() - inicio
-        imprimir_verde("Test de 'indexar' finalizado en " + str(fin) + " segundos")
+        imprimir_verde("Test de 'coleccion' finalizado en " + str(fin) + " segundos")
 
     # ------------------------------------------------------------------------------------------------------------------
 
-    def test_obt_matriz_muestras(self):
+    def test_obt_subconjunto(self):
 
-        imprimir_verde("\nTest de 'obt_mat_muestras' iniciado")
+        imprimir_verde("\nTest de 'obt_subconjunto' iniciado")
         inicio = time.time()
 
         # Solo leera las imagenes del primer sujeto
         coleccion = Coleccion(ruta_datos='..\\..\\Datos', regex_sujs='s1', regex_imgs="\*")
 
         # Se invoca el método a probar
-        mat_muestras = coleccion.obt_matriz_muestras()
+        mat_muestras = coleccion.obt_subconjunto(range(1, 11))
 
         duracion = time.time() - inicio
         imprimir_verde("Duración de 'obt_mat_muestras': " + str(duracion))
@@ -70,6 +70,6 @@ class TestColeccion(TestCase):
         print(str(mat_muestras) + "\n")
 
         fin = time.time() - inicio
-        imprimir_verde("Test de 'obt_mat_muestras' finalizado en " + str(fin) + " segundos")
+        imprimir_verde("Test de 'obt_subconjunto' finalizado en " + str(fin) + " segundos")
 
 # ----------------------------------------------------------------------------------------------------------------------

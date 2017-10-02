@@ -4,8 +4,12 @@ from imprimir import *
 # TODO: Encontrar los valores óptimos para el porcentaje de valores a conservar y el mínimo de aceptación
 
 ctrl = Controlador()
-ctrl.indexar_coleccion(ruta_datos="..\\..\\Datos", regex_sujs="s[0-9]*", regex_imgs="\\[0-9]*.pgm")
-ctrl.ejecutar_entrenamiento(indice_valores=0.85, indice_aceptacion=0.75)
+ctrl.indexar_coleccion()
+
+ctrl.ejecutar_entrenamiento(
+    porcentaje_coleccion=80,
+    porcentaje_valores=70,
+    porcentaje_aceptacion=75)
 
 
 def ejemplo(ruta_img_desconocida):
@@ -21,7 +25,7 @@ def ejemplo(ruta_img_desconocida):
             img = "Indefinida"
 
         imprimir_verde("----------------------------------------------------------")
-        print("Similitud: " + str(similitud))
+        print("Similitud: " + str(round(similitud*100, 2)) + "%")
         print("Sujeto encontrado: " + sujeto)
         print("Imagen más cercana: " + img)
         imprimir_verde("----------------------------------------------------------\n")
@@ -32,20 +36,20 @@ def ejemplo(ruta_img_desconocida):
         print("Error al leer la imagen")
         imprimir_verde("----------------------------------------------------------\n")
 
-# ejemplo("..\\..\\Datos\\otros\\1_1.pgm")
-# ejemplo("..\\..\\Datos\\otros\\13_4.pgm")
-# ejemplo("..\\..\\Datos\\otros\\26_7.pgm")
-# ejemplo("..\\..\\Datos\\otros\\41_8.pgm")
-# ejemplo("..\\..\\Datos\\otros\\cara1.png")
-# ejemplo("..\\..\\Datos\\otros\\cara2.png")
-# ejemplo("..\\..\\Datos\\otros\\cara3.png")
-# ejemplo("..\\..\\Datos\\otros\\cara4.png")
-# ejemplo("..\\..\\Datos\\otros\\cara5.png")
-# ejemplo("..\\..\\Datos\\otros\\nocara1.png")
-# ejemplo("..\\..\\Datos\\otros\\nocara2.png")
-# ejemplo("..\\..\\Datos\\otros\\nocara3.png")
-# ejemplo("..\\..\\Datos\\otros\\nocara4.png")
-# ejemplo("..\\..\\Datos\\otros\\nocara5.png")
+ejemplo("..\\..\\Datos\\otros\\1_1.pgm")
+ejemplo("..\\..\\Datos\\otros\\13_4.pgm")
+ejemplo("..\\..\\Datos\\otros\\26_7.pgm")
+ejemplo("..\\..\\Datos\\otros\\41_8.pgm")
+ejemplo("..\\..\\Datos\\otros\\cara1.png")
+ejemplo("..\\..\\Datos\\otros\\cara2.png")
+ejemplo("..\\..\\Datos\\otros\\cara3.png")
+ejemplo("..\\..\\Datos\\otros\\cara4.png")
+ejemplo("..\\..\\Datos\\otros\\cara5.png")
+ejemplo("..\\..\\Datos\\otros\\nocara1.png")
+ejemplo("..\\..\\Datos\\otros\\nocara2.png")
+ejemplo("..\\..\\Datos\\otros\\nocara3.png")
+ejemplo("..\\..\\Datos\\otros\\nocara4.png")
+ejemplo("..\\..\\Datos\\otros\\nocara5.png")
 
-evaluacion = ctrl.ejecutar_evaluacion(0.25)
+evaluacion = ctrl.ejecutar_evaluacion()
 print(evaluacion)

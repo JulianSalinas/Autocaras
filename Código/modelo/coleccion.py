@@ -112,33 +112,6 @@ class Coleccion(object):
 
     # ------------------------------------------------------------------------------------------------------------------
 
-    def obt_matriz(self):
-
-        """
-        Lee, recorta, vectoriza y coloca cada una de las imagenes como un vector columna a la matriz de muestras.
-        @return: Matriz de muestras donde cada columna representa una imagen a escala de grises.
-        """
-
-        # Matriz vacia para colocar las imagenes
-        dimension = (self.pixeles_img, self.total_imgs)
-        mat = np.empty(dimension, dtype='float64')
-
-        col_actual = 0
-        for ruta_img in self.dic_imgs.values():
-
-            # Se abre la imagen en escala de grises y se recorta
-            img = cv.imread(ruta_img[1], 0)
-            img = img.reshape(self.alto_img, self.ancho_img)
-
-            # Se vectoriza la imagen, 2D a 1D y se coloca como columna
-            mat[:, col_actual] = np.array(img, dtype='float64').flatten()
-
-            col_actual += 1
-
-        return np.matrix(mat, dtype="float64")
-
-    # ------------------------------------------------------------------------------------------------------------------
-
     def obt_subconjunto(self, indices):
 
         """
@@ -163,14 +136,7 @@ class Coleccion(object):
 
             col_actual += 1
 
-        return np.matrix(mat, dtype="float64"), indices
-
-        # mat_muestras = self.obt_matriz()
-
-        # if mat_muestras.shape[1] == len(indices):
-        #     return mat_muestras
-        #
-        # return mat_muestras[:, indices], indices
+        return np.matrix(mat, dtype="float64")
 
     # ------------------------------------------------------------------------------------------------------------------
 
