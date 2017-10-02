@@ -10,7 +10,8 @@ class DaoIndices:
 
     # ------------------------------------------------------------------------------------------------------------------
 
-    def guardar_coleccion(self, sufijo, coleccion):
+    @staticmethod
+    def guardar_coleccion(sufijo, coleccion):
 
         """
         Guarda en un archivo la informacion de una coleccion con el objetivo de ser utilizada a futuro.
@@ -35,7 +36,8 @@ class DaoIndices:
 
     # ------------------------------------------------------------------------------------------------------------------
 
-    def guardar_entrenamiento(self, sufijo, entrenamiento):
+    @staticmethod
+    def guardar_entrenamiento(sufijo, entrenamiento):
 
         """
         Guarda la información del entrenamiento realizado con el objetivo de realizar busquedas sobre esta informacion
@@ -55,7 +57,9 @@ class DaoIndices:
 
     # ------------------------------------------------------------------------------------------------------------------
 
-    def leer_indexado(self, sufijo):
+    @staticmethod
+    def leer_indexado(sufijo):
+
         """
         Lee los archivos indexados y los carga en memoria mediante objetos.
         @param sufijo: sufijo con el que se guardaron los archivos indexados
