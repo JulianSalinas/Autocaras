@@ -48,24 +48,5 @@ class Entrenamiento(object):
         # Se realiza las proyecciones al nuevo autoespacio
         self.proyecciones = self.autoespacio.T * mat_entrenamiento
 
-    # ------------------------------------------------------------------------------------------------------------------
-
-    def indexar(self, sufijo):
-
-        """
-        Guardar la información del entrenamiento realizado con el objetivo de realizar busquedas sobre esta informacion
-        sin necesidad de volver a ser calculada
-        @param sufijo: sufijo a concatenar a cada uno de los archivos generados para poder identificarlos
-        @return: sin retorno
-        """
-
-        sufijo += '.txt'
-        prefijo = '..\\..\\Index\\'
-
-        np.savetxt(prefijo + 'indices_entrenamiento_' + sufijo, self.indices_entrenamiento)
-        np.savetxt(prefijo + 'muestra_promedio_' + sufijo, self.muestra_promedio)
-        np.savetxt(prefijo + 'autoespacio_' + sufijo, self.muestra_promedio)
-        np.savetxt(prefijo + 'proyecciones_' + sufijo, self.muestra_promedio)
-
 
 # ----------------------------------------------------------------------------------------------------------------------

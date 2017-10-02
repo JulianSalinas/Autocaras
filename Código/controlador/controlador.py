@@ -2,7 +2,7 @@
 
 from clasificador import *
 from evaluacion import *
-
+from dao_indices import *
 
 # ----------------------------------------------------------------------------------------------------------------------
 
@@ -22,9 +22,16 @@ class Controlador(object):
 
         # TODO Aquí se deberían cargar las clases guardadas
 
-        self.coleccion = None
-        self.entrenamiento = None
-        self.clasificador = None
+        self.dao_indices = DaoIndices()
+
+        # Para utilizar el indexado generado anteriormente
+        self.coleccion, self.entrenamiento = self.dao_indices.leer_indexado('AT&T')
+        self.clasificador = Clasificador(self.entrenamiento, 75)
+
+        # Para indexar y utilizar este mismo indexado en memoria
+        # self.coleccion = None
+        # self.entrenamiento = None
+        # self.clasificador = None
 
     # ------------------------------------------------------------------------------------------------------------------
 
@@ -39,7 +46,7 @@ class Controlador(object):
         """
 
         self.coleccion = Coleccion(ruta_datos, regex_sujs, regex_imgs)
-        self.coleccion.indexar('AT&T')
+        self.dao_indices.guardar_coleccion('AT&T', self.coleccion)
         return self.coleccion
 
     # ------------------------------------------------------------------------------------------------------------------
@@ -74,7 +81,7 @@ class Controlador(object):
         self.clasificador = Clasificador(self.entrenamiento, porcentaje_aceptacion)
 
         # Indexa los archivos para clasificaciones futuras
-        self.entrenamiento.indexar('AT&T')
+        self.dao_indices.guardar_entrenamiento('AT&T', self.entrenamiento)
 
         return self.entrenamiento, self.clasificador
 

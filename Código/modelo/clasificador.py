@@ -64,38 +64,3 @@ class Clasificador(object):
         return indice, similitud
 
 # ----------------------------------------------------------------------------------------------------------------------
-
-    def leer_indexado(self, sufijo):
-
-        """
-        Lee los archivos indexados y los carga en memoria mediante objetos
-        @param sufijo: sufijo con el que se guardaron los archivos indexados
-        @return: tupla (objeto_coleccion, objeto_entrenamiento) con los valores asignados y listos para hacer una
-        clasificador
-        """
-
-        prefijo = '..\\..\\Index\\'
-        sufijo += '.txt'
-
-        # Lectura del archivo que contiene la informacion de la coleccion
-        f_coleccion = open(prefijo + 'coleccion_' + sufijo, 'r')
-        dicc_coleccion = eval(f_coleccion.read())
-        f_coleccion.close()
-
-        # Construir objeto de coleccion
-        coleccion = Coleccion(dicc_coleccion['ruta_datos'], dicc_coleccion['regex_sujs'], dicc_coleccion['regex_imgs'])
-        coleccion.dic_imgs = dicc_coleccion['dic_imgs']
-        coleccion.alto_img = dicc_coleccion['alto_imgs']
-        coleccion.ancho_img = dicc_coleccion['ancho_imgs']
-        coleccion.total_imgs = dicc_coleccion['total_imgs']
-        coleccion.pixeles_img = dicc_coleccion['pixeles_img']
-
-        # Construir objeto de entrenamiento
-        entrenamiento = Entrenamiento
-        entrenamiento.muestra_promedio = np.loadtxt(prefijo + 'muestra_promedio_' + sufijo, dtype='float64')
-        entrenamiento.autoespacio = np.loadtxt(prefijo + 'autoespacio_' + sufijo, dtype='float64')
-        entrenamiento.proyecciones = np.loadtxt(prefijo + 'proyecciones_' + sufijo, dtype='float64')
-
-        return coleccion, entrenamiento
-
-# ----------------------------------------------------------------------------------------------------------------------

@@ -4,12 +4,9 @@ from imprimir import *
 # TODO: Encontrar los valores óptimos para el porcentaje de valores a conservar y el mínimo de aceptación
 
 ctrl = Controlador()
-ctrl.indexar_coleccion()
 
-ctrl.ejecutar_entrenamiento(
-    porcentaje_coleccion=80,
-    porcentaje_valores=70,
-    porcentaje_aceptacion=75)
+# ctrl.indexar_coleccion()
+# ctrl.ejecutar_entrenamiento(porcentaje_coleccion=80, porcentaje_valores=70, porcentaje_aceptacion=75)
 
 
 def ejemplo(ruta_img_desconocida):
