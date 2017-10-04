@@ -1,0 +1,11 @@
+<h2>Lita de Integrantes</h2>
+{% if integrantes %}
+    <ul>
+    {% for integrante in integrantes %}
+        <li><a href="{% url 'acercaDe:detail' integrante.id %}">{{ integrante }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No members.</p>
+{% endif %}
+
