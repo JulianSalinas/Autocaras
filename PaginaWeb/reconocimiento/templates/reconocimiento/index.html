@@ -1,2 +1,93 @@
-<h1>Sección de recocimiento</h1>
-<h3>Index de esta sección</h3>
+{% load staticfiles %}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Eigen Faces</title>
+    <link rel="icon" href="{% static 'acercaDe/img/EF.png'%}">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="{% static 'acercaDe/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'acercaDe/css/main.css' %}">
+
+</head>
+
+<body>
+    <div id="header" class="header navbar navbar-static-top">
+
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand">Eigen Faces</a>
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="/">Inicio</a></li>
+                        <li><a href="/reconocimiento">Reconocimiento</a></li>
+                        <li><a href="/entrenamiento">Entrenamiento</a></li>
+                        <li><a href="/acercaDe">Acerca De</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Armando L.C.</a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Cerrar</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+    </div>
+
+    <div class="container page">
+        <div id="content" class="container main">
+            <div>
+                <div class="tituloPrincipal">
+                    <h2>Reconocimiento de rostros</h2>
+                    <h4>Entrenamiento y Clasificación (Ejemplo).</h4>
+                </div>
+
+                <div class="form-group">
+                    <label for="InputFile"><strong>Ruta de la Imagen</strong></label>
+                    <input type="file" class="form-control-file" id="InputFile" aria-describedby="fileHelp">
+                    <small id="fileHelp" class="form-text text-muted">Por favor ingrese la localización de la imagen del sujeto.</small>
+                </div>
+
+                <div class="form-group">
+                    <label><strong>Ejecución de la muestra</strong></label>
+                    <button type="button" class="btn btn-primary active">Ejecutar</button>
+                </div>
+
+                <div class="form-group aCentro">
+                    <label><strong>Resultado de la Prueba</strong></label>
+                    <div class="form-group">
+                        <textarea class="form-control" rows="5" id="result">resultadoTest</textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container page">
+        <div class="footer-bottom page">
+            <div class="footer-left">
+                <a href="/acercaDe">Acerca De</a> |
+                <a href="/">Inicio</a>
+            </div>
+            <div class="footer-right">
+                <span>&copy; 2017 Aseguramiento de la calidad, Eigen_Faces</span>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
