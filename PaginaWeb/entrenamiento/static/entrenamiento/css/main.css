@@ -78,6 +78,7 @@
 }
 .contInterno {
     padding: 20px;
+    box-shadow: 10px 10px 10px  rgba(0,0,0,0.2);
 }
 .marginBottom {
     margin-bottom: 5px;
@@ -112,4 +113,8 @@
     border-radius: 0px;
     padding: 7px 15px 7px 15px;
     
+}
+
+.contInterno2{
+    border-radius: 5px;
 }
