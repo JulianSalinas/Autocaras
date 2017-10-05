@@ -5,43 +5,41 @@
 <head>
     <meta charset="utf-8">
     <title>Eigen Faces</title>
-    <link rel="icon" href="{% static 'acercaDe/img/EF.png'%}">
-    <!-- Latest compiled and minified CSS -->
+    <link rel="icon" href="{% static 'reconocimiento/img/EF.png'%}">
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
-    <link rel="stylesheet" href="{% static 'acercaDe/css/bootstrap.css' %}">
-    <link rel="stylesheet" href="{% static 'acercaDe/css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'reconocimiento/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'reconocimiento/css/main.css' %}">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
 </head>
 
 <body>
-    <div id="header" class="header navbar navbar-static-top">
+    <div id="header" class="header navbar navbar-static-top ">
+        <nav class="navbar navbar-inverse headerBorder">
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <img src="{% static 'reconocimiento/img/EF.png' %}" alt="Logo" width="40px" height="40px">
+                    </li>
+                </ul>
 
-        <nav class="navbar navbar-inverse">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand">Eigen Faces</a>
-                </div>
-                <div class="collapse navbar-collapse" id="myNavbar">
-                    <ul class="nav navbar-nav">
-                        <li><a href="/reconocimiento">Reconocimiento</a></li>
-                        <li><a href="/entrenamiento">Entrenamiento</a></li>
-                        <li><a href="/acercaDe">Acerca De</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a><span class="glyphicon glyphicon-user"></span> Armando L.C.</a></li>
-                        <li><a><span class="glyphicon glyphicon-log-in"></span> Cerrar</a></li>
-                    </ul>
-                </div>
+                <ul class="nav navbar-nav">
+                    <li><a href="/reconocimiento"><span class="glyphicon glyphicon-eye-open"></span> Reconocimiento</a></li>
+                    <li><a href="/entrenamiento"><span class="glyphicon glyphicon-cog"></span> Entrenamiento</a></li>
+                    <li><a href="/acercaDe"><span class="glyphicon glyphicon-question-sign"></span> Acerca De</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a><span class="glyphicon glyphicon-leaf"></span> &copy;Aseguramiento de la calidad, Eigen_Faces</a></li>
+                </ul>
             </div>
+
         </nav>
 
     </div>
@@ -53,37 +51,41 @@
                     <h2>Reconocimiento de Rostros</h2>
                 </div>
 
-                <div class="form-group">
-                    <label for="InputFile"><strong>Ruta de la Imagen</strong></label>
-                    <input type="file" class="form-control-file" id="InputFile" aria-describedby="fileHelp">
-                    <small id="fileHelp" class="form-text text-muted">Por favor ingrese la localización de la imagen del sujeto.</small>
-                </div>
+                <div class="cCeleste contInterno borderRadius center">
+                    <div class="cWhite">
+                        <h1>Datos</h1>
+                        <p class="opacity1">Reconocimiento</p>
+                    </div>
 
-                <div class="form-group">
-                    <label><strong>Ejecución de la muestra</strong></label>
-                    <button type="button" class="btn btn-primary active">Ejecutar</button>
+                    <form class="w3-container bgWhite paddingAll paddingTopDown contInterno2" target="_blank">
+                        <div class="w3-section">
+                            <label>Ruta de la Imagen</label>
+                            <input type="file" class="form-control-file" id="InputFile" aria-describedby="fileHelp">
+                            
+                        </div>
+                        <div class="w3-section">
+                            <label>Dato2</label>
+                            <input class="input1" type="text" placeholder="Dato2" required>
+                        </div>
+                        <div class="w3-section">
+                            <label>Dato3</label>
+                            <input class="input1" type="text" placeholder="Dato3" required>
+                        </div>
+                        <button type="submit" class="w3-button w3-teal w3-right borderRadius">Ejecutar</button>
+                    </form>
                 </div>
-
+                <br>
                 <div class="form-group aCentro">
                     <label><strong>Resultado de la Prueba</strong></label>
                     <div class="form-group">
-                        <textarea class="form-control" rows="5" id="result">resultadoTest</textarea>
+                        <textarea class="form-control" rows="5" id="result">Este es el resultado..</textarea>
                     </div>
                 </div>
+                
             </div>
         </div>
     </div>
 
-    <div class="container page">
-        <div class="footer-bottom page">
-            <div class="footer-left">
-                <a href="/acercaDe">Acerca De</a>
-            </div>
-            <div class="footer-right">
-                <span>&copy; 2017 Aseguramiento de la calidad, Eigen_Faces</span>
-            </div>
-        </div>
-    </div>
 
 </body>
 

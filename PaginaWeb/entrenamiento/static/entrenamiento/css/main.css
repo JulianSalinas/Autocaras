@@ -118,3 +118,8 @@
 .contInterno2{
     border-radius: 5px;
 }
+
+body{
+    min-height: 100vh;
+    background: white url("../img/face2.jpg") no-repeat bottom right;
+}
