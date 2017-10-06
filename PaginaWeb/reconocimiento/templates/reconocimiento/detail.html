@@ -48,27 +48,40 @@
         <div id="content" class="container main">
             <div>
                 <div class="tituloPrincipal">
-                    <h2>Reconocimiento de Rostros</h2>
+                    <h2>Resultado del Reconocimiento</h2>
                 </div>
 
                 <div class="cCeleste contInterno borderRadius center">
-                    <div class="cWhite">
-                        <h1>Datos</h1>
-                        <p class="opacity1">Reconocimiento</p>
-                    </div>
+                    <div class="container-fluid songs-container">
 
+                        <div class="row">
 
-                    <form class="w3-container bgWhite paddingAll paddingTopDown contInterno2" role="form" action="" method="post" enctype="multipart/form-data">
-                        <label>Ruta de la Imagen</label>
-                        {% csrf_token %} {% include 'reconocimiento/form_template.html' %}
-                        <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-10">
-                                <button type="submit" class="w3-button w3-teal w3-right borderRadius">Ejecutar</button>
+                            <!-- Left Info -->
+                            <div class="col-sm-4 col-md-3">
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+
+                                        {% if album.album_logo %}
+                                        <img src="{{ album.album_logo.url }}" class="img-responsive"> {% else %}
+                                        <h3><span class="glyphicon glyphicon-picture"></span></h3> {% endif %}
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </form>
 
+                            <!-- Right Info -->
+                            <div class="col-sm-8 col-md-9">
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                        <textarea class="form-control" rows="5" id="result">{{result}}</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
                 </div>
+
+
 
             </div>
         </div>

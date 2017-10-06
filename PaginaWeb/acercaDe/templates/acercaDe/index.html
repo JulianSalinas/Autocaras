@@ -77,7 +77,7 @@
                 {% if integrantes %}
                 <ul>
                     {% for integrante in integrantes %}
-                    <li><a href="{% url 'acercaDe:detail' integrante.id %}">{{ integrante }}</a></li>
+                    <li><b>{{ integrante }}</b></li>
                     {% endfor %}
                 </ul>
                 {% else %}
