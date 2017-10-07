@@ -58,28 +58,25 @@
                     <p class="opacity1">Entrenamiento</p>
                 </div>
 
-                <form class="w3-container bgWhite paddingAll paddingTopDown contInterno2" target="_blank">
+                <form class="w3-container bgWhite paddingAll paddingTopDown contInterno2" >
                     <div class="w3-section">
-                        <label>Dato1</label>
-                        <input class="input1" type="text" placeholder="Dato1" required>
+                        <label>Porcentaje Colección</label>
+                        <label for="rangeVal" id="rangeValLabel">90</label>
+                        <input type="range" max="100" min="0" oninput="document.getElementById('rangeValLabel').innerHTML = this.value;" step="1" name="rangeVal" id="rangeVal" value="90">
                     </div>
                     <div class="w3-section">
-                        <label>Dato2</label>
-                        <input class="input1" type="text" placeholder="Dato2" required>
+                        <label>Porcentaje Valores</label>
+                        <input class="input1" type="number" min="0" max="100" value="100" placeholder="Dato2" required>
                     </div>
                     <div class="w3-section">
-                        <label>Dato3</label>
-                        <input class="input1" type="text" placeholder="Dato3" required>
+                        <label>Porcentaje Aceptación</label>
+                        <input class="input1" type="range" min="0" max="100" step="1" placeholder="Dato3" required>
                     </div>
                     <button type="submit" class="w3-button w3-teal w3-right borderRadius">Ejecutar</button>
                 </form>
             </div>
-
-
         </div>
     </div>
-
-
 </body>
 
 </html>

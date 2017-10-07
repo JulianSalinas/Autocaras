@@ -14,6 +14,8 @@ from .forms import AlbumForm
 from .models import Album
 
 
+from pruebas import test1
+
 # Create your views here.
 
 def index(request):
@@ -26,8 +28,29 @@ def index(request):
         file_type = file_type.lower()
         print(album.album_logo.url)
         album.save()
+        
         #Ejecucion del reconocimiento
-        result = "Este es el resultado del reconocimiento"
+        result = test1.ejemplo(album.album_logo.url)
+        
+        print("****** INICIO ******")
+        ruta_img_desconocida = album.album_logo.url        
+        print("\nSujeto buscado: " + ruta_img_desconocida+"\n")
+        try:
+            sujeto, img, similitud = ctrl.ejecutar_clasificacion(ruta_img_desconocida)
+
+            if sujeto is None:
+                sujeto = "Desconocido"
+                img = "Indefinida"
+
+            print("Similitud: " + str(round(similitud*100, 2)) + "%")
+            print("Sujeto encontrado: " + sujeto)
+            print("Imagen + cercana: " + img)
+
+        except IOError:
+            print("Error al leer la imagen")
+
+        print("****** FIN ******")
+        
         
         return render(request, 'reconocimiento/detail.html', {'album': album, 'result':result})
     context = {
