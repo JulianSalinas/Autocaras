@@ -24,6 +24,16 @@ siguiente bibliotecas para que el sistema funcione correctamente:
 
 > pip install opencv-python
 
+> pip install django
+
+> pip install pillow
+
+Se hace uso del editor [PyCharm]. Se debe configurar después de 
+abrir el proyecto.
+
+* Colocar python 3.6 como predeterminada
+* Colocar las carpetas dentro de la carpeta "Código" como "source root"
+
 ### Pruebas unitarias
 El programa sigue en desarrollo. Para probar el avance podemos hacer uso
 de las pruebas unitarias. Para ello abrimos la carpeta `pruebas` en la
