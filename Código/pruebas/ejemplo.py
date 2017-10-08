@@ -1,10 +1,9 @@
-from controlador import *
+from fachada_autocaras import *
 from imprimir import *
-from dao_indice import *
 
 # TODO: Encontrar los valores óptimos para el porcentaje de valores a conservar y el mínimo de aceptación
 
-ctrl = Controlador()
+api = FachadaAutocaras()
 
 
 def ejemplo(ruta_img_desconocida):
@@ -13,7 +12,7 @@ def ejemplo(ruta_img_desconocida):
 
     try:
 
-        sujeto, img, similitud = ctrl.ejecutar_clasificacion(ruta_img_desconocida)
+        sujeto, img, similitud = api.ejecutar_clasificacion(ruta_img_desconocida)
 
         if sujeto is None:
             sujeto = "Desconocido"
@@ -46,6 +45,3 @@ ejemplo("..\\..\\Datos\\otros\\nocara2.png")
 ejemplo("..\\..\\Datos\\otros\\nocara3.png")
 ejemplo("..\\..\\Datos\\otros\\nocara4.png")
 ejemplo("..\\..\\Datos\\otros\\nocara5.png")
-
-evaluacion = ctrl.ejecutar_evaluacion()
-print(evaluacion)
