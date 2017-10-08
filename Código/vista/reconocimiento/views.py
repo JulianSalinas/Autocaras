@@ -23,10 +23,10 @@ def index(request):
 
         ruta_img = album.album_logo.url
         ruta_img = "../vista" + ruta_img
-        result = str(api.ejecutar_clasificacion(ruta_img))
-
+        #result = str(api.ejecutar_clasificacion(ruta_img))
+        ruta_img, img_similar, grado_similitud = api.ejecutar_clasificacion(ruta_img)
         # result = test1.ejemplo(ruta_img)
-        return render(request, 'reconocimiento/detail.html', {'album': album, 'result':result})
+        return render(request, 'reconocimiento/detail.html', {'album': album, 'ruta_img':str(ruta_img), 'img_similar':str(img_similar), 'grado_similitud':str(grado_similitud)})
 
     context = {
         'form': form,
