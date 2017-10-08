@@ -26,8 +26,6 @@ siguiente bibliotecas para que el sistema funcione correctamente:
 
 > pip install django
 
-> pip install pillow
-
 Se hace uso del editor [PyCharm]. Se debe configurar después de 
 abrir el proyecto.
 
