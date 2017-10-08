@@ -3,7 +3,6 @@
 import time
 from unittest import TestCase
 
-from Código.modelo.coleccion import *
 from Código.pruebas.imprimir import *
 
 
