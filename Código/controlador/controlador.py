@@ -1,7 +1,7 @@
 # ----------------------------------------------------------------------------------------------------------------------
 
 from clasificador import *
-from entrenamient import *
+from PIL import Image
 from dao_indice import *
 from evaluacion import *
 
@@ -92,28 +92,45 @@ class Controlador(object):
 
     # ------------------------------------------------------------------------------------------------------------------
 
-    def ejecutar_clasificacion(self, img):
+    def ejecutar_clasificacion(self, ruta_img_buscada):
 
         """
         Ejecuta la clasificación para una imagen mediante el método del centroide más cercano
-        @param img: imagen o ruta de la imagen desconocida que se desea clasificar
-        @return: ruta_sujeto, ruta_img, similitud
+        @param ruta_img_buscada: ruta de la imagen desconocida que se desea clasificar
+        @return: sujeto, ruta_img_mas_similar, grado_similitud, ruta_img_buscada
         """
 
         if self.entrenamiento is None:
             self.ejecutar_entrenamiento()
 
-        img = cv.imread(img, 0) if type(img) == str else img
+        img_buscada = cv.imread(ruta_img_buscada, 0)
 
-        if img is not None:
+        if img_buscada is not None:
 
-            indice, similitud = self.clasificador.clasificar(img)
-
+            indice, similitud = self.clasificador.clasificar(img_buscada)
             if indice != -1:
                 indice = self.entrenamiento.indices_entrenamiento[indice]
+            sujeto, ruta_img_encontrada = self.coleccion.consultar_img(indice)
 
-            ruta_suj, ruta_img = self.coleccion.consultar_img(indice)
-            return ruta_suj, ruta_img, similitud
+            # Convertimos las imagenes (la busca y la encontrada) a formato png
+            # Esto con el fin de que la página web las pueda obtener
+
+            ruta_temporal = "../vista/media/"
+
+            ruta_img_buscada = os.path.split(ruta_img_buscada)
+            ruta_img_buscada = os.path.splitext(ruta_img_buscada[1])
+            ruta_img_buscada = ruta_temporal + ruta_img_buscada[0]
+            ruta_img_buscada += ".png"
+            cv.imwrite(ruta_img_buscada, img_buscada)
+
+            img_encontrada = cv.imread(ruta_img_encontrada)
+            ruta_img_encontrada = os.path.split(ruta_img_buscada)
+            ruta_img_encontrada = os.path.splitext(ruta_img_encontrada[1])
+            ruta_img_encontrada = ruta_temporal + ruta_img_encontrada[0]
+            ruta_img_encontrada += ".png"
+            cv.imwrite(ruta_img_encontrada, img_encontrada)
+
+            return sujeto, ruta_img_buscada, similitud, ruta_img_buscada
 
         raise IOError
 

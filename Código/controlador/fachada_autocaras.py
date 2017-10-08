@@ -17,10 +17,8 @@ class FachadaAutocaras(object):
 
         """
         Indexa la colección de imagenes que se encuentre en una ruta dada
-
         NOTA: No es necesario que se utilice esta función a menos que la
         ruta de los datos sea diferente a la que se tiene por defecto
-
         @param ruta_datos: Ruta donde estan las imagenes
         @param regex_sujs: Expresión regula que indique que carpetas corresponden a sujetos
         @param regex_imgs: Expresión regula que indique archivos corresponden a la imagen de un sujeto
@@ -47,16 +45,16 @@ class FachadaAutocaras(object):
 
     # ------------------------------------------------------------------------------------------------------------------
 
-    def ejecutar_clasificacion(self, img):
+    def ejecutar_clasificacion(self, ruta_img_buscada):
 
         """
         Ejecuta la clasificación para una imagen
         NOTA: Se enviar la imagen "en bruto", abierta con opencv o simplemente la ruta de dicha imagen
-        @param img: imagen o ruta de la imagen desconocida que se desea clasificar
-        @return: ruta_sujeto, ruta_img, similitud
+        @param ruta_img_buscada: ruta de la imagen desconocida que se desea clasificar
+        @return: sujeto, ruta_img_mas_similar, grado_similitud, ruta_img_buscada
         """
 
-        return self.ctrl.ejecutar_clasificacion(img)
+        return self.ctrl.ejecutar_clasificacion(ruta_img_buscada)
 
     # ------------------------------------------------------------------------------------------------------------------
 
