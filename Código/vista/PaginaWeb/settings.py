@@ -19,9 +19,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'acercaDe.apps.AcercadeConfig',
-    'reconocimiento.apps.ReconocimientoConfig',
-    'entrenamiento.apps.EntrenamientoConfig',
+    'app.apps.AppConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,7 +38,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'PaginaWeb.urls'
+ROOT_URLCONF = 'paginaWeb.urls'
 
 TEMPLATES = [
     {
@@ -58,7 +56,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'PaginaWeb.wsgi.application'
+WSGI_APPLICATION = 'paginaWeb.wsgi.application'
 
 
 # Database
