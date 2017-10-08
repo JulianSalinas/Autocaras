@@ -106,7 +106,12 @@ class Controlador(object):
         img = cv.imread(img, 0) if type(img) == str else img
 
         if img is not None:
+
             indice, similitud = self.clasificador.clasificar(img)
+
+            if indice != -1:
+                indice = self.entrenamiento.indices_entrenamiento[indice]
+
             ruta_suj, ruta_img = self.coleccion.consultar_img(indice)
             return ruta_suj, ruta_img, similitud
 
