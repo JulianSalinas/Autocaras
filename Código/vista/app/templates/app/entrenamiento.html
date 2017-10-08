@@ -1,0 +1,82 @@
+{% load staticfiles %}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Eigen Faces</title>
+    <link rel="icon" href="{% static 'app/img/EF.png'%}">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="{% static 'app/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'app/css/main.css' %}">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+
+<body>
+    <div id="header" class="header navbar navbar-static-top ">
+        <nav class="navbar navbar-inverse headerBorder">
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <img src="{% static 'app/img/EF.png' %}" alt="Logo" width="40px" height="40px">
+                    </li>
+                </ul>
+
+                <ul class="nav navbar-nav">
+                    <li><a href="/autoCaras/reconocimiento"><span class="glyphicon glyphicon-eye-open"></span> Reconocimiento</a></li>
+                    <li><a href="/autoCaras/entrenamiento"><span class="glyphicon glyphicon-cog"></span> Entrenamiento</a></li>
+                    <li><a href="/autoCaras/acercaDe"><span class="glyphicon glyphicon-question-sign"></span> Acerca De</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a><span class="glyphicon glyphicon-leaf"></span> &copy;Aseguramiento de la calidad, Eigen_Faces</a></li>
+                </ul>
+            </div>
+
+        </nav>
+
+    </div>
+
+    <div class="container page">
+        <div id="content" class="container main">
+
+            <div class="tituloPrincipal">
+                <h2>Entrenamiento del Sistema</h2>
+            </div>
+
+
+            <div class="cCeleste contInterno borderRadius center">
+                <div class="cWhite">
+                    <h1>Datos</h1>
+                    <p class="opacity1">Entrenamiento</p>
+                </div>
+
+                <form class="w3-container bgWhite paddingAll paddingTopDown contInterno2" >
+                    <div class="w3-section">
+                        <label>Porcentaje Colección</label>
+                        <label for="rangeVal" id="rangeValLabel">90</label>
+                        <input type="range" max="100" min="0" oninput="document.getElementById('rangeValLabel').innerHTML = this.value;" step="1" name="rangeVal" id="rangeVal" value="90">
+                    </div>
+                    <div class="w3-section">
+                        <label>Porcentaje Valores</label>
+                        <input class="input1" type="number" min="0" max="100" value="100" placeholder="Dato2" required>
+                    </div>
+                    <div class="w3-section">
+                        <label>Porcentaje Aceptación</label>
+                        <input class="input1" type="range" min="0" max="100" step="1" placeholder="Dato3" required>
+                    </div>
+                    <button type="submit" class="w3-button w3-teal w3-right borderRadius">Ejecutar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

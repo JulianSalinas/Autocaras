@@ -1,0 +1,97 @@
+{% load staticfiles %}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Eigen Faces</title>
+    <link rel="icon" href="{% static 'app/img/EF.png'%}">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="{% static 'app/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'app/css/main.css' %}">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+
+<body>
+    <div id="header" class="header navbar navbar-static-top ">
+        <nav class="navbar navbar-inverse headerBorder">
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <img src="{% static 'app/img/EF.png' %}" alt="Logo" width="40px" height="40px">
+                    </li>
+                </ul>
+
+                <ul class="nav navbar-nav">
+                    <li><a href="/autoCaras/reconocimiento"><span class="glyphicon glyphicon-eye-open"></span> Reconocimiento</a></li>
+                    <li><a href="/autoCaras/entrenamiento"><span class="glyphicon glyphicon-cog"></span> Entrenamiento</a></li>
+                    <li><a href="/autoCaras/acercaDe"><span class="glyphicon glyphicon-question-sign"></span> Acerca De</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a><span class="glyphicon glyphicon-leaf"></span> &copy;Aseguramiento de la calidad, Eigen_Faces</a></li>
+                </ul>
+            </div>
+
+        </nav>
+
+    </div>
+
+    <div class="container page">
+        <div id="content" class="container main">
+            <div>
+                <div class="tituloPrincipal">
+                    <h2>Resultado del Reconocimiento</h2>
+                </div>
+
+                <div class="cCeleste contInterno borderRadius center">
+                    <div class="container-fluid songs-container">
+
+                        <div class="row">
+
+                            <!-- Left Info -->
+                            <div class="col-sm-4 col-md-3">
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+
+                                        {% if imagen.file %}
+                                        <img src="{{ imagen.file.url }}" class="img-responsive"> {% else %}
+                                        <h3><span class="glyphicon glyphicon-picture"></span></h3> {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Right Info -->
+                            <div class="col-sm-8 col-md-9">
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+
+                                        <label><b>Sujeto Identificado:</b> {{ sujeto_identificado }}</label>
+                                        <label><b>Imagen Similar:</b> {{ img_similar }}</label>
+                                        <label><b>Grado de Similitud:</b> {{ grado_similitud }}</label>
+
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+</html>
