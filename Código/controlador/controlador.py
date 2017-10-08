@@ -20,18 +20,18 @@ class Controlador(object):
             4. Antes de evaluar al sistema se tiene que haber indexado la colección de imagenes
         """
 
-        # TODO Aquí se deberían cargar las clases guardadas
-
         self.dao_indices = DaoIndice()
 
         # Para utilizar el indexado generado anteriormente
-        self.coleccion, self.entrenamiento = self.dao_indices.leer_indexado('AT&T')
-        self.clasificador = Clasificador(self.entrenamiento, 75)
 
-        # Para indexar y utilizar este mismo indexado en memoria
-        # self.coleccion = None
-        # self.entrenamiento = None
-        # self.clasificador = None
+        try:
+            self.coleccion, self.entrenamiento = self.dao_indices.leer_indexado('AT&T')
+            self.clasificador = Clasificador(self.entrenamiento, 75)
+
+        except FileNotFoundError:
+            self.coleccion = None
+            self.entrenamiento = None
+            self.clasificador = None
 
     # ------------------------------------------------------------------------------------------------------------------
 
@@ -51,7 +51,7 @@ class Controlador(object):
 
     # ------------------------------------------------------------------------------------------------------------------
 
-    def ejecutar_entrenamiento(self, porcentaje_coleccion=100, porcentaje_valores=85, porcentaje_aceptacion=75):
+    def ejecutar_entrenamiento(self, porcentaje_coleccion=80, porcentaje_valores=85, porcentaje_aceptacion=75):
 
         """
         Ejecuta el entrenamiento del sistema
@@ -112,18 +112,23 @@ class Controlador(object):
 
     # ------------------------------------------------------------------------------------------------------------------
 
-    def ejecutar_evaluacion(self):
+    def ejecutar_evaluacion(self, nombre_archivo='AT&T'):
 
         """
         Ejecuta la evaluación del sistema con base al último entrenamiento realizado. De la evaluación se puede extraer
         la tabla de imagenes clasificadas vs reales, la tabla de evaluaciones (vp, fp, vn, fn, tvp, tpp) y los promedios
-        de dicha tabla de evaluaciónes.
+        de dicha tabla de evaluaciónes. El informe se guarda en un archivo
+        NOTA: Si en el último entrenamiento se usó el 100% de la colección, significa que no habrán imagenes disponibles
+        para realizar la evaluación, por tanto, la tabla generada estará llena con ceros
+        @param nombre_archivo: Ruta absoluta del archivo a crear para guardar el informe de la evaluación
         @return instacia de la clase Evaluación
         """
 
         if self.entrenamiento is None:
-            self.ejecutar_entrenamiento()
+            self.ejecutar_entrenamiento(porcentaje_coleccion=80)
 
-        return Evaluacion(self.coleccion, self.entrenamiento, self.clasificador)
+        evaluacion = Evaluacion(self.coleccion, self.entrenamiento, self.clasificador)
+        self.dao_indices.guardar_presicion(nombre_archivo, evaluacion)
+        return evaluacion
 
 # ----------------------------------------------------------------------------------------------------------------------

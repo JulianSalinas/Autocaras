@@ -5,10 +5,6 @@ from dao_indice import *
 # TODO: Encontrar los valores óptimos para el porcentaje de valores a conservar y el mínimo de aceptación
 
 ctrl = Controlador()
-dao = DaoIndice()
-
-# ctrl.indexar_coleccion()
-# ctrl.ejecutar_entrenamiento(porcentaje_coleccion=80, porcentaje_valores=70, porcentaje_aceptacion=75)
 
 
 def ejemplo(ruta_img_desconocida):
@@ -35,6 +31,7 @@ def ejemplo(ruta_img_desconocida):
         print("Error al leer la imagen")
         imprimir_verde("----------------------------------------------------------\n")
 
+
 ejemplo("..\\..\\Datos\\otros\\1_1.pgm")
 ejemplo("..\\..\\Datos\\otros\\13_4.pgm")
 ejemplo("..\\..\\Datos\\otros\\26_7.pgm")
@@ -51,5 +48,4 @@ ejemplo("..\\..\\Datos\\otros\\nocara4.png")
 ejemplo("..\\..\\Datos\\otros\\nocara5.png")
 
 evaluacion = ctrl.ejecutar_evaluacion()
-dao.guardar_presicion('AT&T', evaluacion)
 print(evaluacion)
