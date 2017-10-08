@@ -1,80 +1,32 @@
-{% load staticfiles %}
-<!doctype html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <title>Eigen Faces</title>
-    <link rel="icon" href="{% static 'app/img/EF.png'%}">
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
-    <link rel="stylesheet" href="{% static 'app/css/bootstrap.css' %}">
-    <link rel="stylesheet" href="{% static 'app/css/main.css' %}">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-</head>
-
-<body>
-    <div id="header" class="header navbar navbar-static-top ">
-        <nav class="navbar navbar-inverse headerBorder">
-            <div class="collapse navbar-collapse" id="myNavbar">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <img src="{% static 'app/img/EF.png' %}" alt="Logo" width="40px" height="40px">
-                    </li>
-                </ul>
-
-                <ul class="nav navbar-nav">
-                    <li><a href="/autoCaras/reconocimiento"><span class="glyphicon glyphicon-eye-open"></span> Reconocimiento</a></li>
-                    <li><a href="/autoCaras/entrenamiento"><span class="glyphicon glyphicon-cog"></span> Entrenamiento</a></li>
-                    <li><a href="/autoCaras/acercaDe"><span class="glyphicon glyphicon-question-sign"></span> Acerca De</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a><span class="glyphicon glyphicon-leaf"></span> &copy;Aseguramiento de la calidad, Eigen_Faces</a></li>
-                </ul>
+{% extends 'app/paginaMaestra.html' %} {% block body %}
+<div class="container page">
+    <div id="content" class="container main">
+        <div>
+            <div class="tituloPrincipal">
+                <h2>Reconocimiento de Rostros</h2>
             </div>
 
-        </nav>
-
-    </div>
-
-    <div class="container page">
-        <div id="content" class="container main">
-            <div>
-                <div class="tituloPrincipal">
-                    <h2>Reconocimiento de Rostros</h2>
+            <div class="cCeleste contInterno borderRadius center">
+                <div class="cWhite">
+                    <h1>Datos</h1>
+                    <p class="opacity1">Reconocimiento</p>
                 </div>
 
-                <div class="cCeleste contInterno borderRadius center">
-                    <div class="cWhite">
-                        <h1>Datos</h1>
-                        <p class="opacity1">Reconocimiento</p>
-                    </div>
 
-
-                    <form class="w3-container bgWhite paddingAll paddingTopDown contInterno2" role="form" action="" method="post" enctype="multipart/form-data">
-                        <label>Ruta de la Imagen</label>
-                        {% csrf_token %} {% include 'app/form_template.html' %}
-                        <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-10">
-                                <button type="submit" class="w3-button w3-teal w3-right borderRadius">Ejecutar</button>
-                            </div>
+                <form class="w3-container bgWhite paddingAll paddingTopDown contInterno2" role="form" action="" method="POST" enctype="multipart/form-data">
+                    <label><b>Ruta de la Imagen</b></label>
+                    {% csrf_token %} {% include 'app/form_template.html' %}
+                    
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="w3-button w3-teal w3-right borderRadius">Ejecutar</button>
                         </div>
-                    </form>
-
-                </div>
+                    </div>
+                </form>
 
             </div>
+
         </div>
     </div>
-
-
-</body>
-
-</html>
+</div>
+{% endblock %}

@@ -1,10 +1,10 @@
-{% extends 'app/paginaMaestra.html' %} {% block body %}
-
+{% extends 'app/paginaMaestra.html' %} 
+{% block body %}
 <div class="container page">
     <div id="content" class="container main">
         <div>
             <div class="tituloPrincipal">
-                <h2>Resultado del Reconocimiento</h2>
+                <h2>Resultado del Entrenamiento</h2>
             </div>
 
             <div class="cCeleste contInterno borderRadius center">
@@ -14,12 +14,10 @@
 
                         <!-- Left Info -->
                         <div class="col-sm-4 col-md-3">
-                            <div class="panel panel-default">
+                            <div class="panel panel-default bgTransparent borderNone middle">
                                 <div class="panel-body">
-
-                                    {% if ruta_img %}
-                                    <img src="{{ ruta_img }}" class="img-responsive"> {% else %}
-                                    <h3><span class="glyphicon glyphicon-picture"></span></h3> {% endif %}
+                                    
+                                    <div class="aCentro"><span class="glyphicon glyphicon-wrench f45"></span></div>
                                 </div>
                             </div>
                         </div>
@@ -29,9 +27,8 @@
                             <div class="panel panel-default">
                                 <div class="panel-body">
 
-                                    <label><b>Sujeto Identificado:</b> {{ sujeto_identificado }}</label>
-                                    <label><b>Imagen Similar:</b> {{ img_similar }}</label>
-                                    <label><b>Grado de Similitud:</b> {{ grado_similitud }}</label>
+                                    <label><b>Estado Final:</b> --{{ sujeto_identificado }}</label>
+                                    <label><b>Respuesta:</b> --{{ img_similar }}</label>
 
                                 </div>
                             </div>
@@ -40,8 +37,9 @@
                     </div>
                 </div>
             </div>
+
+
         </div>
     </div>
 </div>
-
 {% endblock %}
