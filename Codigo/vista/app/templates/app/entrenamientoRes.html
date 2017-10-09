@@ -26,9 +26,12 @@
                         <div class="col-sm-8 col-md-9">
                             <div class="panel panel-default">
                                 <div class="panel-body">
-
-                                    <label><b>Estado Final:</b> --{{ sujeto_identificado }}</label>
-                                    <label><b>Respuesta:</b> --{{ img_similar }}</label>
+                                    {% if estado == 'OK' %}
+                                    <label><b>Estado de Finalización:</b> {{ mensaje }}</label>
+                                    {% else %}
+                                        <label><b>Estado de Finalización:</b> {{ mensaje }}</label>
+                                        <label><b>Detalles:</b> {{ detalles }}</label>
+                                    {% endif %}
 
                                 </div>
                             </div>

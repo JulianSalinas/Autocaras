@@ -8,6 +8,8 @@ from .models import Integrante
 from controlador.api_autocaras import *
 api = APIAutocaras()
 
+from modelo.utilitarios.conversor import Conversor
+
 """
 ***********************************************************************
 Vista para cargar la seccion de reconocimiento del sistema
@@ -24,23 +26,19 @@ def reconocimiento(request):
 
         ruta_img = imagen.file.url
         ruta_img = "../vista" + ruta_img
-        sujeto_identificado, img_similar, grado_similitud = api.ejecutar_clasificacion(ruta_img)
 
-        #Bueno
-        parametros = {'estado': "OK",
-                      'mensaje': "Ejecutado correctamente",
-                      'sujeto_identificado': str(sujeto_identificado),
-                      'img_similar': str(img_similar),
-                      'grado_similitud': str(grado_similitud)}
+        #Ejecucion del reconocimiento de rostros
+        # sujeto_identificado, img_similar, grado_similitud = api.ejecutar_clasificacion(ruta_img)
+        contexto = api.ejecutar_clasificacion(ruta_img)
 
-        #Con error
-        parametros = {'estado': "ERROR",
-                      'mensaje': "Descripción del error",
-                      'sujeto_identificado': str(sujeto_identificado),
-                      'img_similar': str(img_similar),
-                      'grado_similitud': str(grado_similitud)}
+        #Conversion de la imagen buscada a formato .PNG
+        ruta_img = Conversor.convertir_pgm_a_png(str(imagen.file.url))
 
-        return render(request, 'app/reconocimientoRes.html', parametros)
+        #Se agrega la llave ruta_img que contiene la imagen que se muestra en el resultado
+        contexto['ruta_img'] = ruta_img
+
+        #Llamado al template de resultados, pasando como contexto la respuesta del reconocimiento
+        return render(request, 'app/reconocimientoRes.html', contexto)
 
     context = {
         'form': form,
@@ -60,15 +58,19 @@ Vista para cargar los datos del entrenamiento
 
 def entrenamiento(request):
     if(request.method == 'POST'):
-        valPorColeccion = request.POST.get('valPorColeccion',"")
-        valPorValores = request.POST.get('valPorValores',"")
-        valPorAceptacion = request.POST.get('valPorAceptacion',"")
-        print("Valores: ")
-        print(str(valPorAceptacion))
-        print(valPorColeccion)
-        print(valPorValores)
+        porcentaje_coleccion = request.POST.get('porcentaje_coleccion',"")
+        porcentaje_valores = request.POST.get('porcentaje_valores',"")
+        porcentaje_aceptacion = request.POST.get('porcentaje_aceptacion',"")
+        print("Valores de Entrenamiento Solicitados: ")
+        print('Porcentaje de Coleccion '+ str(porcentaje_coleccion))
+        print('Porcentaje de Valores '+ str(porcentaje_valores))
+        print('Porcentaje de Aceptacion '+str(porcentaje_aceptacion))
 
-        return render(request, 'app/entrenamientoRes.html',{})
+        # Ejecucion del entrenamiento del sistema
+        contexto = api.ejecutar_entrenamiento(porcentaje_coleccion, porcentaje_valores, porcentaje_aceptacion)
+
+        # Llamado al template de resultados, pasando como contexto la respuesta del entrenamiento
+        return render(request, 'app/entrenamientoRes.html',contexto)
 
     return render(request, 'app/entrenamiento.html', {})
 
