@@ -5,6 +5,7 @@ from django.shortcuts import render
 from .forms import FormularioReconocimiento
 from .models import Integrante
 
+from controlador.configuracion import *
 from controlador.api_autocaras import *
 api = APIAutocaras()
 
@@ -25,19 +26,20 @@ def reconocimiento(request):
         print(imagen.file.url)
 
         ruta_img = imagen.file.url
-        ruta_img = "../vista" + ruta_img
+        ruta_img = os.path.split(ruta_img)[1]
+        ruta_img = os.path.join(Configuracion.RUTA_MEDIA, ruta_img)
 
-        #Ejecucion del reconocimiento de rostros
+        # Ejecucion del reconocimiento de rostros
         # sujeto_identificado, img_similar, grado_similitud = api.ejecutar_clasificacion(ruta_img)
         contexto = api.ejecutar_clasificacion(ruta_img)
 
-        #Conversion de la imagen buscada a formato .PNG
-        ruta_img = Conversor.convertir_pgm_a_png(str(imagen.file.url))
+        # Conversion de la imagen buscada a formato .PNG
+        ruta_img = Conversor.convertir_pgm_a_png(str(ruta_img))
 
-        #Se agrega la llave ruta_img que contiene la imagen que se muestra en el resultado
+        # Se agrega la llave ruta_img que contiene la imagen que se muestra en el resultado
         contexto['ruta_img'] = ruta_img
 
-        #Llamado al template de resultados, pasando como contexto la respuesta del reconocimiento
+        # Llamado al template de resultados, pasando como contexto la respuesta del reconocimiento
         return render(request, 'app/reconocimientoRes.html', contexto)
 
     context = {

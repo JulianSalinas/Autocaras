@@ -76,7 +76,7 @@ class APIAutocaras(object):
             return {'estado': "OK",
                     'mensaje': "La operación se ha realizado con exito",
                     'sujeto_identificado': str(ruta_sujeto),
-                    'img_similar': str(img_similar),
+                    'ruta_img': str(img_similar),
                     'grado_similitud': str(similitud)}
 
         except Exception as ex:
