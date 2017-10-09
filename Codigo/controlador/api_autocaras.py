@@ -15,7 +15,7 @@ class APIAutocaras(object):
 
     def indexar_coleccion(self):
 
-        """ Indexa la colección de imagenes con base al archivo configuracion.py"""
+        """ Indexa la colección de imagenes con base al archivo configuracion.py """
 
         self.ctrl.indexar_coleccion()
 

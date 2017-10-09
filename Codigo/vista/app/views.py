@@ -26,7 +26,17 @@ def reconocimiento(request):
         ruta_img = "../vista" + ruta_img
         sujeto_identificado, img_similar, grado_similitud = api.ejecutar_clasificacion(ruta_img)
 
-        parametros = {'sujeto_identificado': str(sujeto_identificado),
+        #Bueno
+        parametros = {'estado': "OK",
+                      'mensaje': "Ejecutado correctamente",
+                      'sujeto_identificado': str(sujeto_identificado),
+                      'img_similar': str(img_similar),
+                      'grado_similitud': str(grado_similitud)}
+
+        #Con error
+        parametros = {'estado': "ERROR",
+                      'mensaje': "Descripción del error",
+                      'sujeto_identificado': str(sujeto_identificado),
                       'img_similar': str(img_similar),
                       'grado_similitud': str(grado_similitud)}
 

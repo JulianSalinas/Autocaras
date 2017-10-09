@@ -1,10 +1,13 @@
 # ----------------------------------------------------------------------------------------------------------------------
 
-import os
 import glob
+import os
+
 import cv2 as cv
 import numpy as np
+
 from controlador.configuracion import *
+
 
 # ----------------------------------------------------------------------------------------------------------------------
 
@@ -74,7 +77,7 @@ class Coleccion(object):
         """
 
         # Obteniendo la carpeta de cada uno de los sujetos
-        bd = os.path.join(Config.RUTA_DATOS, Config.REGEX_SUJS)
+        bd = os.path.join(Configuracion.RUTA_DATOS, Configuracion.REGEX_SUJS)
         ruta_sujs = glob.glob(bd)
         num_img = 0
 
@@ -82,7 +85,7 @@ class Coleccion(object):
             self.dic_sujs[i] = ruta_sujs[i]
 
             # Obteniendo imagenes (rutas) de cada sujeto en específico
-            for img in glob.glob(ruta_sujs[i] + Config.REGEX_IMGS):
+            for img in glob.glob(ruta_sujs[i] + Configuracion.REGEX_IMGS):
                 self.dic_imgs[num_img] = (ruta_sujs[i], img)
                 num_img += 1
 

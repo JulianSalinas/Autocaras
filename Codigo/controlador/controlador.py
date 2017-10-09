@@ -1,10 +1,11 @@
 # ----------------------------------------------------------------------------------------------------------------------
 
-from modelo.utilitarios.conversor import *
-from controlador.dao_indice import *
-from modelo.entrenamiento import *
+import pickle
 from modelo.clasificador import *
+from modelo.entrenamiento import *
 from modelo.evaluacion import *
+from modelo.utilitarios.conversor import *
+from controlador.dao_evaluacion import *
 
 # ----------------------------------------------------------------------------------------------------------------------
 
@@ -13,12 +14,21 @@ class Controlador(object):
 
     def __init__(self):
 
-        # Utilizar el último entrenamiento ejecutado
+        """
+        Clase principal del sistema, aquí se reunen los casos de uso, como por ejemplo, entrenar el sistema, realizar
+        la clasificación de imagenes desconocidas. Se debe tomar en cuenta las siguientes consideraciones:
+            1. Indexar la colección de imágenes implica tener que re-entrenar el sistema
+            2. Entrenar el sistema requiere refrescar el modelo para clasificación
+            3. Antes de usar el modelo de clasificación el sistema debe de haber sido entrenado previamente
+            4. Antes de evaluar al sistema se tiene que haber indexado la colección de imagenes
+        """
+
+        if not os.path.exists(Configuracion.RUTA_INDICE):
+            os.makedirs(Configuracion.RUTA_INDICE)
 
         try:
-            self.dao_indices = DaoIndice()
-            self.coleccion = self.dao_indices.cargar_ultima_coleccion()
-            self.entrenamiento = self.dao_indices.cargar_ultimo_entrenamiento()
+            self.coleccion = pickle.load(open(Configuracion.RUTA_COLECCION, "rb"))
+            self.entrenamiento = pickle.load(open(Configuracion.RUTA_ENTRENAMIENTO, "rb"))
 
         except FileNotFoundError or IOError:
             self.indexar_coleccion()
@@ -31,12 +41,13 @@ class Controlador(object):
     def indexar_coleccion(self):
 
         """
-        Indexa la colección de imagenes con base al modulo configuración
+        Indexa la colección de imagenes con base a las rutas del módulo configuración
+        @return no retorna ningun valor
         """
 
         self.coleccion = Coleccion()
-        self.dao_indices.guardar_coleccion(self.coleccion)
-        return self.coleccion
+
+        pickle.dump(self.coleccion, open(Configuracion.RUTA_COLECCION, "wb"))
 
     # ------------------------------------------------------------------------------------------------------------------
 
@@ -46,9 +57,8 @@ class Controlador(object):
         Ejecuta el entrenamiento del sistema
         @param porcentaje_coleccion: Porcentaje de la colección que se usará para realizar el entrenamiento
         @param porcentaje_valores: Porcentaje de valores (autocaras o componentes) que se desean conservar
-        @param porcentaje_aceptacion: Procentaje de aceptación mínimo para que el clasificador reconozca que una imagen
-        desconocida se encuentra dentro del autoespacio
-        @return self.entrenamiento, self.clasificador
+        @param porcentaje_aceptacion: Procentaje de aceptación mínimo para que el clasificador reconozca un sujeto
+        @return no retorna ningun valor
         """
 
         if self.coleccion is None:
@@ -57,10 +67,7 @@ class Controlador(object):
         self.entrenamiento = Entrenamiento(self.coleccion, porcentaje_coleccion, porcentaje_valores)
         self.clasificador = Clasificador(self.coleccion, self.entrenamiento, porcentaje_aceptacion)
 
-        # Indexa los indice para clasificaciones futuras
-        self.dao_indices.guardar_entrenamiento(self.entrenamiento)
-
-        return self.entrenamiento, self.clasificador
+        pickle.dump(self.entrenamiento, open(Configuracion.RUTA_ENTRENAMIENTO, "wb"))
 
     # ------------------------------------------------------------------------------------------------------------------
 
@@ -84,7 +91,7 @@ class Controlador(object):
 
     # ------------------------------------------------------------------------------------------------------------------
 
-    def ejecutar_evaluacion(self, nombre_archivo='AT&T'):
+    def ejecutar_evaluacion(self, nombre_archivo):
 
         """
         Ejecuta la evaluación del sistema con base al último entrenamiento realizado. De la evaluación se puede extraer
@@ -97,10 +104,11 @@ class Controlador(object):
         """
 
         if self.entrenamiento is None:
-            self.ejecutar_entrenamiento(porcentaje_coleccion=80)
+            self.ejecutar_entrenamiento()
 
+        dao = DaoEvaluacion()
         evaluacion = Evaluacion(self.coleccion, self.entrenamiento, self.clasificador)
-        self.dao_indices.guardar_evaluacion(nombre_archivo, evaluacion)
+        dao.guardar(nombre_archivo, dao)
         return evaluacion
 
 # ----------------------------------------------------------------------------------------------------------------------

@@ -14,9 +14,9 @@ class TestColeccion(TestCase):
     def test_coleccion(self):
 
         # Colocamos la configuracion para que solo se lean 3 imagenes de los primeros 2 sujetos
-        Config.RUTA_DATOS = "..\\..\\datos"
-        Config.REGEX_SUJS = "s[1-2]"
-        Config.REGEX_IMGS = "\\[1-3].pgm"
+        Configuracion.RUTA_DATOS = "..\\..\\datos"
+        Configuracion.REGEX_SUJS = "s[1-2]"
+        Configuracion.REGEX_IMGS = "\\[1-3].pgm"
 
         # Instanciamos la colección, es decir, los diccionarios con las imagenes
         coleccion = Coleccion()
@@ -41,9 +41,9 @@ class TestColeccion(TestCase):
     def test_obt_subconjunto(self):
 
         # Colocamos la informacion para que solo lea las imagenes del primers sujeto
-        Config.RUTA_DATOS = "..\\..\\datos"
-        Config.REGEX_SUJS = "s1"
-        Config.REGEX_IMGS = "\*"
+        Configuracion.RUTA_DATOS = "..\\..\\datos"
+        Configuracion.REGEX_SUJS = "s1"
+        Configuracion.REGEX_IMGS = "\*"
 
         # Solo indexara las imagenes del primer sujeto
         coleccion = Coleccion()

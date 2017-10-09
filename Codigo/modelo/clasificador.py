@@ -62,7 +62,7 @@ class Clasificador(object):
 
         # Si la similitud es menor al minimo quiere decir que el sujeto no se reconoce en la BD
         if similitud < self.indice_aceptacion:
-            return Config.SUJ_DESCONOCIDO, Config.IMG_DESCONOCIDA, similitud
+            return Configuracion.SUJ_DESCONOCIDO, Configuracion.IMG_DESCONOCIDA, similitud
 
         # Consultamos a que sujeto pertenece el indice que obtuvimos
         indice = self.entrenamiento.indices_entrenamiento[indice]
