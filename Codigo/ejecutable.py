@@ -18,8 +18,9 @@ def instalar_dependencias():
 # ----------------------------------------------------------------------------------------------------------------------
 
 
-comando = "python manage.py runserver"
-os.system(comando)
-# exec(open("./manage.py").read())
+if __name__ == "__main__":
+    instalar_dependencias()
+    comando = "python vista/manage.py runserver 9000"
+    os.system(comando)
 
 # ----------------------------------------------------------------------------------------------------------------------
