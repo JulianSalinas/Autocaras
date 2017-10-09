@@ -19,6 +19,13 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <script>
+      var loadFile = function(event) {
+        var output = document.getElementById('output');
+        output.src = URL.createObjectURL(event.target.files[0]);
+      };
+    </script>
+
 </head>
 
 <body>
