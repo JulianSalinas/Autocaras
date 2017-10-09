@@ -1,12 +1,8 @@
-
-<div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-        <span class="text-danger small">{{ field.errors }}</span>
-    </div>
-    <div class="col-sm-10">
-        <input type="file" accept="" onchange="loadFile(event)">
-        <div class="ImageContainer">
-            <img id="output" name="output" src="{{ ruta_img }}" class="img-responsive">
+{% for field in form %}
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <span class="text-danger small">{{ field.errors }}</span>
         </div>
+        <div class="col-sm-10">{{ field }}</div>
     </div>
-</div>
+{% endfor %}
