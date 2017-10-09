@@ -149,7 +149,10 @@ Codigo/datos/indice/
 
 Codigo/vista/media/
 Codigo/vista/db.sqlite3
+<<<<<<< HEAD
 
 Codigo/controlador/pickle/
 
 *.sqlite3
+=======
+>>>>>>> master
