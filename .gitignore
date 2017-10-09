@@ -146,3 +146,6 @@ venv
 .DS_Store
 ignore
 Codigo/datos/indice/
+
+Codigo/vista/media/
+Codigo/vista/db.sqlite3
