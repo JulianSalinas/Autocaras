@@ -148,6 +148,7 @@ ignore
 Codigo/datos/indice/
 
 Codigo/vista/media/
+Codigo/vista/db.sqlite3
 
 Codigo/controlador/pickle/
 

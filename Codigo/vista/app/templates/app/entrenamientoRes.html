@@ -27,6 +27,11 @@
                             <div class="panel panel-default">
                                 <div class="panel-body">
                                     {% if estado == 'OK' %}
+
+                                        <label><h4><b><u>Valores de Entrenamiento Solicitados</u></b></h4></label>
+                                        <label><b>Porcentaje de Colección:</b> {{ porcentaje_coleccion }}</label>
+                                        <label><b>Porcentaje de Valores:</b> {{ porcentaje_valores }}</label>
+                                        <label><b>Porcentaje de Aceptación:</b> {{ porcentaje_aceptacion }}</label>
                                     <label><b>Estado de Finalización:</b> {{ mensaje }}</label>
                                     {% else %}
                                         <label><b>Estado de Finalización:</b> {{ mensaje }}</label>

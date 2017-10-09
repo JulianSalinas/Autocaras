@@ -30,11 +30,13 @@ def reconocimiento(request):
         ruta_img = os.path.join(Configuracion.RUTA_MEDIA, ruta_img)
 
         # Ejecucion del reconocimiento de rostros
-        # sujeto_identificado, img_similar, grado_similitud = api.ejecutar_clasificacion(ruta_img)
         contexto = api.ejecutar_clasificacion(ruta_img)
 
+        #Creacion de la imagen PNG en el directorio media
+        Conversor.guardar_imagen(str(ruta_img))
+
         # Conversion de la imagen buscada a formato .PNG
-        ruta_img = Conversor.convertir_pgm_a_png(str(ruta_img))
+        ruta_img = Conversor.convertir_pgm_a_png(str(imagen.file.url))
 
         # Se agrega la llave ruta_img que contiene la imagen que se muestra en el resultado
         contexto['ruta_img'] = ruta_img
@@ -60,9 +62,9 @@ Vista para cargar los datos del entrenamiento
 
 def entrenamiento(request):
     if(request.method == 'POST'):
-        porcentaje_coleccion = request.POST.get('porcentaje_coleccion',"")
-        porcentaje_valores = request.POST.get('porcentaje_valores',"")
-        porcentaje_aceptacion = request.POST.get('porcentaje_aceptacion',"")
+        porcentaje_coleccion = int(request.POST.get('porcentaje_coleccion',""))
+        porcentaje_valores = int(request.POST.get('porcentaje_valores',""))
+        porcentaje_aceptacion = int(request.POST.get('porcentaje_aceptacion',""))
         print("Valores de Entrenamiento Solicitados: ")
         print('Porcentaje de Coleccion '+ str(porcentaje_coleccion))
         print('Porcentaje de Valores '+ str(porcentaje_valores))
@@ -70,7 +72,9 @@ def entrenamiento(request):
 
         # Ejecucion del entrenamiento del sistema
         contexto = api.ejecutar_entrenamiento(porcentaje_coleccion, porcentaje_valores, porcentaje_aceptacion)
-
+        contexto['porcentaje_coleccion'] = str(porcentaje_coleccion)
+        contexto['porcentaje_valores'] = str(porcentaje_valores)
+        contexto['porcentaje_aceptacion'] = str(porcentaje_aceptacion)
         # Llamado al template de resultados, pasando como contexto la respuesta del entrenamiento
         return render(request, 'app/entrenamientoRes.html',contexto)
 
