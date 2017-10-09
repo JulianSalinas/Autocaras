@@ -34,7 +34,7 @@ class Controlador(object):
             self.indexar_coleccion()
             self.ejecutar_entrenamiento()
 
-        self.clasificador = Clasificador(self.coleccion, self.entrenamiento, 75)
+        self.clasificador = Clasificador(self.entrenamiento, 75)
 
     # ------------------------------------------------------------------------------------------------------------------
 
@@ -65,7 +65,7 @@ class Controlador(object):
             self.indexar_coleccion()
 
         self.entrenamiento = Entrenamiento(self.coleccion, porcentaje_coleccion, porcentaje_valores)
-        self.clasificador = Clasificador(self.coleccion, self.entrenamiento, porcentaje_aceptacion)
+        self.clasificador = Clasificador(self.entrenamiento, porcentaje_aceptacion)
 
         pickle.dump(self.entrenamiento, open(Configuracion.RUTA_ENTRENAMIENTO, "wb"))
 
@@ -85,7 +85,19 @@ class Controlador(object):
         img_buscada = cv.imread(ruta_img_buscada, 0)
 
         if img_buscada is not None:
-            return self.clasificador.clasificar(img_buscada)
+
+            indice, similitud = self.clasificador.clasificar(img_buscada)
+
+            if indice == -1:
+                return Configuracion.SUJ_DESCONOCIDO, Configuracion.IMG_DESCONOCIDA, similitud
+
+            # Consultamos a que sujeto pertenece el indice que obtuvimos
+            indice = self.entrenamiento.indices_entrenamiento[indice]
+            consulta = self.coleccion.consultar_img(indice)
+            ruta_sujeto = consulta[0]
+            ruta_img = consulta[1]
+
+            return ruta_sujeto, ruta_img, similitud
 
         raise IOError
 
@@ -108,6 +120,7 @@ class Controlador(object):
 
         dao = DaoEvaluacion()
         evaluacion = Evaluacion(self.coleccion, self.entrenamiento, self.clasificador)
+        print(evaluacion)
         dao.guardar(nombre_archivo, evaluacion)
         return nombre_archivo
 

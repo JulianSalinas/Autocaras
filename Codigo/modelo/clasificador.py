@@ -8,19 +8,17 @@ from modelo.coleccion import *
 
 class Clasificador(object):
 
-    def __init__(self, coleccion, entrenamiento, porcentaje_aceptacion):
+    def __init__(self, entrenamiento, porcentaje_aceptacion):
 
         """
         Clase encargada de clasificar las imágenes desconocidas. Por defecto se basa en la distancia euclidiana para
         encontrar la muestra con la que más se parece la imagen desconocida. Para instanciar esta clase es necesario
         especificar los resultados del entrenamiento y fijar un minímo de aceptación para decidir si la imagen esta
         dentro del espacio creado
-        @param coleccion: Instacia de Coleccion
         @param entrenamiento: Instancia de Entrenamiento ejecutada con anterioridad
         @param porcentaje_aceptacion: Número ara decidir si la imagen es lo suficientemente parecida a una de las img
         """
 
-        self.coleccion = coleccion
         self.entrenamiento = entrenamiento
         self.autoespacio = entrenamiento.autoespacio
         self.proyecciones = entrenamiento.proyecciones
@@ -36,7 +34,7 @@ class Clasificador(object):
         que se podrá consultar a la colección la etiqueta (o ruta) del sujeto. El grado de similitud se obtiene con base
         a la imagen más distante a la imagen desconocida, siendo esta 0
         @param img: imagen obtenida por cv.imread o ruta de la imagen
-        @return: ruta_sujeto, ruta_img_encontrada, similitud
+        @return: indice, similitud
         """
 
         # Abrimos la imagen si recibimos la ruta
@@ -62,14 +60,8 @@ class Clasificador(object):
 
         # Si la similitud es menor al minimo quiere decir que el sujeto no se reconoce en la BD
         if similitud < self.indice_aceptacion:
-            return Configuracion.SUJ_DESCONOCIDO, Configuracion.IMG_DESCONOCIDA, similitud
+            return -1, 0
 
-        # Consultamos a que sujeto pertenece el indice que obtuvimos
-        indice = self.entrenamiento.indices_entrenamiento[indice]
-        consulta = self.coleccion.consultar_img(indice)
-        ruta_sujeto = consulta[0]
-        ruta_img = consulta[1]
-
-        return ruta_sujeto, ruta_img, similitud
+        return indice, similitud
 
 # ----------------------------------------------------------------------------------------------------------------------

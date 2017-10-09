@@ -1,5 +1,6 @@
 # ----------------------------------------------------------------------------------------------------------------------
 
+import os
 from modelo.coleccion import *
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -18,18 +19,20 @@ class Evaluacion(object):
         @param clasificador: Instancia de Clasificador
         """
 
-        # Extraemos la información necesaria de la colección
-        self.coleccion = coleccion
-        self.total_sujs = coleccion.total_sujs
-        self.imgs_x_suj = coleccion.total_imgs//self.total_sujs
+        self.clasificador = clasificador
 
         # Obtenemos las claves de las imagenes que son para entrenar y para evaluar
         self.indices_imgs_entrenamiento = entrenamiento.indices_entrenamiento
         self.indices_imgs_evaluacion = \
             np.delete(range(0, coleccion.total_imgs), entrenamiento.indices_entrenamiento)
 
+        # Extraemos la información necesaria de la colección
+        self.coleccion = coleccion
+        self.total_sujs = coleccion.total_sujs
+        self.imgs_x_suj = self.coleccion.total_imgs // self.total_sujs
+
         # Tabla de sujetos clasificadas vs reales
-        self.clasificaciones = self.obt_clasificaciones(clasificador)
+        self.clasificaciones = self.obt_clasificaciones()
 
         # Tabla donde cada fila corresponde a un sujeto y cada columna
         # contiene los vp, fp, fn, recall, precision
@@ -40,7 +43,7 @@ class Evaluacion(object):
 
     # ------------------------------------------------------------------------------------------------------------------
 
-    def obt_clasificaciones(self, clasificador):
+    def obt_clasificaciones(self):
 
         """
         Se obtiene la tabla de sujetos clasificados vs los sujetos reales. Tiene el siguiente formato:
@@ -50,7 +53,6 @@ class Evaluacion(object):
             suj_clasificado2        int         int         int
             suj_clasificadoN        int         int         int
 
-        @param clasificador: Instancia de Clasificador
         @return: npmatrix donde las cada fila corresponde al sujeto clasificado y las columnas a los reales
         """
 
@@ -59,15 +61,20 @@ class Evaluacion(object):
 
         for i in range(0, len(self.indices_imgs_evaluacion)):
 
-            # Obtenemos el sujeto real y el sujeto que corresponde a la clasificador
-            indice_suj_real = self.indices_imgs_evaluacion[i]
-            indice_suj, sim = clasificador.clasificar(mat_imgs[:, i])
+            indice_img_real = self.indices_imgs_evaluacion[i]
 
-            # Si el sujeto fue clasificado correctamente, lo sumamos a la tabla
-            if indice_suj != -1:
-                indice_suj = self.indices_imgs_entrenamiento[indice_suj]
-                fila = indice_suj // self.imgs_x_suj
-                columna = indice_suj_real // self.imgs_x_suj
+            # Clasificamos la imagen real esperando que nos devuelva el mismo
+            # indice donde se encuentra en la coleccion para obtener un VP
+            indice_img_similar = self.clasificador.clasificar(mat_imgs[:, i])[0]
+
+            # Si el sujeto fue clasificado correctamente, lo podemos sumar a la tabla
+            if indice_img_similar != -1:
+                indice_img_similar = self.indices_imgs_entrenamiento[indice_img_similar]
+
+                # Con eseto obtenemos la posicion del sujeto
+                fila = indice_img_similar // self.imgs_x_suj
+                columna = indice_img_real // self.imgs_x_suj
+
                 tabla[fila, columna] += 1
 
         return tabla
@@ -111,7 +118,12 @@ class Evaluacion(object):
 
         # Colocamos los encabezados de la matriz
         etiquetas_horizontales = ["VP", "FP", "FN", "Recall", "Precision"]
-        etiquetas_verticales = ["Sujeto"] + list(self.coleccion.dic_sujs.values()) + ["Promedio"]
+
+        sujetos = list(self.coleccion.dic_sujs.values())
+        for i in range(len(sujetos)):
+            sujetos[i] = os.path.split(sujetos[i])[1]
+
+        etiquetas_verticales = np.array(["Sujeto"] + sujetos + ["Promedio"])
         tabla_evaluacion = self.tabla_evaluacion.astype(np.str)
         tabla_evaluacion = np.insert(tabla_evaluacion, 0, etiquetas_horizontales, axis=0)
         tabla_evaluacion = np.append(tabla_evaluacion, self.promedios.astype(np.str), axis=0)

@@ -87,16 +87,21 @@ class APIAutocaras(object):
 
     # ------------------------------------------------------------------------------------------------------------------
 
-    def ejecutar_evaluacion(self, ruta_archivo='AT&T'):
+    def ejecutar_evaluacion(self, nombre_archivo=None):
 
         """
-        Crea un informe con la evaluación del sistema
-        @param ruta_archivo: Ruta absoluta del archivo a crear para guardar el informe de la evaluación
+        Crea un informe con la evaluación del sistema. Se basa en el último entrenamiento realizado
+        @param nombre_archivo: Nombre del archivo a crear para guardar el informe de la evaluación
         @return no retorna algun valor.
         """
 
+        if nombre_archivo is None:
+            nombre_archivo = "ultima_evaluacion"
+
+        nombre_archivo = os.path.join(Configuracion.RUTA_MEDIA, nombre_archivo)
+
         try:
-            ruta_informe = self.ctrl.ejecutar_evaluacion(ruta_archivo)
+            ruta_informe = self.ctrl.ejecutar_evaluacion(nombre_archivo)
 
             return {"estado": "OK",
                     "mensaje": "La operación se ha realizado con exito",

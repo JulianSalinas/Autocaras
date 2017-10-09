@@ -35,12 +35,12 @@ class TestClasificacion(TestCase):
 
         # Colocamos que la clasificación se realice con base al entrenamiento previo
         # y que el mínimo de aceptación sea 80 de lo contrario no se encuentra en el autoespacio
-        clasificacion = Clasificador(coleccion, entrenamiento, porcentaje_aceptacion=80)
+        clasificacion = Clasificador(entrenamiento, porcentaje_aceptacion=80)
 
         # Clasificamos el sujeto, esto nos debe dar el suj 2 pues es la columna que más
         # se parece al sujeto
-        sujeto, img_encotrada, similitud = clasificacion.clasificar(sujeto_desconocido)
-        self.assertTrue(sujeto == "suj2")
+        indice, similitud = clasificacion.clasificar(sujeto_desconocido)
+        self.assertTrue(indice == 2)
 
 
 # ----------------------------------------------------------------------------------------------------------------------

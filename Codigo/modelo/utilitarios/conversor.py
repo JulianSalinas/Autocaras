@@ -27,5 +27,3 @@ class Conversor:
         return ruta_imagen_png
 
 # ----------------------------------------------------------------------------------------------------------------------
-
-print(Conversor.convertir_pgm_a_png("estapa\\medio\\paup.pgm"))

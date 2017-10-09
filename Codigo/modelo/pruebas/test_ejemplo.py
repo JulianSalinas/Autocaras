@@ -1,10 +1,12 @@
-import os
+import subprocess
 from modelo.utilitarios.fuentes import *
+from controlador.controlador import *
 from controlador.api_autocaras import *
 
 # TODO: Encontrar los valores óptimos para el porcentaje de valores a conservar y el mínimo de aceptación
 
 api = APIAutocaras()
+api.ejecutar_entrenamiento(porcentaje_coleccion=50)
 
 
 def ejemplo(ruta_img_desconocida):
@@ -12,17 +14,12 @@ def ejemplo(ruta_img_desconocida):
     print(Fuente.VERDE + "\nSujeto buscado: " + ruta_img_desconocida + Fuente.FIN)
 
     try:
-
-        sujeto, img_encontrada, similitud = api.ejecutar_clasificacion(ruta_img_desconocida)
-
-        if sujeto is None:
-            sujeto = "Desconocido"
-            img_encontrada = "Indefinida"
+        resultado = api.ejecutar_clasificacion(ruta_img_desconocida)
 
         print("----------------------------------------------------------")
-        print("Similitud: " + str(round(similitud*100, 2)) + "%")
-        print("Sujeto encontrado: " + sujeto)
-        print("Imagen más cercana: " + img_encontrada)
+        print("Similitud: " + resultado["grado_similitud"])
+        print("Sujeto encontrado: " + resultado["sujeto_identificado"])
+        print("Imagen más cercana: " + resultado["img_similar"])
         print("----------------------------------------------------------\n")
 
     except IOError as error:
@@ -45,3 +42,9 @@ ejemplo("../../datos/otros/nocara2.png")
 ejemplo("../../datos/otros/nocara3.png")
 ejemplo("../../datos/otros/nocara4.png")
 ejemplo("../../datos/otros/nocara5.png")
+
+api.ejecutar_evaluacion("eval")
+
+
+print(os.path.join(Configuracion.RUTA_MEDIA, "eval.cvs"))
+subprocess.call("explorer " + os.path.join(Configuracion.RUTA_MEDIA, "eval.cvs"), shell=True)
