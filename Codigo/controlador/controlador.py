@@ -108,7 +108,7 @@ class Controlador(object):
 
         dao = DaoEvaluacion()
         evaluacion = Evaluacion(self.coleccion, self.entrenamiento, self.clasificador)
-        dao.guardar(nombre_archivo, dao)
-        return evaluacion
+        dao.guardar(nombre_archivo, evaluacion)
+        return nombre_archivo
 
 # ----------------------------------------------------------------------------------------------------------------------

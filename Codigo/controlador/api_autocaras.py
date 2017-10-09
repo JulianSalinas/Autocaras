@@ -15,9 +15,23 @@ class APIAutocaras(object):
 
     def indexar_coleccion(self):
 
-        """ Indexa la colección de imagenes con base al archivo configuracion.py """
+        """
+        Indexa la colección de imagenes con base al archivo configuracion.py
+        @return diccionario con información de la operación
+        """
 
-        self.ctrl.indexar_coleccion()
+        try:
+
+            self.ctrl.indexar_coleccion()
+
+            return {"estado": "OK",
+                    "mensaje": "La operación se ha realizado con exito"}
+
+        except Exception as ex:
+
+            return {"estado": "ERROR",
+                    "mensaje": "La operación ha fallado",
+                    "detalles": str(getattr(ex, 'message', repr(ex))) }
 
     # ------------------------------------------------------------------------------------------------------------------
 
@@ -28,10 +42,20 @@ class APIAutocaras(object):
         @param porcentaje_coleccion: Porcentaje de la colección que se usará para realizar el entrenamiento
         @param porcentaje_valores: Porcentaje de valores (autocaras o componentes) que se desean conservar
         @param porcentaje_aceptacion: Procentaje de aceptación mínimo para que el clasificador reconozca un sujeto
-        @return no retorna algun valor
+        @return diccionario con información de la operación
         """
 
-        self.ctrl.ejecutar_entrenamiento(porcentaje_coleccion, porcentaje_valores, porcentaje_aceptacion)
+        try:
+            self.ctrl.ejecutar_entrenamiento(porcentaje_coleccion, porcentaje_valores, porcentaje_aceptacion)
+
+            return {"estado": "OK",
+                    "mensaje": "La operación se ha realizado con exito"}
+
+        except Exception as ex:
+
+            return {"estado": "ERROR",
+                    "mensaje": "La operación ha fallado",
+                    "detalles": str(getattr(ex, 'message', repr(ex)))}
 
     # ------------------------------------------------------------------------------------------------------------------
 
@@ -40,10 +64,26 @@ class APIAutocaras(object):
         """
         Ejecuta la clasificación para una imagen
         @param ruta_img_buscada: ruta de la imagen desconocida que se desea clasificar
-        @return: sujeto, ruta_img_mas_similar, grado_similitud
+        @return: diccionario con información de la operación y con los siguientes datos:
+                 * sujeto_identificado
+                 * img_similar
+                 * grado_similitud
         """
 
-        return self.ctrl.ejecutar_clasificacion(ruta_img_buscada)
+        try:
+            ruta_sujeto, img_similar, similitud = self.ctrl.ejecutar_clasificacion(ruta_img_buscada)
+
+            return {'estado': "OK",
+                    'mensaje': "La operación se ha realizado con exito",
+                    'sujeto_identificado': str(ruta_sujeto),
+                    'img_similar': str(img_similar),
+                    'grado_similitud': str(similitud)}
+
+        except Exception as ex:
+
+            return {"estado": "ERROR",
+                    "mensaje": "La operación ha fallado",
+                    "detalles": getattr(ex, 'message', repr(ex))}
 
     # ------------------------------------------------------------------------------------------------------------------
 
@@ -55,6 +95,18 @@ class APIAutocaras(object):
         @return no retorna algun valor.
         """
 
-        self.ctrl.ejecutar_evaluacion(ruta_archivo)
+        try:
+            ruta_informe = self.ctrl.ejecutar_evaluacion(ruta_archivo)
+
+            return {"estado": "OK",
+                    "mensaje": "La operación se ha realizado con exito",
+                    "ruta_informe": ruta_informe}
+        
+        except Exception as ex:
+
+            return {"estado": "ERROR",
+                    "mensaje": "La operación ha fallado",
+                    "detalles": getattr(ex, 'message', repr(ex))}
+
 
 # ----------------------------------------------------------------------------------------------------------------------
