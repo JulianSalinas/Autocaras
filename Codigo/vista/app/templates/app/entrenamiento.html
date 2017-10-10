@@ -1,20 +1,14 @@
 {% extends 'app/paginaMaestra.html' %} {% block body %}
-
 <div class="container page">
     <div id="content" class="container main">
-
         <div class="tituloPrincipal">
-            <h2>Entrenamiento del Sistema</h2>
-        </div>
-
+            <h2>Entrenamiento del Sistema</h2> </div>
         <div class="cCeleste contInterno borderRadius center">
             <div class="cWhite">
                 <h1>Datos</h1>
                 <p class="opacity1">Entrenamiento</p>
             </div>
-
-            <form class="w3-container bgWhite paddingAll paddingTopDown contInterno2" action="" method="POST">
-                {% csrf_token %}
+            <form class="w3-container bgWhite paddingAll paddingTopDown contInterno2" action="" method="POST"> {% csrf_token %}
                 <div class="w3-section">
                     <label><b>Porcentaje Colección</b></label>
                     <div class="inline">
@@ -22,7 +16,6 @@
                         <label class="marginIzq" for="porcentaje_coleccion" id="valPorColeccionLabel">90</label>
                     </div>
                 </div>
-
                 <div class="w3-section">
                     <label><b>Porcentaje Valores</b></label>
                     <div class="inline">
@@ -30,7 +23,6 @@
                         <label class="marginIzq" for="porcentaje_valores" id="valPorValoresLabel">70</label>
                     </div>
                 </div>
-
                 <div class="w3-section">
                     <label><b>Porcentaje Aceptación</b></label>
                     <div class="inline">
@@ -38,11 +30,18 @@
                         <label class="marginIzq" for="porcentaje_aceptacion" id="valPorAceptacionLabel">50</label>
                     </div>
                 </div>
+                <div class="w3-section">
+                    <div class="inline">
+                        <input type="checkbox" id="checkboxIndexar" name="checkboxIndexar" class="css-checkbox" checked="checked" />
+                        <label for="checkboxIndexar" name="checkboxIndexar_lbl" class="css-label dark-check-cyan">¿Indexar nueva base de datos?</label>
+                    </div>
+                    <div class="inline">
+                        <div class="input-group marginTop"> <span class="input-group-addon"><i class="glyphicon glyphicon-save"></i></span>
+                            <input id="urlIndexar" type="url" class="form-control" name="urlIndexar" placeholder="Ruta de la base de datos" required="required"> </div>
+                    </div>
+                </div>
                 <button type="submit" class="w3-button w3-teal w3-right borderRadius">Ejecutar</button>
             </form>
         </div>
     </div>
-</div>
-
-
-{% endblock %}
+</div> {% endblock %}

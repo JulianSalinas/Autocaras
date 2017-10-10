@@ -29,13 +29,22 @@
                                     {% if estado == 'OK' %}
 
                                         <label><h4><b><u>Valores de Entrenamiento Solicitados</u></b></h4></label>
-                                        <label><b>Porcentaje de Colección:</b> {{ porcentaje_coleccion }}</label>
-                                        <label><b>Porcentaje de Valores:</b> {{ porcentaje_valores }}</label>
-                                        <label><b>Porcentaje de Aceptación:</b> {{ porcentaje_aceptacion }}</label>
-                                    <label><b>Estado de Finalización:</b> {{ mensaje }}</label>
+                                        <div>
+                                            <label class="marginDer">Porcentaje de Colección:</label><resp>{{ porcentaje_coleccion }}</resp>
+                                        </div>
+                                        <div>
+                                            <label class="marginDer">Porcentaje de Valores:</label><resp>{{ porcentaje_valores }}</resp>
+                                        </div>
+                                        <div>
+                                            <label class="marginDer">Porcentaje de Aceptación:</label><resp>{{ porcentaje_aceptacion }}</resp>
+                                        </div>
+                                        <div>
+                                            <label class="marginDer">Estado de Finalización:</label><resp>{{ mensaje }}</resp>
+                                        </div>
+
                                     {% else %}
-                                        <label><b>Estado de Finalización:</b> {{ mensaje }}</label>
-                                        <label><b>Detalles:</b> {{ detalles }}</label>
+                                        <label class="marginDer">Estado de Finalización:</label><resp>{{ mensaje }}</resp>
+                                        <label class="marginDer">Detalles:</label><resp>{{ detalles }}</resp>
                                     {% endif %}
 
                                 </div>

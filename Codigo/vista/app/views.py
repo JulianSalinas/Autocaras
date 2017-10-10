@@ -5,11 +5,11 @@ from django.shortcuts import render
 from .forms import FormularioReconocimiento
 from .models import Integrante
 
-from controlador.configuracion import *
-from controlador.api_autocaras import *
-api = APIAutocaras()
 
+from controlador.api_autocaras import *
 from modelo.utilitarios.conversor import Conversor
+
+api = APIAutocaras()
 
 """
 ***********************************************************************
@@ -65,6 +65,17 @@ def entrenamiento(request):
         porcentaje_coleccion = int(request.POST.get('porcentaje_coleccion',""))
         porcentaje_valores = int(request.POST.get('porcentaje_valores',""))
         porcentaje_aceptacion = int(request.POST.get('porcentaje_aceptacion',""))
+        ctrlIndexar = str(request.POST.get("checkboxIndexar",""))
+        urlIndexar = str(request.POST.get("urlIndexar", ""))
+
+        print("Control Indexar = "+ ctrlIndexar)
+        print("Url Indexar = " + urlIndexar)
+
+        if(str(ctrlIndexar) == 'on'):
+            contexto = api.indexar_coleccion(urlIndexar)
+            if(contexto['estado'] == 'ERROR'):
+                return render(request, 'app/entrenamientoRes.html', contexto)
+
         print("Valores de Entrenamiento Solicitados: ")
         print('Porcentaje de Coleccion '+ str(porcentaje_coleccion))
         print('Porcentaje de Valores '+ str(porcentaje_valores))
@@ -75,6 +86,7 @@ def entrenamiento(request):
         contexto['porcentaje_coleccion'] = str(porcentaje_coleccion)
         contexto['porcentaje_valores'] = str(porcentaje_valores)
         contexto['porcentaje_aceptacion'] = str(porcentaje_aceptacion)
+
         # Llamado al template de resultados, pasando como contexto la respuesta del entrenamiento
         return render(request, 'app/entrenamientoRes.html',contexto)
 
@@ -91,7 +103,6 @@ Vista para controlar la seccion AcercaDe que contiene
 los datos del Codigo y los integrantes
 ***********************************************************************
 """
-
 
 def acercaDe(request):
     integrantes = Integrante.objects.all()

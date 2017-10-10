@@ -30,12 +30,26 @@
                                 <div class="panel-body">
 
                                     {% if estado == 'OK' %}
-                                        <label><b>Estado de Finalización:</b> {{ mensaje }}</label>
-                                    <label><b>Sujeto Identificado:</b> {{ sujeto_identificado }}</label>
-                                    <label><b>Imagen Similar:</b> {{ img_similar }}</label>
-                                    <label><b>Grado de Similitud:</b> {{ grado_similitud }}</label>
+                                        <div class="marginBottom">
+                                            <label class="marginDer">Estado de Finalización:</label><resp>{{ mensaje }}</resp>
+                                        </div>
+                                        <div class="marginBottom">
+                                            <label class="marginDer">Sujeto Identificado:</label><resp>{{ sujeto_identificado }}</resp>
+                                        </div>
+
+                                        <div class="marginBottom">
+                                            <label class="marginDer">Imagen Similar:</label><resp>{{ img_similar }}</resp>
+                                        </div>
+
+                                        <div>
+                                            <label class="marginDer">Grado de Similitud:</label><resp>{{ grado_similitud }}</resp>
+                                        </div>
+
                                     {% else %}
-                                        <label><b>Estado de Finalización:</b> {{ mensaje }}</label>
+                                        <div>
+                                            <label class="marginDer">Estado de Finalización:</label><resp>{{ mensaje }}</resp>
+                                        </div>
+
                                     {% endif %}
 
                                 </div>

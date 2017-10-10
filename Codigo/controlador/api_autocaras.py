@@ -30,7 +30,7 @@ class APIAutocaras(object):
         except Exception as ex:
 
             return {"estado": "ERROR",
-                    "mensaje": "La operación ha fallado",
+                    "mensaje": "La operación de indexar ha fallado",
                     "detalles": str(getattr(ex, 'message', repr(ex))) }
 
     # ------------------------------------------------------------------------------------------------------------------
