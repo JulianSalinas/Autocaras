@@ -38,12 +38,20 @@ class Controlador(object):
 
     # ------------------------------------------------------------------------------------------------------------------
 
-    def indexar_coleccion(self):
+    def indexar_coleccion(self, ruta_datos=None):
 
         """
         Indexa la colección de imagenes con base a las rutas del módulo configuración
+        @param ruta_datos: ruta donde se encuentran las imagenes. Si no se especifica se tomará la ruta por defecto
+        presente en el archivo configuracion.py
         @return no retorna ningun valor
         """
+
+        if ruta_datos is not None:
+            if os.path.isdir(ruta_datos):
+                Configuracion.RUTA_DATOS = ruta_datos
+            else:
+                raise Exception("Debe específicar el nombre de un directorio")
 
         self.coleccion = Coleccion()
 
@@ -117,6 +125,11 @@ class Controlador(object):
 
         if self.entrenamiento is None:
             self.ejecutar_entrenamiento()
+
+        if nombre_archivo is None:
+            nombre_archivo = "ultima_evaluacion"
+
+        nombre_archivo = os.path.join(Configuracion.RUTA_MEDIA, nombre_archivo)
 
         dao = DaoEvaluacion()
         evaluacion = Evaluacion(self.coleccion, self.entrenamiento, self.clasificador)

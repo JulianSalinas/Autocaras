@@ -13,16 +13,18 @@ class APIAutocaras(object):
 
     # ------------------------------------------------------------------------------------------------------------------
 
-    def indexar_coleccion(self):
+    def indexar_coleccion(self, ruta_datos=None):
 
         """
-        Indexa la colección de imagenes con base al archivo configuracion.py
+        Indexa la colección de imagenes
+        @param ruta_datos: ruta donde se encuentran las imagenes. Si no se especifica se tomará la ruta por defecto
+        presente en el archivo configuracion.py
         @return diccionario con información de la operación
         """
 
         try:
 
-            self.ctrl.indexar_coleccion()
+            self.ctrl.indexar_coleccion(ruta_datos)
 
             return {"estado": "OK",
                     "mensaje": "La operación se ha realizado con exito"}
@@ -31,7 +33,7 @@ class APIAutocaras(object):
 
             return {"estado": "ERROR",
                     "mensaje": "La operación de indexar ha fallado",
-                    "detalles": str(getattr(ex, 'message', repr(ex))) }
+                    "detalles": str(getattr(ex, 'message', str(ex)))}
 
     # ------------------------------------------------------------------------------------------------------------------
 
@@ -55,7 +57,7 @@ class APIAutocaras(object):
 
             return {"estado": "ERROR",
                     "mensaje": "La operación ha fallado",
-                    "detalles": str(getattr(ex, 'message', repr(ex)))}
+                    "detalles": str(getattr(ex, 'message', str(ex)))}
 
     # ------------------------------------------------------------------------------------------------------------------
 
@@ -83,7 +85,7 @@ class APIAutocaras(object):
 
             return {"estado": "ERROR",
                     "mensaje": "La operación ha fallado",
-                    "detalles": getattr(ex, 'message', repr(ex))}
+                    "detalles": getattr(ex, 'message', str(ex))}
 
     # ------------------------------------------------------------------------------------------------------------------
 
@@ -94,11 +96,6 @@ class APIAutocaras(object):
         @param nombre_archivo: Nombre del archivo a crear para guardar el informe de la evaluación
         @return no retorna algun valor.
         """
-
-        if nombre_archivo is None:
-            nombre_archivo = "ultima_evaluacion"
-
-        nombre_archivo = os.path.join(Configuracion.RUTA_MEDIA, nombre_archivo)
 
         try:
             ruta_informe = self.ctrl.ejecutar_evaluacion(nombre_archivo)
@@ -111,7 +108,7 @@ class APIAutocaras(object):
 
             return {"estado": "ERROR",
                     "mensaje": "La operación ha fallado",
-                    "detalles": getattr(ex, 'message', repr(ex))}
+                    "detalles": getattr(ex, 'message', str(ex))}
 
 
 # ----------------------------------------------------------------------------------------------------------------------
