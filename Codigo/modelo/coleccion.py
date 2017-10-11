@@ -89,6 +89,9 @@ class Coleccion(object):
                 self.dic_imgs[num_img] = (ruta_sujs[i], img)
                 num_img += 1
 
+        if len(self.dic_sujs) == 0:
+            raise Exception("No se ha encontrado ningún sujeto en la ruta especificada")
+
     # ------------------------------------------------------------------------------------------------------------------
 
     def obt_dimensiones(self):

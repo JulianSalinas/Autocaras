@@ -1,47 +1,34 @@
 # ----------------------------------------------------------------------------------------------------------------------
 
-import re
-import numpy as np
+import os
+import pandas as pd
 
 # ----------------------------------------------------------------------------------------------------------------------
 
 
-class DaoEvaluacion:
+class DaoEvaluacion(object):
 
     # ------------------------------------------------------------------------------------------------------------------
 
     @staticmethod
-    def guardar(nombre_archivo, evaluacion):
+    def guardar(evaluacion, directorio):
 
         """
-        Guarda los resultados de la evaluacion del sistema en un archivo en formato csv.
-        @param nombre_archivo: nombre con el cual se va a guardar la evaluacion actual.
+        Se crearán los archivos cvs a partir de las tablas generedas por la evaluación
+        @param directorio: Ruta donde se guardarán las tablas generadas por la evaluacion
         @param evaluacion: objeto evaluacion con los valores calculados
-        @return: no retorna algun valor.
+        @return: no retorna ningun valor.
         """
 
-        tabla_evaluacion = evaluacion.agregar_encabezados()
-        f_evaluacion = open(nombre_archivo + '.csv', 'w')
+        if not os.path.isdir(directorio):
+            os.makedirs(directorio)
 
-        fin_fila = 0
-        for x in np.nditer(tabla_evaluacion):
-            linea = str(x)
+        tabla_evaluacion = evaluacion.agregar_encabezados_tabla_evaluaciones()
+        tabla_evaluacion = pd.DataFrame(tabla_evaluacion)
+        tabla_evaluacion.to_csv(os.path.join(directorio, "eval.inform.csv"), index=False, header=False)
 
-            # Extraer solamente el nombre de sujeto
-            if fin_fila == 0:
-                sujeto = re.findall(r's\d+', str(x))
-                if len(sujeto) > 0:
-                    linea = sujeto[0]
-
-            # Verificar si es necesario el cambio de fila
-            if fin_fila == 5:
-                linea += '\n'
-                fin_fila = 0
-            else:
-                linea += ','
-                fin_fila += 1
-
-            f_evaluacion.write(linea)
-        f_evaluacion.close()
+        tabla_clasificaciones = evaluacion.agregar_encabezados_tabla_clasificaciones()
+        tabla_evaluacion = pd.DataFrame(tabla_clasificaciones)
+        tabla_evaluacion.to_csv(os.path.join(directorio, "eval.clasifs.csv"), index=False, header=False)
 
 # ----------------------------------------------------------------------------------------------------------------------

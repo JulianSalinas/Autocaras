@@ -111,30 +111,26 @@ class Controlador(object):
 
     # ------------------------------------------------------------------------------------------------------------------
 
-    def ejecutar_evaluacion(self, nombre_archivo):
+    def ejecutar_evaluacion(self, directorio=None):
 
         """
         Ejecuta la evaluación del sistema con base al último entrenamiento realizado. De la evaluación se puede extraer
         la tabla de imagenes clasificadas vs reales, la tabla de evaluaciones (vp, fp, vn, fn, tvp, tpp) y los promedios
-        de dicha tabla de evaluaciónes. El informe se guarda en un archivo
+        de dicha tabla de evaluaciónes.
         NOTA: Si en el último entrenamiento se usó el 100% de la colección, significa que no habrán imagenes disponibles
         para realizar la evaluación, por tanto, la tabla generada estará llena con ceros
-        @param nombre_archivo: Ruta absoluta del archivo a crear para guardar el informe de la evaluación
-        @return instacia de la clase Evaluación
+        @param directorio: Ruta donde se guardarán las tablas generadas por la evaluacion
+        @return directorio donde fue generado los informes de la evaluacion
         """
 
         if self.entrenamiento is None:
-            self.ejecutar_entrenamiento()
+            self.ejecutar_entrenamiento(porcentaje_aceptacion=0)
 
-        if nombre_archivo is None:
-            nombre_archivo = "ultima_evaluacion"
+        if directorio is None:
+            directorio = Configuracion.RUTA_MEDIA
 
-        nombre_archivo = os.path.join(Configuracion.RUTA_MEDIA, nombre_archivo)
-
-        dao = DaoEvaluacion()
         evaluacion = Evaluacion(self.coleccion, self.entrenamiento, self.clasificador)
-        print(evaluacion)
-        dao.guardar(nombre_archivo, evaluacion)
-        return nombre_archivo
+        DaoEvaluacion.guardar(evaluacion, directorio)
+        return directorio
 
 # ----------------------------------------------------------------------------------------------------------------------

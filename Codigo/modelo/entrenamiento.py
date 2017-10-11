@@ -13,8 +13,8 @@ class Entrenamiento(object):
         Clase encargada de realizar el entrenamiento del sistema. El resultado de objetivo de este entrenamiento es
         encontrar los autovectores/caras que componen el autoespacio, además de sus respectivas proyecciones (o pesos)
         Además se guarda la muestra promedio para centrar las imagenes al origen cuando sea necesario clasificarlas
-        :param coleccion: Instancia de Coleccion de donde vamos a extraer las imagenes
-        :param porcentaje_coleccion: Representa la cant de imagenes que usaremos de la coleccion
+        @param coleccion: Instancia de Coleccion de donde vamos a extraer las imagenes
+        @param porcentaje_coleccion: Representa la cant de imagenes que usaremos de la coleccion
         @param porcentaje_valores: Número que determine la cantidad de valores (o componentes) que se desean conservar
         """
 
@@ -55,9 +55,9 @@ class Entrenamiento(object):
 
         """
         Obtenemos los índices de la coleccion de las imagenes que vamos a utilizar para el entrenamiento
-        :param coleccion: Instancia de Coleccion de donde vamos a extraer las imagenes
-        :param porcentaje_coleccion: Representa la cant de imagenes que usaremos de la coleccion
-        :return: no retorna ningun valor
+        @param coleccion: Instancia de Coleccion de donde vamos a extraer las imagenes
+        @param porcentaje_coleccion: Representa la cant de imagenes que usaremos de la coleccion
+        @return: no retorna ningun valor
         """
 
         self.indices_entrenamiento = np.array([], dtype="int32")

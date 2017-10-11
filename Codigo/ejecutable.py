@@ -9,7 +9,7 @@ import pip
 def instalar_dependencias():
 
     try:
-        pip.main(["install", "numpy", "django", "opencv-python"])
+        pip.main(["install", "numpy", "django", "pandas", "opencv-python"])
     except OSError:
         print("No se han podido instalar las dependencias")
         print("Intente instalar manualmente con permisos de administrador: ")

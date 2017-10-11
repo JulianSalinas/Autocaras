@@ -89,20 +89,23 @@ class APIAutocaras(object):
 
     # ------------------------------------------------------------------------------------------------------------------
 
-    def ejecutar_evaluacion(self, nombre_archivo=None):
+    def ejecutar_evaluacion(self, directorio=None):
 
         """
-        Crea un informe con la evaluación del sistema. Se basa en el último entrenamiento realizado
-        @param nombre_archivo: Nombre del archivo a crear para guardar el informe de la evaluación
-        @return no retorna algun valor.
+        Crea archivos csv de la evaluación del sistema con base en el último entrenamiento realizado
+        NOTA: Si en el último entrenamiento se usó el 100% de la colección, significa que no habrán imagenes disponibles
+        para realizar la evaluación, por tanto, la tabla generada estará llena con ceros
+        @param directorio: Ruta donde se guardarán las tablas generadas por la evaluacion
+        @return diccionario con información de la operación, el diccionario contiene el directorio donde fueron
+        generados los informes de la evaluacion
         """
 
         try:
-            ruta_informe = self.ctrl.ejecutar_evaluacion(nombre_archivo)
+            ruta_informes = self.ctrl.ejecutar_evaluacion(directorio)
 
             return {"estado": "OK",
                     "mensaje": "La operación se ha realizado con exito",
-                    "ruta_informe": ruta_informe}
+                    "ruta_informes": ruta_informes}
         
         except Exception as ex:
 
