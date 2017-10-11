@@ -39,7 +39,7 @@ class Entrenamiento(object):
         # Ordenar y obtener las autocaras mas significantes
         cant_valores = int(mat_entrenamiento.shape[1] * porcentaje_valores / 100)
         orden = np.argsort(autovals)[::-1]
-        autovects = autovects[orden]
+        autovects = autovects[:, orden]
         autovects = autovects[0: cant_valores]
 
         # Se ocupan los autovectores U de la matriz PxP, por lo que se usa la fórmula U = AxV

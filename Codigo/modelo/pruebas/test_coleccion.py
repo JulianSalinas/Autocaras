@@ -13,6 +13,12 @@ class TestColeccion(TestCase):
 
     def test_coleccion(self):
 
+        """
+        Entradas: Configuración de la colección
+        Resultado esperado: Las propiedades de la colección deben coincidir con las que se saben de antemano,
+        debe coincidir el # de sujetos, el de imagenes y las dimesiones de cada una
+        """
+
         # Colocamos la configuracion para que solo se lean 3 imagenes de los primeros 2 sujetos
         Configuracion.RUTA_DATOS = "..\\..\\datos"
         Configuracion.REGEX_SUJS = "s[1-2]"
@@ -39,6 +45,13 @@ class TestColeccion(TestCase):
     # ------------------------------------------------------------------------------------------------------------------
 
     def test_obt_subconjunto(self):
+
+        """
+        Entradas: Configuraciones de la colección
+        Resultado esperado: Se deben tomar solo la cantidad de imagenes que se solicitan y en los indices indicados.
+        Todas las imagenes deben estar en escala de grises y el alto y ancho deben coincidir con la cantidad de pixeles
+        y la cantidad de sujetos respectivamente
+        """
 
         # Colocamos la informacion para que solo lea las imagenes del primers sujeto
         Configuracion.RUTA_DATOS = "..\\..\\datos"

@@ -1,94 +1,150 @@
 # ----------------------------------------------------------------------------------------------------------------------
 
 from unittest import TestCase
+from modelo.coleccion import *
 from modelo.entrenamiento import *
-
 
 # ----------------------------------------------------------------------------------------------------------------------
 
 
 class TestEntrenamiento(TestCase):
 
+    """
+    Clase encargada de probar funciones y fragmentos importantes de código para el modulo modelo.entrenamiento
+    """
+
     # ------------------------------------------------------------------------------------------------------------------
 
-    def test_entrenamiento(self):
+    def test_obt_indices_entrenamiento(self):
 
-        # Creamos una matriz de muestras ficticia y verificable
-        mat_muestras = np.matrix([[30, 50, 40],
-                                  [10, 9., 80],
-                                  [78, 80, 76],
-                                  [58, 24, 65]], "float64")
+        """
+        Entradas: Coleccion y el porcentaje de la coleccion que vamos a utilizar para el entrenamiento
+        Resultado esperado: Lista de indices que representan una imagen dentro de la coleccion. Se debe haber tomado
+        igual cantidad de imagenes para cada sujeto
+        """
 
-        # Emulando la ejecución del Entrenamiento
+        # Se crea una coleccion ficticia
+        coleccion = Coleccion
+        coleccion.dic_imgs = {
+            0: ("suj1", "img1"),
+            1: ("suj1", "img2"),
+            2: ("suj2", "img1"),
+            3: ("suj2", "img2"),
+        }
+        coleccion.total_sujs = 2
+        coleccion.total_imgs = 4
+
+        # Se crea una instancia de Entrenamiento para probar el método
+        # Se usará un 50% de la coleccion, por tanto, se debe obtener 2 indices, es decir,
+        # dos indices que representen dos imagenes, una para cada uno de los sujetos
+        entrenamiento = object.__new__(Entrenamiento)
+        entrenamiento.obt_indices_entrenamiento(coleccion, 70)
+
+        # La cantidad de indices debe ser 2
+        self.assertTrue(len(entrenamiento.indices_entrenamiento) == 2)
+
+        # Las imagenes que representan dichos indices deben ser 1 para el suj1 y 1 para el suj2
+        img_1 = entrenamiento.indices_entrenamiento[0]
+        img_2 = entrenamiento.indices_entrenamiento[1]
+        self.assertTrue(coleccion.dic_imgs[img_1][0] == "suj1")
+        self.assertTrue(coleccion.dic_imgs[img_2][0] == "suj2")
+
+    # ------------------------------------------------------------------------------------------------------------------
+
+    def test_obt_promedio_muestras(self):
+
+        """
+        Entradas: Matriz de muestras
+        Resultado esperado: Al restar el promedio a la matriz, la sumatoria de todas las columnas debe ser 0
+        """
+
+        # Creamos una matriz de muestras ficticia
+        mat_muestras = np.matrix([[30, 50],
+                                  [10, 9.]], "float64")
 
         # Comprobando matriz de muestras con base al origen
         # Si la imagen esta centrada con base al origen, su sumatoria es 0
-        self.muestra_promedio = np.mean(mat_muestras, axis=1, dtype="float64")
-        mat_muestras -= self.muestra_promedio
+        muestra_promedio = np.mean(mat_muestras, axis=1, dtype="float64")
+        mat_muestras -= muestra_promedio
         self.assertEqual(np.sum(mat_muestras), 0)
 
     # ------------------------------------------------------------------------------------------------------------------
 
-        # Comprobando matriz de covarianza (sin no normalizar)
+    def test_mat_covarianza(self):
+
+        """
+        Entradas: Matriz de muestras
+        Resultado esperado: La matriz de covarianza debe coincidir con la matriz de covarianza que fue calculada
+        anteriormente de formma manual
+        """
+
+        # Creamos una matriz de muestras ficticia
+        mat_muestras = np.matrix([[4, 5],
+                                  [1, 6]], "float64")
+
+        # No es estrictamente la matriz de covarianza pues se usa un truco algebraico posterimente
         mat_covarianza = mat_muestras.T * mat_muestras
+        mat_covarianza /= mat_muestras.shape[1] - 1
 
-        # Se comprueba que sea cuadrada
-        self.assertEqual(mat_covarianza.shape[0], mat_covarianza.shape[1])
+        # La matriz de obtenida debe ser la siguiente
+        mat_covarianza_real = np.matrix([[17., 26.],
+                                         [26., 61.]])
 
-        # Se comprueba que cada valor de la matriz sea igual al de la obtenida en manualmente
-        mat_covarianza_real = np.matrix([[710.,  227.,  -937.],
-                                         [227.,  1305., -1532],
-                                         [-937, -1532., 2469.]], "float64")
-
-        self.assertTrue((mat_covarianza == mat_covarianza_real).all())
+        self.assertTrue(np.allclose(mat_covarianza, mat_covarianza_real))
 
     # ------------------------------------------------------------------------------------------------------------------
 
-        # Para C se obtienen los autovectores V.
-        autovals, autovects = np.linalg.eig(mat_covarianza)
-        autovects = autovects.T
+    def test_autovects(self):
 
-        # Comprobando contra los resultados obtenidos en
-        # http: // www.arndt - bruenner.de / mathe / scripts / engl_eigenwert2.htm
-        autovals_reales = np.array([3.79167771e+03, 6.92322292e+02, -1.89631347e-13], "float64")
-        autovects_reales = np.matrix([[-0.28312967, -0.5216683, 0.80479797],
-                                     [-0.76583566, 0.62811532, 0.13772034],
-                                     [0.57735027,  0.57735027, 0.57735027]], "float64")
+        """
+        Entradas: Matriz de covarianza
+        Resultado esperado: Los autovectores/valores deben coincidir con los resultados tomados con la
+        herramienta http://www.arndt-bruenner.de/mathe/scripts/engl_eigenwert2.htm
+        """
+
+        mat_cov = np.matrix([[4, 5],
+                             [1, 6]], "float64")
+
+        # Fragmento de código en la clase entrenamiento para obtener los autovectores/valores
+        autovals, autovects = np.linalg.eig(mat_cov)
+        orden = np.argsort(autovals)[::-1]
+        autovals = autovals[orden]
+        autovects = autovects[:, orden]
+
+        # Revisamos que los autovalores/vectores coincidan
+        autovals_reales = np.array([7.44948974278, 2.55051025721])
+        autovects_reales = np.array([[-0.82311937947, -0.960455354058],
+                                     [-0.567868371314, 0.278434036821]])
 
         self.assertTrue(np.allclose(autovals, autovals_reales))
         self.assertTrue(np.allclose(autovects, autovects_reales))
 
-    # ------------------------------------------------------------------------------------------------------------------
+    def test_autoespacio(self):
 
-        # Se ordenan los autovectores con base a los autovalores, se conservan solo los requeridos (2)
-        # Se comprueba que los autovectores con autovalores mas altos sean los que se conservan
-        autovects = autovects[np.argsort(autovals)[::-1]]
-        autovects = autovects[0:2]
-        autovects_reales = np.matrix([[-0.28312967, -0.5216683, 0.80479797],
-                                      [-0.76583566, 0.62811532, 0.13772034]], "float64")
+        """
+        Entradas: Matriz de muestras y los autovectores
+        Resultado esperado: El autoespacio conformado por los autovectores debe coincidir con el obtenido manualmente
+        """
 
-        self.assertTrue(np.allclose(autovects, autovects_reales))
+        # Creamos una matriz de muestras ficticia
+        mat_muestras = np.matrix([[1, 2],
+                                  [3, 0]], "float64")
 
-    # ------------------------------------------------------------------------------------------------------------------
+        # Creamos los autovectores. Cabe destacar que no son los autovectores reales para la matriz de covariza que se
+        # obtiene a partir de la matriz de muestras, sin embargo, no es necesario para esta prueba pues el objetivo es
+        # saber que los calculos se están realizando correctamente
+        autovects = np.matrix([[4, 4],
+                               [2, 2]], "float64")
 
-        # Se ocupan los autovectores U de la matriz PxP, por lo que se usa la fórmula U = AxV.
         autoespacio = mat_muestras * autovects.T
         autoespacio /= np.linalg.norm(autoespacio, axis=0)
-        autoespacio_real = np.matrix([[-0.03873852, 0.5297773],
-                                      [0.92336254,  0.34251681],
-                                      [-0.04308345, 0.03727536],
-                                      [0.37953229, -0.77500245]], "float64")
+
+        # Comparamos que el resultado obtenido sea igual a este siguiente
+        val = 0.70710678
+        autoespacio_real = np.array([[val, val],
+                                     [val, val]], "float64")
 
         self.assertTrue(np.allclose(autoespacio, autoespacio_real))
-
-    # ------------------------------------------------------------------------------------------------------------------
-
-        # Finalmente, se realiza las proyecciones al nuevo autoespacio.
-        proyecciones = autoespacio.T * mat_muestras
-        proyecciones_reales = np.matrix([[-17.43416274, -32.1225603, 49.55672304],
-                                         [-20.15068162, 16.52698157, 3.62370005]], "float64")
-
-        self.assertTrue(np.allclose(proyecciones, proyecciones_reales))
 
 # ----------------------------------------------------------------------------------------------------------------------
 

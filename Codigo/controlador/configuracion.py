@@ -14,6 +14,7 @@ class Configuracion(object):
     RUTA_CONFIG = join(RUTA_INDICE, "config.pkl")
     RUTA_DATOS = join(RUTA_RAIZ, "datos")
     RUTA_MEDIA = join(RUTA_RAIZ, "vista", "media")
+    RUTA_EVALUACION = join(RUTA_MEDIA, "evaluacion")
     RUTA_COLECCION = join(RUTA_INDICE, "coleccion.pkl")
     RUTA_ENTRENAMIENTO = join(RUTA_INDICE, "entrenamiento.pkl")
 
