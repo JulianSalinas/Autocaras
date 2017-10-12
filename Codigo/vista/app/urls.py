@@ -4,12 +4,14 @@ from . import views
 
 app_name = 'autoCaras'
 urlpatterns = [
-    # ex: /AutoCaras/
+    # ex: /autoCaras/
     url(r'^$', views.reconocimiento, name='reconocimiento'),
-    # ex: /AutoCaras/reconocimiento/
+    # ex: /autoCaras/reconocimiento/
     url(r'^reconocimiento$', views.reconocimiento, name='reconocimiento'),
-    # ex: /AutoCaras/acercaDe/
-    url(r'^acercaDe$', views.acercaDe, name='acercaDe'),
-    # ex: /AutoCaras/entrenamiento/
+    # ex: /autoCaras/acercaDe/
+    url(r'^acercaDe$', views.acerca_de, name='acerca_de'),
+    # ex: /autoCaras/entrenamiento/
     url(r'^entrenamiento$', views.entrenamiento, name='entrenamiento'),
+    # ex: /autoCaras/evaluar/
+    url(r'^evaluar$', views.evaluar, name='evaluar'),
 ]

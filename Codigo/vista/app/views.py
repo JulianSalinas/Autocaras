@@ -104,7 +104,32 @@ los datos del Codigo y los integrantes
 ***********************************************************************
 """
 
-def acercaDe(request):
+def acerca_de(request):
     integrantes = Integrante.objects.all()
     context = {'integrantes': integrantes}
     return render(request, 'app/acercaDe.html', context)
+
+
+
+
+
+
+
+"""
+***********************************************************************
+Vista para controlar la seccion de evaluacion del sistema
+***********************************************************************
+"""
+
+def evaluar(request):
+    if(request.method == 'POST'):
+        nombre_evaluacion = str(request.POST.get('nombre_evaluacion',""))
+        print("Nombre de la evaluacion= "+ nombre_evaluacion)
+
+        # Ejecucion de la evaluacion del sistema
+        contexto = api.ejecutar_evaluacion(nombre_evaluacion)
+
+        # Llamado al template de entrenamiento, pasando como contexto la respuesta de la evaluacion
+        return render(request, 'app/entrenamiento.html', contexto)
+
+    return render(request, 'app/entrenamiento.html', {})

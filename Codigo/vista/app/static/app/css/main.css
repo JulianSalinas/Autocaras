@@ -58,6 +58,12 @@
 .borderRadius {
     border-radius: 15px 0px;
 }
+.borderRadiusDer{
+    border-radius: 15px 0px 0px 15px;
+}
+.borderRadiusIzq{
+    border-radius: 0px 15px 15px 0px;
+}
 .paddingTopDown {
     padding: 14px;
 }
@@ -76,9 +82,14 @@
 .opacity1 {
     opacity: 0.6;
 }
+.box-shadowDer{
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.2);
+}
+.box-shadowIzq{
+    box-shadow: -10px 10px 10px rgba(0, 0, 0, 0.2);
+}
 .contInterno {
     padding: 20px;
-    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.2);
 }
 .marginBottom {
     margin-bottom: 5px;
@@ -105,6 +116,7 @@
     margin: auto;
     width: 70%;
 }
+
 .footerPosition {
     position: fixed;
     left: 0;
@@ -136,6 +148,7 @@
 .f45 {
     font-size: 45px;
 }
+
 .bgTransparent {
     background-color: transparent;
 }

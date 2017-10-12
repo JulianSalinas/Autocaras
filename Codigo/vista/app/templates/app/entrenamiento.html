@@ -2,46 +2,110 @@
 <div class="container page">
     <div id="content" class="container main">
         <div class="tituloPrincipal">
-            <h2>Entrenamiento del Sistema</h2> </div>
-        <div class="cCeleste contInterno borderRadius center">
-            <div class="cWhite">
-                <h1>Datos</h1>
-                <p class="opacity1">Entrenamiento</p>
+            <h2>Entrenamiento y Evaluación del Sistema</h2> </div>
+        <div class="inline">
+
+            <!--Sección Izquierda-->
+            <div class="cCeleste contInterno borderRadiusDer marginDer box-shadowIzq">
+                <div class="cWhite">
+                    <h1>Entrenamiento</h1>
+                    <p class="opacity1">Datos</p>
+                </div>
+                <form class="w3-container bgWhite paddingAll paddingTopDown contInterno2" action="/autoCaras/entrenamiento" method="POST"> {% csrf_token %}
+                    <div class="w3-section">
+                        <label><b>Porcentaje Colección</b></label>
+                        <div class="inline">
+                            <input type="range" max="100" min="0" oninput="document.getElementById('valPorColeccionLabel').innerHTML = this.value;" step="1" name="porcentaje_coleccion" id="porcentaje_coleccion" value="90">
+                            <label class="marginIzq" for="porcentaje_coleccion" id="valPorColeccionLabel">90</label>
+                        </div>
+                    </div>
+                    <div class="w3-section">
+                        <label><b>Porcentaje Valores</b></label>
+                        <div class="inline">
+                            <input type="range" max="100" min="0" oninput="document.getElementById('valPorValoresLabel').innerHTML = this.value;" step="1" name="porcentaje_valores" id="porcentaje_valores" value="70">
+                            <label class="marginIzq" for="porcentaje_valores" id="valPorValoresLabel">70</label>
+                        </div>
+                    </div>
+                    <div class="w3-section">
+                        <label><b>Porcentaje Aceptación</b></label>
+                        <div class="inline">
+                            <input type="range" max="100" min="0" oninput="document.getElementById('valPorAceptacionLabel').innerHTML = this.value;" step="1" name="porcentaje_aceptacion" id="porcentaje_aceptacion" value="50">
+                            <label class="marginIzq" for="porcentaje_aceptacion" id="valPorAceptacionLabel">50</label>
+                        </div>
+                    </div>
+                    <div class="w3-section">
+                        <div class="inline">
+                            <input type="checkbox" id="checkboxIndexar" name="checkboxIndexar" class="css-checkbox" checked="checked" />
+                            <label for="checkboxIndexar" name="checkboxIndexar_lbl" class="css-label dark-check-cyan">¿Indexar nueva base de datos?</label>
+                        </div>
+                        <div class="inline">
+                            <div class="input-group marginTop"> <span class="input-group-addon"><i class="glyphicon glyphicon-save"></i></span>
+                                <input id="urlIndexar" type="url" class="form-control" name="urlIndexar" placeholder="Ruta de la base de datos" required="required"> </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="w3-button w3-teal w3-right borderRadius">Ejecutar</button>
+                </form>
             </div>
-            <form class="w3-container bgWhite paddingAll paddingTopDown contInterno2" action="" method="POST"> {% csrf_token %}
-                <div class="w3-section">
-                    <label><b>Porcentaje Colección</b></label>
-                    <div class="inline">
-                        <input type="range" max="100" min="0" oninput="document.getElementById('valPorColeccionLabel').innerHTML = this.value;" step="1" name="porcentaje_coleccion" id="porcentaje_coleccion" value="90">
-                        <label class="marginIzq" for="porcentaje_coleccion" id="valPorColeccionLabel">90</label>
+
+
+            <!--Sección Derecha-->
+            <div class="cCeleste contInterno borderRadiusIzq marginIzq box-shadowDer">
+                <!--Sección Alta-->
+                <div class="cWhite">
+                    <h1>Evaluación</h1>
+                    <p class="opacity1">Datos</p>
+                </div>
+                <form class="w3-container bgWhite paddingAll paddingTopDown contInterno2 " action="/autoCaras/evaluar" method="POST"> {% csrf_token %}
+                    <div class="w3-section marginBottom">
+                        <label><b>Nombre de la carpeta destino</b></label>
+                        <div class="inline">
+                            <div class="input-group marginTop"> <span class="input-group-addon"><i class="	glyphicon glyphicon-hdd"></i></span>
+                                <input class="form-control" type="text" name="nombre_evaluacion" id="nombre_evaluacion" placeholder="Nombre de la carpeta" required="required">
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <button type="submit" class="w3-button w3-teal w3-right borderRadius">Evaluar</button>
+                </form>
+
+                <!--Sección Baja-->
+                <div class="cWhite">
+                    <h1>Resultado</h1>
+                    <p class="opacity1">Evaluación</p>
+                </div>
+                <div class="w3-container bgWhite paddingAll paddingTopDown contInterno2 ">
+                    <div class="w3-section marginTop">
+                        <label><b>Resultado de la evaluación</b></label>
+                        <div class="inline">
+                            <div class="input-group marginTop">
+                                {% if estado == 'OK' %}
+                                <div>
+                                    <label class="marginDer">Estado de Finalización:</label>
+                                    <resp>{{ mensaje }}</resp>
+                                </div>
+                                <div>
+                                    <label class="marginDer">Ruta de informe:</label>
+                                    <resp>{{ ruta_informes }}</resp>
+                                </div>
+
+                                {% else %} {% if estado == 'ERROR' %}
+                                <div>
+                                    <label class="marginDer">Estado de Finalización:</label>
+                                    <resp>{{ mensaje }}</resp>
+                                </div>
+                                <div>
+                                    <label class="marginDer">Detalles:</label>
+                                    <resp>{{ detalles }}</resp>
+                                </div>
+                                {% else %} {% endif %} {% endif %}
+                            </div>
+
+                        </div>
                     </div>
                 </div>
-                <div class="w3-section">
-                    <label><b>Porcentaje Valores</b></label>
-                    <div class="inline">
-                        <input type="range" max="100" min="0" oninput="document.getElementById('valPorValoresLabel').innerHTML = this.value;" step="1" name="porcentaje_valores" id="porcentaje_valores" value="70">
-                        <label class="marginIzq" for="porcentaje_valores" id="valPorValoresLabel">70</label>
-                    </div>
-                </div>
-                <div class="w3-section">
-                    <label><b>Porcentaje Aceptación</b></label>
-                    <div class="inline">
-                        <input type="range" max="100" min="0" oninput="document.getElementById('valPorAceptacionLabel').innerHTML = this.value;" step="1" name="porcentaje_aceptacion" id="porcentaje_aceptacion" value="50">
-                        <label class="marginIzq" for="porcentaje_aceptacion" id="valPorAceptacionLabel">50</label>
-                    </div>
-                </div>
-                <div class="w3-section">
-                    <div class="inline">
-                        <input type="checkbox" id="checkboxIndexar" name="checkboxIndexar" class="css-checkbox" checked="checked" />
-                        <label for="checkboxIndexar" name="checkboxIndexar_lbl" class="css-label dark-check-cyan">¿Indexar nueva base de datos?</label>
-                    </div>
-                    <div class="inline">
-                        <div class="input-group marginTop"> <span class="input-group-addon"><i class="glyphicon glyphicon-save"></i></span>
-                            <input id="urlIndexar" type="url" class="form-control" name="urlIndexar" placeholder="Ruta de la base de datos" required="required"> </div>
-                    </div>
-                </div>
-                <button type="submit" class="w3-button w3-teal w3-right borderRadius">Ejecutar</button>
-            </form>
+            </div>
         </div>
+
     </div>
 </div> {% endblock %}

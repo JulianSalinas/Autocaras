@@ -1,5 +1,4 @@
-{% extends 'app/paginaMaestra.html' %} 
-{% block body %}
+{% extends 'app/paginaMaestra.html' %} {% block body %}
 <div class="container page">
     <div id="content" class="container main">
         <div>
@@ -7,7 +6,7 @@
                 <h2>Resultado del Entrenamiento</h2>
             </div>
 
-            <div class="cCeleste contInterno borderRadius center">
+            <div class="cCeleste contInterno borderRadius center box-shadowDer">
                 <div class="container-fluid songs-container">
 
                     <div class="row">
@@ -16,7 +15,7 @@
                         <div class="col-sm-4 col-md-3">
                             <div class="panel panel-default bgTransparent borderNone middle">
                                 <div class="panel-body">
-                                    
+
                                     <div class="aCentro"><span class="glyphicon glyphicon-wrench f45"></span></div>
                                 </div>
                             </div>
@@ -28,23 +27,30 @@
                                 <div class="panel-body">
                                     {% if estado == 'OK' %}
 
-                                        <label><h4><b><u>Valores de Entrenamiento Solicitados</u></b></h4></label>
-                                        <div>
-                                            <label class="marginDer">Porcentaje de Colección:</label><resp>{{ porcentaje_coleccion }}</resp>
-                                        </div>
-                                        <div>
-                                            <label class="marginDer">Porcentaje de Valores:</label><resp>{{ porcentaje_valores }}</resp>
-                                        </div>
-                                        <div>
-                                            <label class="marginDer">Porcentaje de Aceptación:</label><resp>{{ porcentaje_aceptacion }}</resp>
-                                        </div>
-                                        <div>
-                                            <label class="marginDer">Estado de Finalización:</label><resp>{{ mensaje }}</resp>
-                                        </div>
+                                    <label>
+                                        <h4><b><u>Valores de Entrenamiento Solicitados</u></b></h4></label>
+                                    <div>
+                                        <label class="marginDer">Porcentaje de Colección:</label>
+                                        <resp>{{ porcentaje_coleccion }}</resp>
+                                    </div>
+                                    <div>
+                                        <label class="marginDer">Porcentaje de Valores:</label>
+                                        <resp>{{ porcentaje_valores }}</resp>
+                                    </div>
+                                    <div>
+                                        <label class="marginDer">Porcentaje de Aceptación:</label>
+                                        <resp>{{ porcentaje_aceptacion }}</resp>
+                                    </div>
+                                    <div>
+                                        <label class="marginDer">Estado de Finalización:</label>
+                                        <resp>{{ mensaje }}</resp>
+                                    </div>
 
                                     {% else %}
-                                        <label class="marginDer">Estado de Finalización:</label><resp>{{ mensaje }}</resp>
-                                        <label class="marginDer">Detalles:</label><resp>{{ detalles }}</resp>
+                                    <label class="marginDer">Estado de Finalización:</label>
+                                    <resp>{{ mensaje }}</resp>
+                                    <label class="marginDer">Detalles:</label>
+                                    <resp>{{ detalles }}</resp>
                                     {% endif %}
 
                                 </div>
