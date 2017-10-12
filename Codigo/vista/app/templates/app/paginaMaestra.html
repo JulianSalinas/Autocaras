@@ -9,25 +9,10 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="{% static 'app/css/main.css' %}">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script>
-        var loadFile = function (event) {
-            var output = document.getElementById('output');
-            output.src = URL.createObjectURL(event.target.files[0]);
-        };
-        
-        $(document).ready(function () {
-            $('input[type="checkbox"]').change(function () {
-                if ($('input[type="url"]').attr('required')) {
-                    $('input[type="url"]').removeAttr('required');
-                }
-                else {
-                    $('input[type="url"]').attr('required', 'required');
-                }
-            });
-        });
-    </script>
+
+    <script src="{% static 'app/js/jquery-min.js' %}"></script>
+    <script src="{% static 'app/js/bootstrap-min.js' %}"></script>
+    <script src="{% static 'app/js/script.js' %}"></script>
 </head>
 
 <body>
