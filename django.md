@@ -1,4 +1,4 @@
-## Ver versión:
+﻿## Ver versión:
 	python -m django --version
 
 ## Instalar Django (1.11.5)
@@ -39,4 +39,15 @@
 ## Crear SuperUsuario
 	python manage.py createsuperuser
 
-	integrantes = '{"Integrantes":[{"nombre":"Armando LÃ³pez", "carnet":2015125414},{"nombre":"Andrey Mendoza", "carnet":2015},{"nombre":"Julian Salinas", "carnet":2015114132},{"nombre":"Brandon Dinarte", "carnet":2015}]}'
+## Direcciones válidas de la página web
+
+	# ex: /autoCaras/
+
+	# ex: /autoCaras/reconocimiento/
+
+    	# ex: /autoCaras/acercaDe/
+
+    	# ex: /autoCaras/entrenamiento/
+
+    	# ex: /autoCaras/evaluar/
+    url(r'^evaluar$', views.evaluar, name='evaluar'),
