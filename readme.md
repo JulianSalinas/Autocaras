@@ -14,35 +14,35 @@ esta tecnología ha representado un  gran avance para el reconocimiento
 efectivo de personas, sobretodo para  empresas e instituciones donde la
 seguridad es uno de los factores más importantes.
 
-
 ### Dependencias
 
 Se hace uso de la versión 3.6.2 de Python. Se deben instalar las
 siguiente bibliotecas para que el sistema funcione correctamente:
 
-> pip install numpy
+> pip install numpy django pandas opencv-python
 
-> pip install opencv-python
+También se puede realizar la instalación de estas bibliotecas por medio
+del archivo `ejecutable.py` presente dentro de la directorio `Codigo`. Este
+archivo es usado para instalar las dependecias por primera vez antes de iniciar
+el servidor.
 
-> pip install django
+> python instalador.py
 
-Se hace uso del editor [PyCharm]. Se debe configurar después de 
+Se hace uso del editor [PyCharm]. Se debe configurar después de
 abrir el proyecto.
 
-* Colocar python 3.6 como predeterminada
-* Colocar las carpetas dentro de la carpeta "Código" como "source root"
+* Colocar python 3.6 como predeterminado
+* Abrir la carpeta `Codigo` dentro del editor
 
 ### Pruebas unitarias
 El programa sigue en desarrollo. Para probar el avance podemos hacer uso
-de las pruebas unitarias. Para ello abrimos la carpeta `pruebas` en la
-terminal y ejecutamos el siguiente comando seguido del módulo, clase o
+de las pruebas unitarias. Para ello abrimos la carpeta `Codigo/modelo/pruebas`
+en la terminal y ejecutamos el siguiente comando seguido del módulo, clase o
 función que queremos ejecutar:
 
 > python -m unittest nombre_módulo
 
-
 ### Documentación
-
 
 La documentación ha sido generada a partir del código.
 Esta se encuentra disponible en la carpeta `Documentación`.
