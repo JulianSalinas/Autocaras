@@ -2,10 +2,12 @@
 
 import subprocess
 from unittest import TestCase
-from modelo.evaluacion import *
-from modelo.entrenamiento import *
-from modelo.clasificador import *
+
 from controlador.dao_evaluacion import *
+from modelo.clasificador import *
+from modelo.entrenamiento import *
+from modelo.evaluacion import *
+
 
 # ----------------------------------------------------------------------------------------------------------------------
 

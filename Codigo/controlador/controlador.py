@@ -1,11 +1,13 @@
 # ----------------------------------------------------------------------------------------------------------------------
 
 import pickle
+
+from controlador.dao_evaluacion import *
 from modelo.clasificador import *
 from modelo.entrenamiento import *
 from modelo.evaluacion import *
 from modelo.utilitarios.conversor import *
-from controlador.dao_evaluacion import *
+
 
 # ----------------------------------------------------------------------------------------------------------------------
 

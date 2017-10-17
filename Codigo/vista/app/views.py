@@ -1,13 +1,19 @@
 from __future__ import unicode_literals
 
+import os
+import sys
+
+# Se debe agregar la dirección del modelo antes de importar los módulos
+ruta_modelo = os.path.dirname(os.path.abspath(__file__))
+ruta_modelo = os.path.split(ruta_modelo)[0]
+ruta_modelo = os.path.split(ruta_modelo)[0]
+sys.path.append(ruta_modelo)
+
 from django.shortcuts import render
-
-from .forms import FormularioReconocimiento
-from .models import Integrante
-
-
 from controlador.api_autocaras import *
 from modelo.utilitarios.conversor import Conversor
+from .forms import FormularioReconocimiento
+from .models import Integrante
 
 api = APIAutocaras()
 
@@ -16,6 +22,8 @@ api = APIAutocaras()
 Vista para cargar la seccion de reconocimiento del sistema
 ***********************************************************************
 """
+
+
 def reconocimiento(request):
 
     form = FormularioReconocimiento(request.POST or None, request.FILES or None)
@@ -32,7 +40,7 @@ def reconocimiento(request):
         # Ejecucion del reconocimiento de rostros
         contexto = api.ejecutar_clasificacion(ruta_img)
 
-        #Creacion de la imagen PNG en el directorio media
+        # Creacion de la imagen PNG en el directorio media
         Conversor.guardar_imagen(str(ruta_img))
 
         # Conversion de la imagen buscada a formato .PNG
@@ -61,25 +69,26 @@ Vista para cargar los datos del entrenamiento
 
 
 def entrenamiento(request):
-    if(request.method == 'POST'):
+
+    if request.method == 'POST':
         porcentaje_coleccion = int(request.POST.get('porcentaje_coleccion',""))
         porcentaje_valores = int(request.POST.get('porcentaje_valores',""))
         porcentaje_aceptacion = int(request.POST.get('porcentaje_aceptacion',""))
-        ctrlIndexar = str(request.POST.get("checkboxIndexar",""))
-        urlIndexar = str(request.POST.get("urlIndexar", ""))
+        ctrl_indexar = str(request.POST.get("checkboxIndexar",""))
+        url_indexar = str(request.POST.get("url_indexar", ""))
 
-        print("Control Indexar = "+ ctrlIndexar)
-        print("Url Indexar = " + urlIndexar)
+        print("Control Indexar = " + ctrl_indexar)
+        print("Url Indexar = " + url_indexar)
 
-        if(str(ctrlIndexar) == 'on'):
-            contexto = api.indexar_coleccion(urlIndexar)
-            if(contexto['estado'] == 'ERROR'):
+        if str(ctrl_indexar) == 'on':
+            contexto = api.indexar_coleccion(url_indexar)
+            if contexto['estado'] == 'ERROR':
                 return render(request, 'app/entrenamientoRes.html', contexto)
 
         print("Valores de Entrenamiento Solicitados: ")
-        print('Porcentaje de Coleccion '+ str(porcentaje_coleccion))
-        print('Porcentaje de Valores '+ str(porcentaje_valores))
-        print('Porcentaje de Aceptacion '+str(porcentaje_aceptacion))
+        print('Porcentaje de Coleccion ' + str(porcentaje_coleccion))
+        print('Porcentaje de Valores ' + str(porcentaje_valores))
+        print('Porcentaje de Aceptacion ' + str(porcentaje_aceptacion))
 
         # Ejecucion del entrenamiento del sistema
         contexto = api.ejecutar_entrenamiento(porcentaje_coleccion, porcentaje_valores, porcentaje_aceptacion)
@@ -93,10 +102,6 @@ def entrenamiento(request):
     return render(request, 'app/entrenamiento.html', {})
 
 
-
-
-
-
 """
 ***********************************************************************
 Vista para controlar la seccion AcercaDe que contiene
@@ -104,15 +109,11 @@ los datos del Codigo y los integrantes
 ***********************************************************************
 """
 
+
 def acerca_de(request):
     integrantes = Integrante.objects.all()
     context = {'integrantes': integrantes}
     return render(request, 'app/acercaDe.html', context)
-
-
-
-
-
 
 
 """
@@ -121,8 +122,9 @@ Vista para controlar la seccion de evaluacion del sistema
 ***********************************************************************
 """
 
+
 def evaluar(request):
-    if(request.method == 'POST'):
+    if request.method == 'POST' :
         nombre_evaluacion = str(request.POST.get('nombre_evaluacion',""))
         print("Nombre de la evaluacion= "+ nombre_evaluacion)
 
