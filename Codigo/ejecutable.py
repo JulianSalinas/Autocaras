@@ -1,26 +1,46 @@
 # ----------------------------------------------------------------------------------------------------------------------
 
 import os
-import pip
+import time
+import webbrowser
+import threading
+from instalador import *
 
 # ----------------------------------------------------------------------------------------------------------------------
 
 
-def instalar_dependencias():
+def iniciar_servidor():
 
-    try:
-        pip.main(["install", "numpy", "django", "pandas", "opencv-python"])
-    except OSError:
-        print("No se han podido instalar las dependencias")
-        print("Intente instalar manualmente con permisos de administrador: ")
-        print("\n > pip install numpy django opencv-python")
+    print("Inicializando servidor...")
+
+    # Pedimos al SO que ejecute inicialice el servidor en el puerto 9000
+    threading.Thread(target=abrir_pagina_web).start()
+    os.system("python vista/manage.py runserver 9000")
+
+# ----------------------------------------------------------------------------------------------------------------------
+
+
+def abrir_pagina_web():
+
+    print("Abriendo página web...")
+
+    # Esperamos 2 segundos a que se inicialice el servidor
+    time.sleep(2)
+    webbrowser.open("http://localhost:9000/autoCaras/")
 
 # ----------------------------------------------------------------------------------------------------------------------
 
 
 if __name__ == "__main__":
-    instalar_dependencias()
-    comando = "python vista/manage.py runserver 9000"
-    os.system(comando)
+
+    print("Espere porfavor... ")
+
+    if verificar_permisos():
+        instalar_dependencias()
+    else:
+        # Sino tiene permisos trata de darlos
+        ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, "instalador.py", None, 1)
+
+    iniciar_servidor()
 
 # ----------------------------------------------------------------------------------------------------------------------
