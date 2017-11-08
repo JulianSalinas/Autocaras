@@ -16,10 +16,14 @@ class TestClasificacion(TestCase):
     def test_clasificar(self):
 
         """
+        @author Julian Salinas, Andrey Mendoza, Armando Lopez, Brandon Dinarte
+        @version 1.6.49
         Entradas: El subconjunto utilizado por el entrenamiento, una coleccion con la que se consultaran los sujetos
         a partir de un indice obtenido usando el clasificador y un sujeto desconocido del cual se tenga certeza a que
         columna en la matriz se parece más.
-        Resultado esperado: El
+        Resultado esperado: Identifica al sujeto correcto
+        @param Sin parametros
+        @return Sin retorno
         """
 
         # Configuramos una coleccion pequeña para verificar

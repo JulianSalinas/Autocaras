@@ -20,9 +20,13 @@ class TestEntrenamiento(TestCase):
     def test_obt_indices_entrenamiento(self):
 
         """
+        @author Julian Salinas, Andrey Mendoza, Armando Lopez, Brandon Dinarte
+        @version 1.6.49
         Entradas: Coleccion y el porcentaje de la coleccion que vamos a utilizar para el entrenamiento
         Resultado esperado: Lista de indices que representan una imagen dentro de la coleccion. Se debe haber tomado
         igual cantidad de imagenes para cada sujeto
+        @param sin parametros
+        @return sin retorno
         """
 
         # Se crea una coleccion ficticia
@@ -56,8 +60,12 @@ class TestEntrenamiento(TestCase):
     def test_obt_promedio_muestras(self):
 
         """
+        @author Julian Salinas, Andrey Mendoza, Armando Lopez, Brandon Dinarte
+        @version 1.6.49
         Entradas: Matriz de muestras
         Resultado esperado: Al restar el promedio a la matriz, la sumatoria de todas las columnas debe ser 0
+        @param sin parametros
+        @return sin retorno
         """
 
         # Creamos una matriz de muestras ficticia
@@ -75,9 +83,13 @@ class TestEntrenamiento(TestCase):
     def test_mat_covarianza(self):
 
         """
+        @author Julian Salinas, Andrey Mendoza, Armando Lopez, Brandon Dinarte
+        @version 1.6.49
         Entradas: Matriz de muestras
         Resultado esperado: La matriz de covarianza debe coincidir con la matriz de covarianza que fue calculada
         anteriormente de formma manual
+        @param sin parametros
+        @return sin retorno
         """
 
         # Creamos una matriz de muestras ficticia
@@ -99,9 +111,13 @@ class TestEntrenamiento(TestCase):
     def test_autovects(self):
 
         """
+        @author Julian Salinas, Andrey Mendoza, Armando Lopez, Brandon Dinarte
+        @version 1.6.49
         Entradas: Matriz de covarianza
         Resultado esperado: Los autovectores/valores deben coincidir con los resultados tomados con la
         herramienta http://www.arndt-bruenner.de/mathe/scripts/engl_eigenwert2.htm
+        @param sin parametros
+        @return sin retorno
         """
 
         mat_cov = np.matrix([[4, 5],
@@ -124,6 +140,10 @@ class TestEntrenamiento(TestCase):
     def test_autoespacio(self):
 
         """
+        @author Julian Salinas, Andrey Mendoza, Armando Lopez, Brandon Dinarte
+        @version 1.6.49
+        @param sin parametros
+        @return sin retorno
         Entradas: Matriz de muestras y los autovectores
         Resultado esperado: El autoespacio conformado por los autovectores debe coincidir con el obtenido manualmente
         """

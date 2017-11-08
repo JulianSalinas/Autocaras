@@ -17,7 +17,14 @@ api.ejecutar_entrenamiento(porcentaje_coleccion=50, porcentaje_aceptacion=0)
 # ----------------------------------------------------------------------------------------------------------------------
 
 def ejemplo(ruta_img_desconocida):
-
+    
+    """
+    Prueba de interaccion entre componentes para una imagen de un sujeto desconocido
+    @author Julian Salinas, Andrey Mendoza, Armando Lopez, Brandon Dinarte
+    @version 1.6.49
+    @param ruta_img_desconocida : ruta a una imagen de un sujeto desconocido
+    @return sin retorno
+    """
     print(Fuente.VERDE + "\nSujeto buscado: " + ruta_img_desconocida + Fuente.FIN)
 
     try:
