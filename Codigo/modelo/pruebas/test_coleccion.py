@@ -7,6 +7,10 @@ from modelo.coleccion import *
 
 # ----------------------------------------------------------------------------------------------------------------------
 
+"""
+@author Julian Salinas, Armando Lopez, Andrey Mendoza, Brandon Dinarte
+@version 1.6.49
+"""
 
 class TestColeccion(TestCase):
 

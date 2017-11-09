@@ -4,6 +4,10 @@ from __future__ import unicode_literals
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 
+"""
+@author Julian Salinas, Armando Lopez, Andrey Mendoza, Brandon Dinarte
+@version 1.6.49
+"""
 
 @python_2_unicode_compatible  # only if you need to support Python 2
 class Integrante(models.Model):
