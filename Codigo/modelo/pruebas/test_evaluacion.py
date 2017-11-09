@@ -19,10 +19,6 @@ class TestEvaluacion(TestCase):
     def test_evaluacion(self):
 
         """
-        @author Julian Salinas, Andrey Mendoza, Armando Lopez, Brandon Dinarte
-        @version 1.6.49
-        @param sin parametros
-        @return sin retorno
         Entradas: Entrenamiento previo del sistema, nombre del directorio donde se guardarán los informes generados
         por la evaluacion del sistema
         Resultado esperado: Dos archivos csv no vacios
