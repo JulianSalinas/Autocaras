@@ -16,8 +16,6 @@ class DaoEvaluacion(object):
     def guardar(evaluacion, directorio):
 
         """
-        @author Julian Salinas, Andrey Mendoza, Armando Lopez, Brandon Dinarte
-        @version 1.6.49
         Se crearán los archivos cvs a partir de las tablas generedas por la evaluación
         @param directorio: Ruta donde se guardarán las tablas generadas por la evaluacion
         @param evaluacion: objeto evaluacion con los valores calculados

@@ -7,13 +7,7 @@ from os.path import *
 
 class Configuracion(object):
 
-    """ 
-    @author Julian Salinas
-    @version 1.6.49
-    Sirve para proveer las rutas que necesitan cada uno de los modulos del sistema 
-    @param Sin parametros
-    @return Sin retorno
-    """
+    """ Sirve para proveer las rutas que necesitan cada uno de los modulos del sistema """
 
     RUTA_RAIZ = split(dirname(abspath(__file__)))[0]
     RUTA_INDICE = join(RUTA_RAIZ, "controlador", "pickle")

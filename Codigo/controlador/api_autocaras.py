@@ -16,8 +16,6 @@ class APIAutocaras(object):
     def indexar_coleccion(self, ruta_datos=None):
 
         """
-        @author Julian Salinas, Andrey Mendoza, Armando Lopez, Brandon Dinarte
-        @version 1.6.49
         Indexa la colección de imagenes
         @param ruta_datos: ruta donde se encuentran las imagenes. Si no se especifica se tomará la ruta por defecto
         presente en el archivo configuracion.py
@@ -42,8 +40,6 @@ class APIAutocaras(object):
     def ejecutar_entrenamiento(self, porcentaje_coleccion=80, porcentaje_valores=85, porcentaje_aceptacion=75):
 
         """
-        @author Julian Salinas, Andrey Mendoza, Armando Lopez, Brandon Dinarte
-        @version 1.6.49
         Ejecuta el entrenamiento del sistema
         @param porcentaje_coleccion: Porcentaje de la colección que se usará para realizar el entrenamiento
         @param porcentaje_valores: Porcentaje de valores (autocaras o componentes) que se desean conservar
@@ -68,8 +64,6 @@ class APIAutocaras(object):
     def ejecutar_clasificacion(self, ruta_img_buscada):
 
         """
-        @author Julian Salinas, Andrey Mendoza, Armando Lopez, Brandon Dinarte
-        @version 1.6.49
         Ejecuta la clasificación para una imagen
         @param ruta_img_buscada: ruta de la imagen desconocida que se desea clasificar
         @return: diccionario con información de la operación y con los siguientes datos:
@@ -98,8 +92,6 @@ class APIAutocaras(object):
     def ejecutar_evaluacion(self, directorio=None):
 
         """
-        @author Julian Salinas, Andrey Mendoza, Armando Lopez, Brandon Dinarte
-        @version 1.6.49
         Crea archivos csv de la evaluación del sistema con base en el último entrenamiento realizado
         NOTA: Si en el último entrenamiento se usó el 100% de la colección, significa que no habrán imagenes disponibles
         para realizar la evaluación, por tanto, la tabla generada estará llena con ceros

@@ -17,8 +17,6 @@ class Controlador(object):
     def __init__(self):
 
         """
-        @author Julian Salinas, Andrey Mendoza, Armando Lopez, Brandon Dinarte
-        @version 1.6.49
         Clase principal del sistema, aquí se reunen los casos de uso, como por ejemplo, entrenar el sistema, realizar
         la clasificación de imagenes desconocidas. Se debe tomar en cuenta las siguientes consideraciones:
             1. Indexar la colección de imágenes implica tener que re-entrenar el sistema
@@ -45,8 +43,6 @@ class Controlador(object):
     def indexar_coleccion(self, ruta_datos=None):
 
         """
-        @author Julian Salinas, Andrey Mendoza, Armando Lopez, Brandon Dinarte
-        @version 1.6.49
         Indexa la colección de imagenes con base a las rutas del módulo configuración
         @param ruta_datos: ruta donde se encuentran las imagenes. Si no se especifica se tomará la ruta por defecto
         presente en el archivo configuracion.py
@@ -68,8 +64,6 @@ class Controlador(object):
     def ejecutar_entrenamiento(self, porcentaje_coleccion=80, porcentaje_valores=85, porcentaje_aceptacion=75):
 
         """
-        @author Julian Salinas, Andrey Mendoza, Armando Lopez, Brandon Dinarte
-        @version 1.6.49
         Ejecuta el entrenamiento del sistema
         @param porcentaje_coleccion: Porcentaje de la colección que se usará para realizar el entrenamiento
         @param porcentaje_valores: Porcentaje de valores (autocaras o componentes) que se desean conservar
@@ -90,8 +84,6 @@ class Controlador(object):
     def ejecutar_clasificacion(self, ruta_img_buscada):
 
         """
-        @author Julian Salinas, Andrey Mendoza, Armando Lopez, Brandon Dinarte
-        @version 1.6.49
         Ejecuta la clasificación para una imagen mediante el método del centroide más cercano
         @param ruta_img_buscada: ruta de la imagen desconocida que se desea clasificar
         @return: ruta_sujeto, ruta_img_encontrada, similitud
@@ -124,8 +116,6 @@ class Controlador(object):
     def ejecutar_evaluacion(self, directorio=None):
 
         """
-        @author Julian Salinas, Andrey Mendoza, Armando Lopez, Brandon Dinarte
-        @version 1.6.49
         Ejecuta la evaluación del sistema con base al último entrenamiento realizado. De la evaluación se puede extraer
         la tabla de imagenes clasificadas vs reales, la tabla de evaluaciones (vp, fp, vn, fn, tvp, tpp) y los promedios
         de dicha tabla de evaluaciónes.
