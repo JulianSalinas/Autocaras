@@ -10,9 +10,6 @@ class Entrenamiento(object):
     def __init__(self, coleccion, porcentaje_coleccion, porcentaje_valores):
 
         """
-        @author Julian Salinas, Andrey Mendoza, Armando Lopez, Brandon Dinarte
-        @version 1.6.49
-        @return sin retorno
         Clase encargada de realizar el entrenamiento del sistema. El resultado de objetivo de este entrenamiento es
         encontrar los autovectores/caras que componen el autoespacio, además de sus respectivas proyecciones (o pesos)
         Además se guarda la muestra promedio para centrar las imagenes al origen cuando sea necesario clasificarlas
@@ -57,8 +54,6 @@ class Entrenamiento(object):
     def obt_indices_entrenamiento(self, coleccion, porcentaje_coleccion):
 
         """
-        @author Julian Salinas, Andrey Mendoza, Armando Lopez, Brandon Dinarte
-        @version 1.6.49
         Obtenemos los índices de la coleccion de las imagenes que vamos a utilizar para el entrenamiento
         @param coleccion: Instancia de Coleccion de donde vamos a extraer las imagenes
         @param porcentaje_coleccion: Representa la cant de imagenes que usaremos de la coleccion

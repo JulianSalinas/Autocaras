@@ -11,9 +11,6 @@ class Clasificador(object):
     def __init__(self, entrenamiento, porcentaje_aceptacion):
 
         """
-        @author Julian Salinas, Andrey Mendoza, Armando Lopez, Brandon Dinarte
-        @version 1.6.49
-        @return sin retorno
         Clase encargada de clasificar las imágenes desconocidas. Por defecto se basa en la distancia euclidiana para
         encontrar la muestra con la que más se parece la imagen desconocida. Para instanciar esta clase es necesario
         especificar los resultados del entrenamiento y fijar un minímo de aceptación para decidir si la imagen esta
@@ -33,8 +30,6 @@ class Clasificador(object):
     def clasificar(self, img):
 
         """
-        @author Julian Salinas, Andrey Mendoza, Armando Lopez, Brandon Dinarte
-        @version 1.6.49
         Con base al modelo de clasificación planteado, se clasifica la imagen desconocida retornando un índice con el
         que se podrá consultar a la colección la etiqueta (o ruta) del sujeto. El grado de similitud se obtiene con base
         a la imagen más distante a la imagen desconocida, siendo esta 0
