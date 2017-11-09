@@ -10,6 +10,9 @@ class Evaluacion(object):
     def __init__(self, coleccion, entrenamiento, clasificador):
 
         """
+        @author Julian Salinas, Andrey Mendoza, Armando Lopez, Brandon Dinarte
+        @version 1.6.49
+        @return sin retorno
         Clase usada para evaluar la precisión y exhaustividad  del sistema. Se toma un porcentaje de imagenes de la
         colección para entrenar el sistema y otro porcentaje para clasificar (escogidas aleatoriamente respetando
         la cantidad que se deben tomar).
@@ -45,6 +48,9 @@ class Evaluacion(object):
     def obt_clasificaciones(self):
 
         """
+        @author Julian Salinas, Andrey Mendoza, Armando Lopez, Brandon Dinarte
+        @version 1.6.49
+        @param sin parametros
         Se obtiene la tabla de sujetos clasificados vs los sujetos reales. Tiene el siguiente formato:
 
                                 suj_real1   suj_real2   suj_realN
@@ -83,6 +89,9 @@ class Evaluacion(object):
     def obt_evaluaciones(self):
 
         """
+        @author Julian Salinas, Andrey Mendoza, Armando Lopez, Brandon Dinarte
+        @version 1.6.49
+        @param sin parametros
         Obtiene una tabla con las evaluaciones para cada uno de los sujetos (clases) con el siguiente formato:
 
                         vp,     fp,     fn,     recall,  precision

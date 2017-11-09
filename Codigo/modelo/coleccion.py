@@ -17,6 +17,10 @@ class Coleccion(object):
     def __init__(self):
 
         """
+        @author Julian Salinas, Andrey Mendoza, Armando Lopez, Brandon Dinarte
+        @version 1.6.49
+        @param sin parametros
+        @return sin retorno
         Encargada de proporcionar las rutas de cada una de las imagenes presentes en la base de datos, asi como otra
         información importante, como la cantidad de sujetos, la cantidad de imagenes totales y por sujeto junto con la
         resolucion de cada una. Sirve para encontrar el sujeto con el que coincide una imagen al momento de clasificar
@@ -39,6 +43,8 @@ class Coleccion(object):
     def consultar_img(self, indice_img):
 
         """
+        @author Julian Salinas, Andrey Mendoza, Armando Lopez, Brandon Dinarte
+        @version 1.6.49
         Obtiene la ruta de la imagen según el índice obtenido de la matriz de imagenes de la colección
         @param indice_img: Índice devuelto por el clasificador
         @return: ruta_suj, ruta_img
@@ -54,6 +60,8 @@ class Coleccion(object):
     def consultar_suj(self, indice_suj):
 
         """
+        @author Julian Salinas, Andrey Mendoza, Armando Lopez, Brandon Dinarte
+        @version 1.6.49
         A partir de un índice que corresponda a un sujeto, se obtiene la ruta de la carpeta de dicho sujeto
         @param indice_suj: Índice devuelto por el clasificador
         @return: ruta_suj
@@ -69,11 +77,14 @@ class Coleccion(object):
     def obt_diccionarios(self):
 
         """
+        @author Julian Salinas, Andrey Mendoza, Armando Lopez, Brandon Dinarte
+        @version 1.6.49
+        @param sin parametros
+        @return sin retorno
         Crea un diccionario con el siguiente formato: I : (S, R), donde I es el numero de imagen leida dentro de todas
         las presentes en la BD, S es el sujeto con el que se relaciona I, y R es la ruta de I. Esto se hace con el fin
         de eliminar la restricción de que cada sujeto deba tener exactamente 10 imagenes en su carpeta
         Además se obtiene el diccionario de sujetos con el formato I : R donde I es el índice del sujeto y R su ruta
-        @return: no retorna ningun valor
         """
 
         # Obteniendo la carpeta de cada uno de los sujetos
@@ -97,9 +108,12 @@ class Coleccion(object):
     def obt_dimensiones(self):
 
         """
+        @author Julian Salinas, Andrey Mendoza, Armando Lopez, Brandon Dinarte
+        @version 1.6.49
+        @param sin parametros
+        @return sin retorno
         Con base a la primera imagen indexada se infiere el tamaño de las demás imágenes dentro de la bd,
         esto porque se asume que todas las imágenes tienen las mismas dimensiones.
-        @return: no retorna ningun valor
         """
 
         primer_clave = self.dic_imgs[0]
@@ -116,6 +130,8 @@ class Coleccion(object):
     def obt_subconjunto(self, indices):
 
         """
+        @author Julian Salinas, Andrey Mendoza, Armando Lopez, Brandon Dinarte
+        @version 1.6.49
         Obtiene una matriz de subconjunto a partir de la matriz de muestras
         @param indices: lista de los indices asociados a la columnas que se tomarán de la matriz de muestras
         @return: Tupla (M, I) donde M es la matriz subconjunto de la colección e I los indices utilizados
