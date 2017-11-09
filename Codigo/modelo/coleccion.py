@@ -24,6 +24,8 @@ class Coleccion(object):
         Encargada de proporcionar las rutas de cada una de las imagenes presentes en la base de datos, asi como otra
         información importante, como la cantidad de sujetos, la cantidad de imagenes totales y por sujeto junto con la
         resolucion de cada una. Sirve para encontrar el sujeto con el que coincide una imagen al momento de clasificar
+        @param Sin parametros
+        @return Sin retorno
         """
 
         self.dic_sujs = {}
@@ -77,6 +79,7 @@ class Coleccion(object):
         las presentes en la BD, S es el sujeto con el que se relaciona I, y R es la ruta de I. Esto se hace con el fin
         de eliminar la restricción de que cada sujeto deba tener exactamente 10 imagenes en su carpeta
         Además se obtiene el diccionario de sujetos con el formato I : R donde I es el índice del sujeto y R su ruta
+        @param Sin parametros
         @return: no retorna ningun valor
         """
 
@@ -103,6 +106,7 @@ class Coleccion(object):
         """
         Con base a la primera imagen indexada se infiere el tamaño de las demás imágenes dentro de la bd,
         esto porque se asume que todas las imágenes tienen las mismas dimensiones.
+        @param Sin parametros
         @return: no retorna ningun valor
         """
 

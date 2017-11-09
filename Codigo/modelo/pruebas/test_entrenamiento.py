@@ -27,6 +27,8 @@ class TestEntrenamiento(TestCase):
         Entradas: Coleccion y el porcentaje de la coleccion que vamos a utilizar para el entrenamiento
         Resultado esperado: Lista de indices que representan una imagen dentro de la coleccion. Se debe haber tomado
         igual cantidad de imagenes para cada sujeto
+        @param Sin parametros
+        @return Sin retorno
         """
 
         # Se crea una coleccion ficticia
@@ -62,6 +64,8 @@ class TestEntrenamiento(TestCase):
         """
         Entradas: Matriz de muestras
         Resultado esperado: Al restar el promedio a la matriz, la sumatoria de todas las columnas debe ser 0
+        @param Sin parametros
+        @return Sin retorno
         """
 
         # Creamos una matriz de muestras ficticia

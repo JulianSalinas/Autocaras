@@ -23,7 +23,8 @@ class TestClasificacion(TestCase):
         Entradas: El subconjunto utilizado por el entrenamiento, una coleccion con la que se consultaran los sujetos
         a partir de un indice obtenido usando el clasificador y un sujeto desconocido del cual se tenga certeza a que
         columna en la matriz se parece más.
-        Resultado esperado: El
+        @param Sin parametros
+        @return Sin retorno
         """
 
         # Configuramos una coleccion pequeña para verificar

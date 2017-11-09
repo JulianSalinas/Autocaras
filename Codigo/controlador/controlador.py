@@ -27,6 +27,8 @@ class Controlador(object):
             2. Entrenar el sistema requiere refrescar el modelo para clasificación
             3. Antes de usar el modelo de clasificación el sistema debe de haber sido entrenado previamente
             4. Antes de evaluar al sistema se tiene que haber indexado la colección de imagenes
+        @param Sin parametros
+        @return Sin retorno
         """
 
         if not os.path.exists(Configuracion.RUTA_INDICE):

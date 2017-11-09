@@ -21,6 +21,7 @@ class Clasificador(object):
         dentro del espacio creado
         @param entrenamiento: Instancia de Entrenamiento ejecutada con anterioridad
         @param porcentaje_aceptacion: Número ara decidir si la imagen es lo suficientemente parecida a una de las img
+        @return Sin retorno
         """
 
         self.entrenamiento = entrenamiento

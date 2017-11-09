@@ -20,6 +20,7 @@ class Evaluacion(object):
         @param coleccion: Instancia de Coleccion
         @param entrenamiento: Instancia de Entrenamiento
         @param clasificador: Instancia de Clasificador
+        @return Sin retorno
         """
 
         self.clasificador = clasificador
@@ -55,7 +56,7 @@ class Evaluacion(object):
             suj_clasificado1        int         int         int
             suj_clasificado2        int         int         int
             suj_clasificadoN        int         int         int
-
+        @param Sin parametros
         @return: npmatrix donde las cada fila corresponde al sujeto clasificado y las columnas a los reales
         """
 
@@ -94,6 +95,7 @@ class Evaluacion(object):
             sujeto2     float   float   float   float    float
             sujetoN     float   float   float   float    float
 
+        @param Sin parametros
         @return: npmatriz donde cada fila corresponde a un sujeto (clase) y cada columna a las evaluaciones realizadas
         """
 

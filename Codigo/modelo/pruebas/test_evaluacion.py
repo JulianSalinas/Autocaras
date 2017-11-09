@@ -26,6 +26,8 @@ class TestEvaluacion(TestCase):
         Entradas: Entrenamiento previo del sistema, nombre del directorio donde se guardarán los informes generados
         por la evaluacion del sistema
         Resultado esperado: Dos archivos csv no vacios
+        @param Sin parametros
+        @return Sin retorno
         """
 
         # Colocamos la configuracion para que la coleccion solo se tenga 4 sujetos

@@ -20,6 +20,7 @@ class Entrenamiento(object):
         @param coleccion: Instancia de Coleccion de donde vamos a extraer las imagenes
         @param porcentaje_coleccion: Representa la cant de imagenes que usaremos de la coleccion
         @param porcentaje_valores: Número que determine la cantidad de valores (o componentes) que se desean conservar
+        @return Sin retorno
         """
 
         # Obtenemos los índices de la coleccion de las imagenes que usaremos de muestra
