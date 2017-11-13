@@ -11,7 +11,13 @@ from modelo.utilitarios.fuentes import *
 
 api = APIAutocaras()
 api.indexar_coleccion(Configuracion.RUTA_DATOS)
-api.ejecutar_entrenamiento(porcentaje_coleccion=50, porcentaje_aceptacion=0)
+resultado = api.ejecutar_entrenamiento(porcentaje_coleccion=50, porcentaje_aceptacion=0)
+
+print(Fuente.VERDE + "Imagenes usadas para el entrenamiento" + Fuente.FIN)
+print(resultado["imgs_usadas"])
+
+print(Fuente.VERDE + "Imagenes ignoradas para el entrenamiento (que se usarán para evaluar el sistema)" + Fuente.FIN)
+print(resultado["imgs_sin_usar"])
 
 
 # ----------------------------------------------------------------------------------------------------------------------

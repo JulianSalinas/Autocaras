@@ -52,9 +52,12 @@ class APIAutocaras(object):
         """
 
         try:
-            self.ctrl.ejecutar_entrenamiento(porcentaje_coleccion, porcentaje_valores, porcentaje_aceptacion)
+            imgs_usadas, imgs_sin_usar = \
+                self.ctrl.ejecutar_entrenamiento(porcentaje_coleccion, porcentaje_valores, porcentaje_aceptacion)
 
             return {"estado": "OK",
+                    "imgs_usadas": imgs_usadas,
+                    "imgs_sin_usar": imgs_sin_usar,
                     "mensaje": "La operación se ha realizado con exito"}
 
         except Exception as ex:

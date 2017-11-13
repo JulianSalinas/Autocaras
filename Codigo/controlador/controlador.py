@@ -43,8 +43,10 @@ class Controlador(object):
             self.ejecutar_entrenamiento()
 
         self.clasificador = Clasificador(self.entrenamiento, 75)
+        self.indices_imgs_entrenamiento = None
+        self.indices_imgs_evaluacion = None
 
-    # ------------------------------------------------------------------------------------------------------------------
+            # ------------------------------------------------------------------------------------------------------------------
 
     def indexar_coleccion(self, ruta_datos=None):
 
@@ -83,7 +85,25 @@ class Controlador(object):
         self.entrenamiento = Entrenamiento(self.coleccion, porcentaje_coleccion, porcentaje_valores)
         self.clasificador = Clasificador(self.entrenamiento, porcentaje_aceptacion)
 
+        # Obtenemos las claves de las imagenes que son para entrenar y para evaluar
+        self.indices_imgs_entrenamiento = self.entrenamiento.indices_entrenamiento
+        self.indices_imgs_evaluacion = \
+            np.delete(range(0, self.coleccion.total_imgs), self.entrenamiento.indices_entrenamiento)
+
+        self.etiquetas_imgs_entrenamiento = [self.coleccion.consultar_img(i)[1] for i in self.indices_imgs_entrenamiento]
+        self.etiquetas_imgs_evaluacion = [self.coleccion.consultar_img(i)[1] for i in self.indices_imgs_evaluacion]
+
         pickle.dump(self.entrenamiento, open(Configuracion.RUTA_ENTRENAMIENTO, "wb"))
+
+        str_entrenamiento = ""
+        for i in self.etiquetas_imgs_entrenamiento:
+            str_entrenamiento += str(i) + "\n"
+
+        str_evaluacion = ""
+        for i in self.etiquetas_imgs_evaluacion:
+            str_evaluacion += str(i) + "\n"
+
+        return str_entrenamiento, str_evaluacion
 
     # ------------------------------------------------------------------------------------------------------------------
 
