@@ -3,6 +3,8 @@
 import subprocess
 from unittest import TestCase
 
+from builtins import print
+
 from controlador.dao_evaluacion import *
 from modelo.clasificador import *
 from modelo.entrenamiento import *

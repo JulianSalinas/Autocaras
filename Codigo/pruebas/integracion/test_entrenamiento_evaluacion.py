@@ -16,7 +16,8 @@ from modelo.evaluacion import *
 @version 1.6.49
 """
 
-class TestIntegracion3(TestCase):
+class TestEntrenamientoEvaluacion(TestCase):
+
     """
     Prueba encargada de probar la integracion entre el entrenamiento y la evaluacion
     Esto se logra por medio del assert de las tablas que se guardan en la evaluacion y las dimensiones que estas adquieren
@@ -31,7 +32,7 @@ class TestIntegracion3(TestCase):
 
     # ------------------------------------------------------------------------------------------------------------------
 
-    def test_integracion3(self):
+    def test_entrenamiento_evaluacion(self):
 
         """
         Entradas: Entrenamiento previo del sistema, nombre del directorio donde se guardarán los informes generados
@@ -68,6 +69,7 @@ class TestIntegracion3(TestCase):
             suj_clasificado2        int         int         int
             suj_clasificadoN        int         int         int        
         """
+
         print("Tabla de clasificaciones \n" + str(evaluacion.tabla_clasificaciones))
         self.assertTrue(evaluacion.tabla_clasificaciones.shape, (4, 4))
 

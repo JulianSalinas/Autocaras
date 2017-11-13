@@ -13,7 +13,7 @@ api = APIAutocaras()
 api.indexar_coleccion(Configuracion.RUTA_DATOS)
 resultado = api.ejecutar_entrenamiento(porcentaje_coleccion=50, porcentaje_aceptacion=0)
 
-print(Fuente.VERDE + "Imagenes usadas para el entrenamiento" + Fuente.FIN)
+print(Fuente.VERDE + "\nImagenes usadas para el entrenamiento" + Fuente.FIN)
 print(resultado["imgs_usadas"])
 
 print(Fuente.VERDE + "Imagenes ignoradas para el entrenamiento (que se usarán para evaluar el sistema)" + Fuente.FIN)
