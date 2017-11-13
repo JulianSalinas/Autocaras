@@ -3,30 +3,22 @@
     <div id="content" class="container main">
         <div>
             <div class="tituloPrincipal">
-                <h2>Resultado del Entrenamiento</h2>
-            </div>
-
+                <h2>Resultado del Entrenamiento</h2> </div>
             <div class="cCeleste contInterno borderRadius center box-shadowDer">
                 <div class="container-fluid songs-container">
-
                     <div class="row">
-
                         <!-- Left Info -->
                         <div class="col-sm-4 col-md-3">
                             <div class="panel panel-default bgTransparent borderNone middle">
                                 <div class="panel-body">
-
                                     <div class="aCentro"><span class="glyphicon glyphicon-wrench f45"></span></div>
                                 </div>
                             </div>
                         </div>
-
                         <!-- Right Info -->
                         <div class="col-sm-8 col-md-9">
                             <div class="panel panel-default">
-                                <div class="panel-body">
-                                    {% if estado == 'OK' %}
-
+                                <div class="panel-body"> {% if estado == 'OK' %}
                                     <label>
                                         <h4><b><u>Valores de Entrenamiento Solicitados</u></b></h4></label>
                                     <div>
@@ -44,25 +36,34 @@
                                     <div>
                                         <label class="marginDer">Estado de Finalización:</label>
                                         <resp>{{ mensaje }}</resp>
-                                    </div>
-
-                                    {% else %}
+                                    </div> {% else %}
                                     <label class="marginDer">Estado de Finalización:</label>
                                     <resp>{{ mensaje }}</resp>
                                     <label class="marginDer">Detalles:</label>
-                                    <resp>{{ detalles }}</resp>
-                                    {% endif %}
-
-                                </div>
+                                    <resp>{{ detalles }}</resp> {% endif %} </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
+            {% if estado == 'OK' %}
+            <div class="marginTop ">
+                <div class="form-group marginTop contInterno">
+                    <label for="txt_suj_usados">Imagenes Usadas:</label>
+                    <textarea  class="form-control borderRadiusAll box-shadowDer" rows="5" id="txt_suj_usados">
+                        {{imgs_usadas}}
+                    </textarea>
+                </div>
 
+                <div class="form-group marginTop contInterno">
+                    <label for="txt_suj_sin_usados">Imagenes Sin Usar:</label>
+                    <textarea  class="form-control borderRadiusAll box-shadowDer" rows="5" id="txt_suj_sin_usados">
+                        {{imgs_sin_usar}}
+                    </textarea>
+                </div>
 
+            </div>
+            {% endif %}
         </div>
     </div>
-</div>
-{% endblock %}
+</div> {% endblock %}

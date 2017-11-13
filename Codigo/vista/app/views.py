@@ -95,6 +95,8 @@ def entrenamiento(request):
         contexto['porcentaje_coleccion'] = str(porcentaje_coleccion)
         contexto['porcentaje_valores'] = str(porcentaje_valores)
         contexto['porcentaje_aceptacion'] = str(porcentaje_aceptacion)
+        #contexto['imgs_usadas'] = "SUJETOS USADOS\nSUJETOS USADOS\nSUJETOS USADOS\nSUJETOS USADOS\nSUJETOS USADOS"
+        #contexto['imgs_sin_usar'] = "SUJETOS USADOS\nSUJETOS USADOS\nSUJETOS USADOS\nSUJETOS USADOS\nSUJETOS USADOS"
 
         # Llamado al template de resultados, pasando como contexto la respuesta del entrenamiento
         return render(request, 'app/entrenamientoRes.html',contexto)

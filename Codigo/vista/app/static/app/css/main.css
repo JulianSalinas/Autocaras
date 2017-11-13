@@ -58,6 +58,9 @@
 .borderRadius {
     border-radius: 15px 0px;
 }
+.borderRadiusAll {
+    border-radius: 5px 5px;
+}
 .borderRadiusDer{
     border-radius: 15px 0px 0px 15px;
 }
