@@ -16,7 +16,7 @@ from modelo.evaluacion import *
 @version 1.6.49
 """
 
-class TestIntegracion4(TestCase):
+class TestEvaluacionDaoEvaluacion(TestCase):
     """
     Prueba encargada de probar la integracion entre la evalucion y el DAOEvaluacion
     Esto se logra por medio de un assert para verificar que la se haya creado o que existe
@@ -24,7 +24,7 @@ class TestIntegracion4(TestCase):
 
     # ------------------------------------------------------------------------------------------------------------------
 
-    def test_integracion4(self):
+    def test_evaluacion_dao_evaluacion(self):
 
         """
         Entradas: Entrenamiento previo del sistema, nombre del directorio donde se guardarán los informes generados
