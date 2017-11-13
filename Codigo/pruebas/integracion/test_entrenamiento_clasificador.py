@@ -14,11 +14,11 @@ from modelo.coleccion import *
 @version 1.6.49
 """
 
-class TestColeccion(TestCase):
+class TestEntrenamientoClasificador(TestCase):
 
     # ------------------------------------------------------------------------------------------------------------------
 
-    def test_coleccion(self):
+    def test_entrenamiento_clasificador(self):
 
         """
         Entradas: El subconjunto utilizado por el entrenamiento, una coleccion con la que se consultaran los sujetos

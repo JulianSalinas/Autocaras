@@ -19,7 +19,6 @@ print(resultado["imgs_usadas"])
 print(Fuente.VERDE + "Imagenes ignoradas para el entrenamiento (que se usarán para evaluar el sistema)" + Fuente.FIN)
 print(resultado["imgs_sin_usar"])
 
-
 # ----------------------------------------------------------------------------------------------------------------------
 
 def ejemplo(ruta_img_desconocida):
