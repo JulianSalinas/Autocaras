@@ -11,6 +11,16 @@ from modelo.coleccion import *
 
 class Evaluacion(object):
 
+    VP = 0
+    FP = 1
+    FN = 2
+    VN = 3
+    Sensibilidad = 4
+    Precision = 5
+    Especificidad = 6
+    Exactitud = 7
+
+
     def __init__(self, coleccion, entrenamiento, clasificador):
 
         """
@@ -90,30 +100,41 @@ class Evaluacion(object):
         """
         Obtiene una tabla con las evaluaciones para cada uno de los sujetos (clases) con el siguiente formato:
 
-                        vp,     fp,     fn,     recall,  precision
-            sujeto1     float   float   float   float    float
-            sujeto2     float   float   float   float    float
-            sujetoN     float   float   float   float    float
+                        vp,     fp,     fn,     recall,  precision, especificidad,  exactitud
+            sujeto1     float   float   float   float    float      float           float
+            sujeto2     float   float   float   float    float      float           float
+            sujetoN     float   float   float   float    float      float           float
 
         @param Sin parametros
         @return: npmatriz donde cada fila corresponde a un sujeto (clase) y cada columna a las evaluaciones realizadas
         """
 
-        tabla = np.matrix(np.zeros(shape=(self.total_sujs, 5)))
+        tabla = np.matrix(np.zeros(shape=(self.total_sujs, 8)))
 
         for i in range(0, self.total_sujs):
 
             vp = self.tabla_clasificaciones[i, i]
             fp = np.sum(self.tabla_clasificaciones[i, :]) - vp
             fn = np.sum(self.tabla_clasificaciones[:, i]) - vp
+
+            vn = np.sum(self.tabla_clasificaciones)
+            vn -= np.sum(self.tabla_clasificaciones[:, i])
+            vn -= np.sum(self.tabla_clasificaciones[i, :])
+            vn += vp
+
             tvp = vp / (fn + vp) if (fn + vp) != 0 else 0
             tpp = vp / (vp + fp) if (vp + fp) != 0 else 0
+            especificidad = vn / (vn + fp) if (vn + fp) != 0 else 0
+            exactitud = (vp + vn)/(vp+vn+fp+fn)
 
             tabla[i, 0] = vp
             tabla[i, 1] = fp
             tabla[i, 2] = fn
-            tabla[i, 3] = tvp
-            tabla[i, 4] = tpp
+            tabla[i, 3] = vn
+            tabla[i, 4] = tvp
+            tabla[i, 5] = tpp
+            tabla[i, 6] = especificidad
+            tabla[i, 7] = exactitud
 
         return tabla
 
@@ -135,7 +156,7 @@ class Evaluacion(object):
     def agregar_encabezados_tabla_evaluaciones(self):
 
         # Colocamos los encabezados de la matriz
-        etiquetas_horizontales = ["VP", "FP", "FN", "Recall", "Precision"]
+        etiquetas_horizontales = ["VP", "FP", "FN", "VN", "Sensibilidad", "Precision", "Especificidad", "Exactitud"]
 
         sujetos = list(self.coleccion.dic_sujs.values())
         for i in range(len(sujetos)):
