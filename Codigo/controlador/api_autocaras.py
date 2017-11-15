@@ -31,7 +31,7 @@ class APIAutocaras(object):
             self.ctrl.indexar_coleccion(ruta_datos)
 
             return {"estado": "OK",
-                    "mensaje": "La operación se ha realizado con exito"}
+                    "mensaje": "La operación se ha realizado con éxito"}
 
         except Exception as ex:
 
@@ -58,7 +58,7 @@ class APIAutocaras(object):
             return {"estado": "OK",
                     "imgs_usadas": imgs_usadas,
                     "imgs_sin_usar": imgs_sin_usar,
-                    "mensaje": "La operación se ha realizado con exito"}
+                    "mensaje": "La operación se ha realizado con éxito"}
 
         except Exception as ex:
 
@@ -83,7 +83,7 @@ class APIAutocaras(object):
             ruta_sujeto, img_similar, similitud = self.ctrl.ejecutar_clasificacion(ruta_img_buscada)
 
             return {'estado': "OK",
-                    'mensaje': "La operación se ha realizado con exito",
+                    'mensaje': "La operación se ha realizado con éxito",
                     'sujeto_identificado': str(ruta_sujeto),
                     'img_similar': str(img_similar),
                     'grado_similitud': str(similitud)}
@@ -111,7 +111,7 @@ class APIAutocaras(object):
             ruta_informes = self.ctrl.ejecutar_evaluacion(directorio)
 
             return {"estado": "OK",
-                    "mensaje": "La operación se ha realizado con exito",
+                    "mensaje": "La operación se ha realizado con éxito",
                     "ruta_informes": ruta_informes}
         
         except Exception as ex:

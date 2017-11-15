@@ -19,10 +19,10 @@ from modelo.evaluacion import *
 class TestEntrenamientoEvaluacion(TestCase):
 
     """
-    Prueba encargada de probar la integracion entre el entrenamiento y la evaluacion
+    Prueba encargada de verificar la integracion entre el entrenamiento y la evaluacion
     Esto se logra por medio del assert de las tablas que se guardan en la evaluacion y las dimensiones que estas adquieren
 
-    Dimenciones esperadas en las tablas de la evaluacion:
+    Dimensiones esperadas en las tablas de la evaluacion:
         tabla_evaluacion        -> 4 x 5:
             Donde cada fila corresponde a un sujeto y cada columna contiene los vp, fp, fn, recall, precision
 

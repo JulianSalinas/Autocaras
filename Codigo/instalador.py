@@ -27,6 +27,9 @@ def instalar_dependencias():
         print("Instalando pandas")
         pip.main(["install", "pandas"])
         print("Instalando opencv-python")
+        pip.main(["install", "opencv-python"])
+        print("Instalando selenium")
+        pip.main(["install", "selenium"])
     except:
         error_dependencias()
 
